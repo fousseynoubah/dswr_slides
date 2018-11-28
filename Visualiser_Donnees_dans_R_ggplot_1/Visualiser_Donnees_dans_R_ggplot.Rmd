@@ -1,0 +1,809 @@
+---
+title: "Visualiser des données dans R"
+subtitle: "Introduction à ggplot2"
+author: "Fousseynou Bah"
+date: "`r format(Sys.time(), '%d-%b-%Y')`"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: CambridgeUS
+    toc: yes
+header-includes:  
+  \institute[USSGB]{Université des Sciences Sociales et de Gestion de Bamako}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE) # , dev = "cairo_pdf"
+#sansfont: Aller Light
+
+######################################################################################################
+### TIME ZONE
+######################################################################################################
+Sys.setenv(TZ="Africa/Bamako") # vérifer
+
+
+##########################################################################
+########################################/// PACKAGES ///
+##########################################################################
+# Packages (s'assurer que ces packages sont installés avant l'ex?cution du code)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(RColorBrewer)
+```
+
+# Introduction
+
+## Objectif de ce cours
+
+Dans le flux de travail (*workflow*) du _data scientist_, la visualisation est sans aucun doute la phase la plus surprenante et aussi la plus artistique.
+D'un côté, elle permet au _data scientist_ d'explorer ses données, de mieux cerner le problème posé, de poser les bases pour la modélisation et souvent même d'identifier les insuffisances du travail de nettoyage et de mise en forme.
+Elle peut aussi bien conforter le *data scientist* dans ses hypothèses qu'elle peut battre celles-ci en brêches ou y apporter des nuances.
+Quelle que soit l'issue, le *data scientist* s'en trouve plus informé, mieux outillé pour poursuivre son analyse.
+
+De l'autre coté, elle présente une dimension artistique.
+Elle offre au *data scientist* l'occasion d'adresser à l'utilisateur du produit final - et ce travers un mélange de formes et de couleurs - un message, qui se veut souvent simple et précis.
+Elle invite ainsi la créativité artistique dans un domaine fort bien guidé par la logique.
+
+Dans ce cours, nous allons explorer le célèbre package [\textcolor{blue}{ggplot2}](https://ggplot2.tidyverse.org).
+
+## La visualisation, un outil de narration
+
+Dans ce cours, nous allons commencer par présenter la logique (et même la philosopie) de *ggplot2*, et ensuite nous allons démontrer sa richesse et sa versatilité à travers des illustrations.
+Nous allons partir de données (*data sets*), nous poser quelques questions et voir dans quelle mesure la visualisation peut nous aider à trouver des éléments de réponses.
+Nous allons voir comment est-ce que la nature et le volume des données en main peuvent eux-mêmes suggérer le type de visualisation qui sied.
+
+Les exemples nous offriront aussi l'occasion de relever certaines récurrences dans la syntaxe de *ggplot2* et, par là, de mieux comprendre sa logique.
+
+## Que nous faut-il?
+
+- R (évidemment) et RStudio (de préférence) installés sur le poste de travail;
+
+- le package *ggplot2* installé;
+
+- les fichiers fournis dans le cadre du module.
+
+
+## Données
+
+Dans ce chapitre nous allons utiliser les données suivantes:
+
+- Une compilation de données tirées des Recensements Généraux de la Population et de l'Habitat au Mali menés en [\textcolor{blue}{(RGPH, 1976, 1987, 1998, 2009)}](http://www.instat-mali.org/index.php/publications/conditions-vie-societe/demographie) ainsi que des projections faites par [\textcolor{blue}{OCHA}](https://data.humdata.org/organization/ocha-mali);
+
+- Des séries tirées des Indicateurs Mondiaux du Développement du site Internet de la [\textcolor{blue}{Banque Mondiale}](https://data.worldbank.org/indicator).
+
+
+# La grammaire des graphiques
+
+## Une deconstruction verbale des graphiques
+
+La grammaire des graphiques est une approche particulière de la représentation visuelle des données.
+Elle est venue en prominence avec l'ouvrage de [\textcolor{blue}{Lelan Wilkinson}](https://www.springer.com/gp/book/9780387245447) et a trouvé sa déclinaison dans R avec la package ggplot2 de [\textcolor{blue}{Hadley Wickham}](http://vita.had.co.nz/papers/layered-grammar.html).
+
+Elle établit les grands principes de la représentationne visuelle des données à travers un cadre dans lequel sont décrites de façon concise toutes les composantes d'un graphique.
+
+## Les composantes du graphique
+
+1. Les données
+
+2. Les esthétiques
+
+3. L'échelle
+
+4. Les objets géométriques
+
+5. Les statistiques
+
+6. Les facettes
+
+7. Le système de coordonnées.
+
+Explorons ces éléments avec des illustrations.
+
+# Points: à la recherche d'une relation
+
+
+## Aperçu
+
+Ici, nous allons examiner la relation entre deux variables: le PIB/habitant et l'espérance de vie.
+Nous allons utiliser deux séries - le PIB/habitant (dollars US constant de 2011) et l'espérance de vie - allant de 1990 à 2016 et couvrant les pays de l'UEMOA - Bénin, Burkina-Faso, Côte d'Ivoire, Guinée-Bissau, Mali, Niger, Sénégal, Togo. 
+Voici la question que nous allons explorer: y a-t-il un lien entre la PIB/habitant et l'espérance de vie dans les pays de l'UEMOA ?
+Les donnnées ont été tirées du site Internet de la [\textcolor{blue}{Banque Mondiale}](https://data.worldbank.org/indicator).
+
+Voici un aperçu de notre _dataset_ :
+```{r echo=c(-1, -4)}
+knitr::asis_output("\\tiny")
+pibhbt_espvie <- read_csv("data/pibhbt_espvie.csv") # Importation du ficher CSV
+glimpse(pibhbt_espvie) # Créer un aperçu de la structure des données
+knitr::asis_output("\\normalsize")
+```
+
+
+## Illustration
+
+Quand on investigue la relation entre deux variables continues, les points constituent souvent le type de visualisation le plus commode.
+Ils permettent souvent de jetter la base de la narrative qu'on construira autour des données.
+
+Commençons par faire une simple représentation de ces deux variables dans un plan à deux dimensions: 
+
+- le PIB/habitant sur l'axe des abscisses ;
+
+- l'espérance de vie sur l'axe des ordonnées.
+
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="80%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
+  geom_point()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Et si nous souhaitions distinguer entre les pays en assignant une couleur à chacun d'entre eux?
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="80%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie, color = pays)) + 
+  geom_point()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Peut-être nous aimerions plutôt essayer des formes pour chaque pays?
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="80%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie, shape = pays)) + 
+  geom_point()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Ou peut-être, nous voudrions les séparer, faire en sorte que chaque pays soit à part.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
+  geom_point() +
+  facet_wrap(facets = ~pays, nrow = 2)
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Comme dans beaucoup de cas, une représentation de ce genre sert souvent à tester l'existence d'une relation entre les deux variables.
+Algébriquement, l'on déduit souvent des coefficients par la méthode des moindres carrés ordinaires pour tracer une ligne qui minimise la somme du carré des erreurs (distance entre les points observés et la droite tracée).
+*ggplot2* est bâti de sorte à pouvoir effectuer ce genre de calcul et projeter le résultat dans le plan.
+
+Le calcul peut être fait au niveau global avec une droite commune à toutes les entités (les pays, ici)...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+... ou de façon spécifique à chaque entité.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="72.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(facets = ~pays, nrow = 2)
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+A partir des tableau et graphique suivants, narrez ce que vous observez.
+Les données soutiennent-elles l'idée que l'espérance de vie augmente avec le niveau de revenu d'un pays?
+
+```{r echo=FALSE,fig.align='center',out.width="70%"}
+knitr::asis_output("\\tiny")
+pibhbt_espvie %>% 
+  group_by(pays) %>% 
+  summarise(`PIB/hbt: minimum` = round(min(pib_hbt, na.rm = TRUE), 2),
+            `PIB/hbt: maximum` = round(max(pib_hbt, na.rm = TRUE), 2),
+            `Espérance de vie: minimum` = round(min(esperance_vie, na.rm = TRUE), 2),
+            `Espérance de vie: maximum` = round(max(esperance_vie, na.rm = TRUE), 2)) %>% 
+  knitr::kable(caption = "PIB/habitant et espérance de vie dans les pays de l'UEMOA")
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+```{r echo=FALSE,fig.align='center',out.width="90%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(facets = ~pays, nrow = 2, scales = "free") +
+  labs(x = "PIB/habitant (USD 2011)", y = "Espérance de vie (an)", 
+       title = paste0("PIB/habitant et espérance de vie dans les pays de l'UEMOA"),
+       subtitle = "",
+       caption = paste0("Source: Données tirées de http://data.worldbank.org"))
+knitr::asis_output("\\normalsize")
+```
+
+# Lignes: comprendre une évolution
+
+## Aperçu
+
+Ici, nous allons reconduire les données sur le PIB/habitant.
+Cette fois-ci, nous allons prendre en compte la dimension temporelle.
+Avec les séries temporelles, les lignes constituent la visualisation la plus commode.
+Considérons d'abord le PIB/habitant.
+
+Commençons par regarder les points...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt)) + 
+  geom_point()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+On voit que les points affichent plusieurs trajectoires.
+Sur la base des données, l'on en déduit qu'il faut une ligne pour chaque pays.
+Groupons-les donc par pays pour en faire des lignes.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt, group = pays)) + 
+  geom_line()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Comme avant, il peut être utile d'introduire des couleurs...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt, color = pays)) + 
+  geom_line()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+... ou de différencier entre les lignes par type...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt, linetype = pays)) + 
+  geom_line()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+... ou tout simplement de séparer par pays.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt)) + 
+  geom_line() + 
+  facet_wrap(facets = ~pays, nrow = 2)
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Comme avant, l'on peut partir de la visualisation pour poser les bases de la modélisation.
+L'on peut revenir au point pour ensuite introduire en droite de lissage de la série.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="72.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = pibhbt_espvie, mapping = aes(x = annee, y = pib_hbt)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  facet_wrap(facets = ~pays, nrow = 2)
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+A partir des tableau et graphique suivants, narrez ce que vous observez.
+Comment est-ce que le PIB/habitant et l'espérance de vie ont évolué dans les pays de l'UEMOA sur la période couverte par les données?
+Si vous souhaitez, vous pouvez appliquer à l'espérance de vie les codes utilisés sur le PIB/habitant.
+
+```{r echo=FALSE,fig.align='center'}
+knitr::asis_output("\\tiny")
+pibhbt_espvie %>% 
+  filter(annee %in% c(min(annee), max(annee))) %>% 
+  gather(key = variable, value = valeur, pib_hbt, esperance_vie) %>% 
+  spread(key = annee, value = valeur) %>% 
+  mutate(taux = round(100*(-1 + (`2016`/`1990`)^(1/(2016-1990))), 2)) %>% 
+  select(pays, variable, taux) %>% 
+  spread(key = variable, value = taux) %>% 
+  select(Pays = pays, `PIB/hbt (%)` = pib_hbt, `Espérance de vie (%)` = esperance_vie) %>% 
+  knitr::kable(caption = "PIB/habitant et espérance de vie dans les pays de l'UEMOA: taux de croissance/an")
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+```{r echo=FALSE,fig.align='center',out.width="90%"}
+ggplot(data = pibhbt_espvie %>% 
+         gather(key = variable, value = valeur, pib_hbt, esperance_vie) %>% 
+         mutate(variable = ifelse(variable == "pib_hbt", "PIB/habitant (USD 2011)", "Espérance de vie (an)")), 
+       mapping = aes(x = annee, y = valeur, color = pays)) + 
+  geom_point() +
+  geom_line() +
+  facet_wrap(~variable, scales = "free") +
+  labs(x = "Année", y = "Valeur", color = "Pays",
+       title = paste0("PIB/hbt et espérance de vie dans les pays de l'UEMOA"),
+       caption = paste0("Source: Données tirées de http://data.worldbank.org"))
+```
+
+
+# Barres: allier le discret au continu (et au discret)
+
+
+## Aperçu
+
+Très souvent dans le processus exploratoire de données, le *data scientist* est amené à procéder à des comparaisons entre différentes entités (pays, par exemple).
+Généralement ces entités sont en nombre fini (on ne crée pas un nouveau pays tous les jours!) tandis que les attributs ou caractéristiques sur lequels ces comparaisons portent sont souvent continus (le PIB/habitant, par exemple).
+Dans ce genre de cas, les barres apparaissent comme le meilleur moyen de visualiser l'étendu des écarts ou des similarités.
+
+Les barres sont aussi utiles pour visualiser la composition d'une entité.
+Par exemple, la répartition de la population d'un pays entre les groupes d'âge ou entre les deux sexes.
+Là, elles se prêtent à l'examen d'un groupe à travers le croisement de deux attributs catégoriels.
+
+Illustrons tout ça avec quelques exemples!
+
+
+## Aperçu
+
+Ici, nous allons utiliser des données tirées des Recensements Généraux de la Population et de l'Habitat conduits au Mali en 1976, 1987, 1998 et 2009.
+Ces données sont tirées du site de l' [\textcolor{blue}{Institut National de la Statistique (INSTAT)}](http://www.instat-mali.org/index.php/publications/conditions-vie-societe/demographie).
+
+```{r echo=c(-1, -5)}
+knitr::asis_output("\\tiny")
+groupage_rgph <- read_csv("data/groupage_rgph.csv") # Importation du ficher CSV: RGPH: 1976, 1987, 1998, 2009 
+groupage_rgph <- groupage_rgph %>% 
+  mutate(groupage = factor(groupage, 
+                           levels = unique(groupage_rgph$groupage), 
+                           labels = unique(groupage_rgph$groupage), 
+                           ordered = TRUE)) # Classement ordonné des groupes d'âge
+glimpse(groupage_rgph) # Créer un aperçu de la structure des données
+knitr::asis_output("\\normalsize")
+```
+
+
+## Illustration
+
+Commençons par regarder la répartition de la population entre les groupes d'âge sur l'année 2009.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = groupage_rgph %>% filter(annee == 2009, !(groupage %in% c("Total", "ND"))), 
+       mapping = aes(x = groupage , y = population)) +
+  geom_bar(stat = "identity")
+knitr::asis_output("\\normalsize")
+```
+
+
+## Illustration
+
+Maintenant, sachant qu'à l'intérieur des groupes d'âge, nous avons la distinction faite entre hommes et femmes et entre habitants en milieu rural et citadins, essayons de rendre compte de ces distinctions dans les barres.
+
+Commençons par la différence en termes de sexe...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = groupage_rgph %>% filter(annee == 2009, !(groupage %in% c("Total", "ND"))), 
+       mapping = aes(x = groupage , y = population, fill = sexe)) +
+  geom_bar(stat = "identity")
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+... et en termes de milieu
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = groupage_rgph %>% filter(annee == 2009, !(groupage %in% c("Total", "ND"))), 
+       mapping = aes(x = groupage , y = population, fill = milieu)) +
+  geom_bar(stat = "identity")
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Maintenant, considérons les deux.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="77.5%"}
+knitr::asis_output("\\tiny")
+ggplot(data = groupage_rgph %>% filter(annee == 2009, !(groupage %in% c("Total", "ND"))) %>% 
+         unite("sexemilieu", c(sexe, milieu), sep = "-"),
+       mapping = aes(x = groupage , y = population, fill = sexemilieu)) +
+  geom_bar(stat = "identity")
+knitr::asis_output("\\normalsize")
+```
+
+
+## Illustration
+
+Avec quelques modifications, l'on peut augmenter le pouvoir informatif de ces barres.
+Transformons-les en pyramides des âges!
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = groupage_rgph %>% filter(annee == 2009, !(groupage %in% c("Total", "ND"))) %>% 
+         mutate(population = ifelse(sexe == "Femme", -population, population)), 
+       mapping = aes(x = groupage , y = population, fill = sexe)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  facet_wrap(facets = ~milieu, scales = "free_x") +
+  scale_y_continuous(labels = abs)
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+A partir des tableau et graphiques suivants, narrez ce que vous observez.
+Quel commentaire peut-on en faire en ce qui concerne l'évolution démographique du Mali?
+
+```{r echo=FALSE,fig.align='center',out.width="70%"}
+knitr::asis_output("\\tiny")
+total <- 
+  groupage_rgph %>% 
+  filter(!(groupage %in% c("Total"))) %>% 
+  group_by(annee) %>% 
+  summarise(population = sum(population, na.rm = TRUE)) %>% 
+  spread(key = annee, value = population) %>% 
+  mutate(sexe = "Total", milieu = "Total")
+
+groupage_rgph %>% 
+  filter(!(groupage %in% c("Total"))) %>% 
+  group_by(annee, sexe, milieu) %>% 
+  summarise(population = sum(population, na.rm = TRUE)) %>% 
+  spread(key = annee, value = population) %>% 
+  bind_rows(total) %>% 
+  rename(Sexe = sexe, Milieu = milieu) %>% 
+  knitr::kable(caption = "Population du Mali, 1976-2009")
+
+rm(total)
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+```{r echo=FALSE,fig.align='center',out.width="90%"}
+pyramides_gph <- 
+  ggplot(data = groupage_rgph %>% 
+           filter(!(groupage %in% c("Total", "ND"))) %>% 
+           mutate(population = ifelse(sexe == "Femme", -population, population)), 
+       mapping = aes(x = groupage , y = population/1e6, fill = sexe)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  facet_wrap(facets = ~annee, ncol = 2) +
+  theme(legend.position = "bottom",
+        axis.text.y = element_text(size = 6)) +
+  scale_y_continuous(labels = abs) +
+  scale_fill_brewer(type = "seq" ,palette = "RdYlBu") +
+  labs(x = "", y = "Population (millions)", fill = "Sexe",
+       subtitle = paste0("Pyramide des âges"))#, caption = paste0("Source: Données tirées de http://www.instat-mali.org"))
+
+# Quelques manipulations élargir la palette de couleurs
+getPalette <- colorRampPalette(brewer.pal(9, "RdYlBu"))
+
+groupage_gph <- groupage_rgph %>% 
+  filter(!(groupage %in% c("Total", "ND"))) %>% 
+  group_by(annee, groupage, milieu) %>% 
+  summarise(population = sum(population, na.rm = TRUE)) %>% 
+  ggplot(mapping = aes(x = factor(annee) , y = population/1e6, fill = groupage)) +
+  geom_bar(stat = "identity") + 
+  facet_wrap(facets = ~milieu) +
+  scale_fill_manual(values = getPalette(17)) +
+  labs(x = "", y = "Population (millions)", fill = "Groupe d'âge",
+       subtitle = paste0("Groupes d'âge, par milieu"),
+       caption = paste0("Source: Données tirées de http://www.instat-mali.org"))
+
+gridExtra::grid.arrange(pyramides_gph, 
+                        groupage_gph,
+                        top = paste0("La population du Mali, 1976-2009"),
+                        layout_matrix = matrix(c(1, 2), byrow = TRUE, nrow = 1))
+
+```
+
+
+# Histogrammes et densités: comprendre une distribution
+
+## Aperçu
+
+Nous allons utiliser ici des données issues des Recensements Généraux de la Population et de l'Habitat conduits au Mali en 1998 et 2009.
+Il s'agit de la population par commune.
+Commençons par importer les données dans notre environnement de travail.
+
+```{r echo=c(-1, -6)}
+knitr::asis_output("\\tiny")
+adm3_pop_1998 <- read_csv("data/adm3_pop_1998.csv") # Importation du ficher CSV: RGPH-1998
+adm3_pop_2009 <- read_csv("data/adm3_pop_2009.csv") # Importation du ficher CSV: RGPH-2009
+adm3_pop_rgph <- bind_rows(adm3_pop_1998, adm3_pop_2009) # Concatenation des deux fichiers 
+glimpse(adm3_pop_1998) # Créer un aperçu de la structure des données
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Maintenant, explorons les données sur la population à travers la visualisation.
+Quelle est la taille moyenne? 
+Quelle est la taille médiane?
+Quelle est l'étendu de la dispersion autour de la moyenne?
+Quelle sont les cercles et/ou régions où se trouvent les communes les plus peuplées? 
+Les communes les moins peuplées?
+Dans quelle mesure la situation a-t-elle changé entre les deux recensements, 1998 et 2009?
+
+Voici quelques questions qui peuvent nous servir de point de départ.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_1998, 
+       mapping = aes(x = total)) + 
+  geom_histogram()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Là nous voyons que la majorité des communes du Mali comptaient un population inférieure à 50000 personnes en 1998.
+
+Avec la densité, l'on peut montrer la même information, mais cette fois-ci en terme de proportion.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_1998, mapping = aes(x = total)) + 
+  geom_density()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Imaginons maintenant que l'on veuille voir à la fois les histogrammes et la densité.
+On procède d'abord à une transformation des histogrammes en proportions et on superpose les deux informations.
+
+## Histogrammes et densités: comprendre une distribution
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_1998, mapping = aes(x = total)) + 
+  geom_histogram(mapping = aes(y =..density..), binwidth = 5000,color = "black", fill = "white") +
+  geom_density(color = "red")
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Maintenant, combinons les informations des deux années pour avoir une lecture temporelle.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph, mapping = aes(x = total)) + 
+  geom_histogram(mapping = aes(y =..density..), binwidth = 5000,color = "black", fill = "white") +
+  geom_density(color = "red") + 
+  facet_wrap(facets = ~ annee, nrow = 2)
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Une alternative aux histogrammes est le boxplot.
+Qu'est-ce qu'un boxplot?
+Une simple représentation des informations majeures d'une distribution: la médiane (le 2ème quartile), les premier et troisième quartiles, ainsi que les valeurs abérantes.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph, mapping = aes(x = factor(annee), y = total)) + 
+  geom_boxplot()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Sur la base de ce premier jet, l'on peut retenir qu'en 1998, il n'y avait aucune commune au Mali dont la population dépassait 250000 habitants.
+Toutefois, en 2009, ce seuil a été dépassé et l'on comptait des communes qui allaient jusqu'à 400000 habitants.
+Au-delà de cette information, il est difficile de percevoir les disparités entre les communes d'une année à l'autre.
+Ceci est dû au fait que la distribution est concentrée en bas.
+Pour améliorer la visibilité, diverses techniques sont possibles.
+
+En premier lieu, l'on peut procéder à la transformation logarithmique des valeurs...
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph, mapping = aes(x = factor(annee), y = log(total))) + 
+  geom_boxplot()
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+...ou zoomer sur une partie du graphique sans altérer l'échelle de représentation des valeurs.
+
+Supposons que nous souhaitions zoomer sur les communes ayant moins de 50000 habitants, en nous disant que la majorité est en dessous de ce seuil
+Pour mieux guider le choix, l'on peut calculer des statistiques sommaires.
+
+```{r echo=FALSE,fig.align='center',out.width="70%"}
+knitr::asis_output("\\tiny")
+adm3_pop_rgph %>% 
+  group_by(`Année` = annee) %>% 
+  summarise(`Moyenne` = mean(total, na.rm = TRUE),
+            `Quartile 1` = quantile(x = total, probs = 0.25, na.rm = TRUE),
+            `Médiane` = median(total, na.rm = TRUE),
+            `Quartile 3` = quantile(x = total, probs = 0.75, na.rm = TRUE)) %>% 
+  knitr::kable(caption = "Population des communes au Mali: quelques statistiques")
+knitr::asis_output("\\normalsize")
+```
+
+Sur la base des résultats, le seuil choisi semble raisonnable: 75% (voire plus) des communes ont moins de 50 000 habitants.
+Maintenant, visualisons!
+
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph, mapping = aes(x = factor(annee), y = total)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 50000))
+knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Avec le graphique précédent, nous avons nettement améliorer la visibilité de notre graphique.
+Toutefois, nous avons focalisé notre attention sur un groupe - les communes de moins de 50000 habitants - sans chercher à savoir quels sont les entités qui en font partie et celles qui en sont exclues.
+Posons-nous la question suivante: où se trouve les communes de plus de 50000 habitants?
+Nous pouvons explorer cette question en profondeur en regardant la distribution de la population des communes par région.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph, mapping = aes(x = Admin1_Nam, y = total)) + 
+  geom_boxplot() +
+  coord_flip() +
+  facet_wrap(facets = ~annee) 
+  knitr::asis_output("\\normalsize")
+```
+
+## Illustration
+
+Il apparait que les communes les plus peuplés sont en réalité dans le District de Bamako.
+Sur la base de cette information, l'on peut choisir de traiter Bamako à part et de faire un graphique qui serait focalisé sur les autres régions.
+
+## Illustration
+
+```{r echo=c(-1, -3),fig.align='center',out.width="75%"}
+knitr::asis_output("\\tiny")
+ggplot(data = adm3_pop_rgph %>% filter(!(Admin1_Nam == "Bamako")), mapping = aes(x = Admin1_Nam, y = total)) + 
+  geom_boxplot() +
+  coord_flip() +
+  facet_wrap(facets = ~annee) 
+  knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+A partir des tableau et graphiques suivants, narrez ce que vous observez.
+
+```{r echo=FALSE,fig.align='center',out.width="70%"}
+knitr::asis_output("\\tiny")
+adm3_pop_rgph %>% 
+  filter(annee == 2009) %>% 
+  group_by(`Région` = Admin1_Nam) %>% 
+  summarise(`Moyenne` = mean(total, na.rm = TRUE),
+            `Quartile 1` = quantile(x = total, probs = 0.25, na.rm = TRUE),
+            `Médiane` = median(total, na.rm = TRUE),
+            `Quartile 3` = quantile(x = total, probs = 0.75, na.rm = TRUE)) %>% 
+  knitr::kable(caption = "Population des communes au Mali en 2009: quelques statistiques")
+knitr::asis_output("\\normalsize")
+```
+
+## A vous de jouer
+
+```{r echo=FALSE,fig.align='center',out.width="90%"}
+knitr::asis_output("\\tiny")
+#Boxplot
+gph_boxplot <- ggplot(data = adm3_pop_rgph %>% filter(annee == 2009 & !(Admin1_Nam == "Bamako")), mapping = aes(x = Admin1_Nam, y = total)) + 
+  geom_boxplot() +
+  coord_flip() +
+  labs(x = "", y = "Population (milliers)", subtitle = "Boxplot: distribution de la population, par région")
+# Barres
+gph_bar <- ggplot(data = adm3_pop_rgph %>% filter(annee == 2009 & (Admin1_Nam == "Bamako")), mapping = aes(x = Admin3_Nam, y = total/1e3)) + 
+  geom_col() +
+  coord_flip() +
+  labs(x = "", y = "Population (milliers)", subtitle = "Barres: population du district de Bamako, par commune")
+# Histogramme
+gph_hist <- ggplot(data = adm3_pop_rgph %>% filter(annee == 2009), mapping = aes(x = total/1e3)) + 
+  geom_histogram(mapping = aes(y =..density..), binwidth = 5000/1e3,color = "black", fill = "white") +
+  geom_density(color = "red") +
+  labs(x = "Population (milliers)", y = "Densité", 
+       subtitle = "Histogrammes: distribution de la population",
+       caption = paste0("Source: A partir de données des RGPH 199 et 2009"))
+
+gridExtra::grid.arrange(gph_boxplot, 
+                        gph_bar,
+                        gph_hist, 
+                        top = paste0("La taille démographique des communes au Mali, 2009"),
+                        layout_matrix = matrix(c(1, 2, 3, 3), byrow = TRUE, nrow = 2))
+
+knitr::asis_output("\\normalsize")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
