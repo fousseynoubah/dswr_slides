@@ -1,6 +1,6 @@
 ---
 title: "Visualiser des données dans R"
-subtitle: "Introduction à ggplot2"
+subtitle: "Introduction à ggplot2 (1)"
 author: "Fousseynou Bah"
 date: "`r format(Sys.time(), '%d-%b-%Y')`"
 output:
@@ -9,7 +9,8 @@ output:
     theme: CambridgeUS
     toc: yes
 header-includes:  
-  \institute[USSGB]{Université des Sciences Sociales et de Gestion de Bamako}
+#  \institute[~]{~}
+
 ---
 
 ```{r setup, include=FALSE}
@@ -177,7 +178,7 @@ Ou peut-être, nous voudrions les séparer, faire en sorte que chaque pays soit 
 knitr::asis_output("\\tiny")
 ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
   geom_point() +
-  facet_wrap(facets = ~pays, nrow = 2)
+  facet_wrap(facets = ~pays, nrow = 2, scales = "free")
 knitr::asis_output("\\normalsize")
 ```
 
@@ -195,7 +196,7 @@ Le calcul peut être fait au niveau global avec une droite commune à toutes les
 knitr::asis_output("\\tiny")
 ggplot(data = pibhbt_espvie, mapping = aes(x = pib_hbt, y = esperance_vie)) + 
   geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "loess", se = FALSE)
 knitr::asis_output("\\normalsize")
 ```
 
