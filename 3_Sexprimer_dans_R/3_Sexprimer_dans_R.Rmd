@@ -1,0 +1,716 @@
+---
+title: "S'exprimer dans R"
+author: "Fousseynou Bah"
+date: "`r format(Sys.time(), '%d-%b-%Y')`"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: CambridgeUS
+    toc: yes
+header-includes:  
+  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE)
+
+######################################################################################################
+### TIME ZONE
+######################################################################################################
+Sys.setenv(TZ="Africa/Bamako") # vérifer
+
+##########################################################################
+########################################/// DATA ///
+##########################################################################
+load(file = "data/data.RData")
+
+```
+
+
+# Introduction
+
+## Objectif de ce cours
+
+Dans le cours précédent, il a été question d'objets dans R.
+Certains types ont été présentés.
+Il a surtout été fait état de la différence qui les sépare, de ce en quoi ils se démarquent les uns des autres.
+Ici, nous allons continuer en explorant l'expression dans R.
+
+Les objets permettent de stocker des données.
+Celles-ci ne deviennent vivantes et parlantes qu'à travers le dialogue que le *data scientist* entretient avec elles.
+Et en quels termes ce dialogue se pose-t-il?
+Là est le début de notre démarche ici.
+
+Nous allons:
+
+- revenir sur les questions logiques;
+
+- introduire déclarations conditionnelles;
+
+- introduire la notion de boucle et de fonction.
+
+## Que nous faut-il?
+
+- R (évidemment)
+
+- RStudio (de préférence)
+
+- Les données utilisées dans le cadre du cours. Nous utiliserons ici des données de recensement au Mali
+
+# Les déclarations
+
+## Données (1)
+
+```{r, echo=c(-1, -5)}
+knitr::asis_output("\\tiny")
+# Regardons l'objet que nous avons dans notre environnement: la liste "pop_groupage_list"
+str(pop_groupage_list)
+# Il s'agit de la population par groupe d'âge au Mali en 1976, 1987, 1998 et 2009 (RGPH).
+knitr::asis_output("\\normalsize")
+```
+
+## Données (2)
+
+```{r, echo=c(-1, -10)}
+knitr::asis_output("\\tiny")
+# Sélectionnons seulement les données relatives à l'année 2009.
+pop_groupage_2009 <- pop_groupage_list[["2009"]] 
+# (vous vous rappelez cette technique?...sinon, voir cours précédent.)
+# Maintenant, regardons la structure de ce data frame.
+str(pop_groupage_2009)
+# Regardons la tête, les 3 premières observations par exemple.
+head(x = pop_groupage_2009, n = 3)
+# Regardons la queue, les 3 dernières observations par exemple.
+tail(x = pop_groupage_2009, n = 3)
+knitr::asis_output("\\normalsize")
+```
+
+## Données (3)
+
+```{r, echo=c(-1, -14)}
+knitr::asis_output("\\tiny")
+# Supposons que l'on veuille déterminer les groupes d'âge pour lesquels il y a plus de femmes que d'hommes
+# On pose la condition suivante: "femme > homme"
+# Tirons deux vecteurs de notre data frame
+pop_femme_2009 <- pop_groupage_2009$femme
+pop_homme_2009 <- pop_groupage_2009$homme
+pop_femme_2009 > pop_homme_2009
+# Pour une meilleur lisibilité, insérons ce résultat dans le data frame
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+# Ici assignant à une variable du data frame le résultat de l'opération de comparaison,
+# R crée lui-même une variable boléenne (TRUE/FALSE).
+# Regardons les groupes d'âge qui répondent au critère posé.
+pop_groupage_2009[pop_groupage_2009$femme_sup_homme,]
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations: formulations simples
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Sur la base de ces résultats, on voit clairement que R sait comparer des valeurs numériques.
+# Juste pour confirmer, reprenons sur le groupe d'âge 0-4 ans:
+1353418 < 1321275
+# Qu'en est-il des rééls?
+1.000002 > 1 # (Notez que l'assignation ses fait avec "=", mais le test d'égalité se fait avec "==")
+# De toute évidence, ça marche avec les nombres. Qu'en est-il des caractères? Testons!
+"MALI" == "Mali"
+# Cette égalité est rejetée par que R est sensible à la taille des lettres (majuscule/minuscule).
+# Maintenant regardons la logiqe
+TRUE == 1
+# Tentez de m'expliquer ce résultat! (Google est votre ami!)
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations: critères additifs (et = &)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Il est souvent possible que l'on souhaite combiner plusieurs résultats.
+# Supposons que l'on veuille connaître les groupes d'âge pour lesquels:
+# - les femmes sont plus nombreuses que les hommes; et
+# - la population totale (hommes + femmes) est en dessous de 1 millions de personnes
+# Définissions nos critères.
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+pop_groupage_2009$moins_de_1_million <- pop_groupage_2009$total < 1000000
+# Combinons!
+pop_groupage_2009[pop_groupage_2009$femme_sup_homme & pop_groupage_2009$moins_de_1_million,]
+# L'addition de critères se fait avec l'opérateur "&".
+# Le résultat donne les observations qui répondent à toutes les conditions posées.
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations: critères alternatifs (ou = |) (1)
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+# La combinaison de critères ne se pose pas toujours sous la forme additive.
+# Il arrive qu'on veuille procéder sur la base de: soit...soit...
+# Dans ce cas, il faut une autre expression.
+# Cherchons à connaître les groupe pour lequels:
+# - soit les femmes sont plus nombreuses que les hommes;
+# - soit la population totale (hommes + femmes) est en dessous de 1 millions de personnes
+# Combinons à nouveau et regardons juste les 6 premières observations.
+head(
+  pop_groupage_2009[pop_groupage_2009$femme_sup_homme | pop_groupage_2009$moins_de_1_million,]
+  )
+# La validation de l'une des conditions suffit ici.
+# On voit des groupes au dessus de 1 million de personne (violation du critère n°2).
+# Toutefois, les femmes y sont plus nombreuses (validation du critère n°1)
+# A l'inverse, certains groupes ont moins de femmes (violation du critère n°1),
+# mais comptent moins d'1 millions de personnes (validation du critère n°2).
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations: critères alternatifs (ou = |) (2)
+
+```{r, echo=c(-1, -2, -12)}
+knitr::asis_output("\\tiny")
+pop_groupage_2009 <- pop_groupage_list[["2009"]]
+# Souvent, il arrive qu'on veuille accumuler des critères à l'intérieur d'une seule variable.
+# Supposons que l'on souhaite voir les informations concernant juste les moins de 15 ans.
+# On sait que, dans ce cas, on aura à sélectionner trois groupes d'âge: 0-4, 5-9, et 10-14.
+# Reprenons la logique des critères alternatifs (soit...soit...).
+pop_groupage_2009[pop_groupage_2009$groupage == "0-4" | # condition 1
+                  pop_groupage_2009$groupage == "5-9" | # condition 2
+                  pop_groupage_2009$groupage == "10-14" # condition 3
+                  ,
+                  ]
+# Maintenant, ajoutons au critère de "moins de 15 ans" celui d'un "total < 2000000"
+pop_groupage_2009[(pop_groupage_2009$groupage == "0-4" | # condition 1
+                   pop_groupage_2009$groupage == "5-9" | # condition 2
+                   pop_groupage_2009$groupage == "10-14") # condition 3
+                  &
+                    pop_groupage_2009$total < 2000000
+                  ,
+                  ]
+# Nous avons isolé les critères alternatifs entre parenthèses "()" 
+# avant d'y ajouter le critère additif.
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations: critères opposés (opposé = !)
+
+```{r, echo=c(-1, -17)}
+knitr::asis_output("\\tiny")
+# Souvent, il arrive que l'on souhaite sélectionner sur la base de l'opposition à un critère.
+# Explorons à travers un exemple
+# Plus haut, nous avons défini les groupes où "femme > homme".
+# Ceci revient à définir les groupes où la condition "homme >= femme" est violée.
+# Voyons voir comment on part de la négation pour parvenir à ce même résultat
+# Rappelons
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+# Récréons la même variable, mais autrement
+pop_groupage_2009$homme_pas_sup_femme <- !(pop_groupage_2009$homme >= pop_groupage_2009$femme)
+# Regardons les nouvelles variables
+head(pop_groupage_2009, n = 2)
+# Comme dans bien de cas, on ne peut pas tout inspecter à l'oeil nu.
+# Passons par une déclaration pour vérifier que les deux variables sont pareilles.
+pop_groupage_2009$femme_sup_homme == pop_groupage_2009$homme_pas_sup_femme
+# Les deux nouvelles variables s'équivalent.
+knitr::asis_output("\\normalsize")
+```
+
+## Déclarations conditionnelles
+
+```{r, echo=c(-1, -2, -17)}
+knitr::asis_output("\\tiny")
+pop_groupage_2009 <- pop_groupage_list[["2009"]]
+# Jusque là, nous avons parlé de déclarations dans une formulation simple.
+# Nous les avons pas inscrites dans le cadre d'un arbre de décision.
+# Il s'agit du schéma suivant: "si condition remplie, alors action 1, sinon action 2".
+# Ceci est pratiquement le début de l'intelligence artificielle.
+# On délègue à la machine l'exécution de tâches sur la base de critères définis
+# (et plus tard la prise de décision plus complexes...mais ça commence au niveau simple).
+
+# Nous savons que d'un groupe à un autre la supériorité numérique alterne entre hommes et femmes.
+# Si nous voulons par exemple créér une variable qui indiquera le groupe le plus nombreux,
+# nous procédons comme suit:
+pop_groupage_2009$test_max <- ifelse(test = pop_groupage_2009$femme > pop_groupage_2009$homme, # condition
+                                       yes = "femme", # action si condition satisfaite
+                                       no = "homme" # action si condition non satisfaite
+                                       )# Regardons les données.
+# Nous pouvons même assigner la valeur la plus élevée à une nouvelle variable.
+pop_groupage_2009$valeur_max <- ifelse(test = pop_groupage_2009$femme > pop_groupage_2009$homme, # condition
+                                       yes = pop_groupage_2009$femme, # action si condition satisfaite
+                                       no = pop_groupage_2009$homme # action si condition non satisfaite
+                                       )
+head(pop_groupage_2009)
+knitr::asis_output("\\normalsize")
+```
+
+
+# Les boucles
+
+## Les boucles, la solution aux tâches répétititives
+
+Un grand avantage de la programmation est la capacité de déléguer à la machine l'exécution de tâches répétitives. 
+R dispose de diverses fonctions qui permettent d'effectuer celles-ci en boucle.
+Ceci est très commode surtout quand la nombre de répétitions est élevé et le risque d'erreur considérable quand la répétition est conduite manuellement.
+Toutefois, la nécessité des boucles varie d'un objet à un autre.
+Si pour certains, des solutions alternatives et plus simples existent, pour d'autres, elles sont la meilleure option.
+
+Dans ce cours, nous allons nous limiter à la fonction *for*.
+Vous pouvez regarder la fonction  *while*. 
+Entrez dans la console: *help("while")*.
+
+## La fonction *for*
+
+```{r, echo=c(-1, -17), eval=c(-4)}
+knitr::asis_output("\\tiny")
+# La fonction "for" est très pratique pour l'exécution des boucles dans `R`.
+# Elle est structurée de la façon suivante:
+for(var in seq){
+  expr
+}
+# "var" désigne une variable dans la séquence "seq".
+# On peut dire "i in c(1:10)" pour dire que pour tout "i élément de la séquence allant de 1 à 10".
+# "expr" désigne la fonction que l'on peut appliquer à ces éléments.
+# Supposons que nous voulons multiplier par deux tous les éléments contenant dans la séquence 1:10.
+# Voici cette séquence:
+c(1:10)
+# Voici la boucle:
+for(i in c(1:10)){
+  print(i*2)
+}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Application sur vecteurs (1)
+
+```{r, echo=c(-1, -17)}
+knitr::asis_output("\\tiny")
+# Prenons un vecteur de chiffres.
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+# Utilisons une boucle avec la fonction "for" pour élever les éléments à leur carré 
+# et stockons dans un vecteur nommé "y":
+y <- c() # Création d'une coquille vide de vecteur.
+for(i in x){ # Pour chaque élément dans le vecteur x,
+  y[[i]] <- i^2 # créer un élément dans le vecteur y qui en serait le carré.
+}
+# Regardons y
+y
+# Ici, la boucle marche parfaitement, mais on peut s'en passer.
+# Reprenons l'opération, mais avec une approche différente.
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+y <- x^2
+y
+# Même résultat. Moins de codage. Donc solution optimale!
+# La fonction native (^) s'exécute déjà en boucle sur tous les éléments du vecteur.
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur vecteurs (2)
+
+```{r, echo=c(-1, -20)}
+knitr::asis_output("\\tiny")
+# Pour nous assurer que cette règle n'est pas limité qu'aux chiffres, testons avec les lettres.
+# Prenons un vecteur de caractères.
+x <- c("Mamadou", "Amadou", "Ahmed", "Ahmad", "Abdoul", "Zan", "Tchiè", "Mady")
+# Cherchons à détecter les prénoms qui contiennent la lettre "a".
+# R a des fonctions natives qui peuvent exécuter cette tâche dont "grepl".
+y <- c() # Création d'une coquille vide de vecteur.
+for(i in x){ # Pour chaque élément dans le vecteur x,
+  y[i] <- grepl(pattern = "(a)", x = i) # identifier les éléments contenant la lettre "a".
+}
+# Regardons y
+y
+# Encore une fois, on peut remarque que R est sensible à la taille de la lettre (minuscule/majuscule).
+# Regardez les résultats pour "Ahmad" et "Ahmed".
+# Reprenons en appliquant directement la formule
+y <- grepl(pattern = "(a)", x)
+y
+# Même résultat. Moins de codage. Donc solution optimale!
+# La fonction native (grepl) s'exécute déjà en boucle sur tous les éléments du vecteur.
+# Leçon: chaque fois, qu'une fonction native existe et peut exécuter une tâche, 
+# il est préférable de se passer de la boucle.
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur matrices (1)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Maintenant, essayons sur une matrice.
+x <- matrix(data = c(1:12), nrow = 3, byrow = TRUE)
+x
+# Comme avant, élévons les éléments à leur carré et stockons dans une matrice nommée "y":
+y <- c() # Création d'une coquille vide de matrice
+for(i in x){ # Pour chaque élément dans la matrice x,
+  y[[i]] <- i^2 # créer un élément dans la matrice y qui en serait le carré.
+}
+# Regardons y
+y
+# Ici la boucle donne le bon résultat, mais pas le bon format.
+# Nous cherchons une matrice, mais c'est un vecteur que nous avons eu.
+# Apparemment, la boucle doit aussi tenir compte du format.
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur matrices (2)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Ajustement le format de la matrice qui recevra les résultats.
+# Créons une coquille vide de matrice.
+y <- matrix(data = rep(NA, times = 12), nrow = 3, byrow = TRUE) 
+y
+# Rerenons la boucle
+for(i in 1:nrow(x)){ # Pour chaque ligne (i) de la matrice x, et
+  for(j in 1:ncol(x)){ # pour chaque colonne (j) de la matrice x,
+    y[i, j] <- x[i, j]^2 # créer un élément dans la matrice y qui en serait le carré.
+  }
+  }
+# Regardons y
+y
+# Nous avons le bon résultat et le bon format.
+# Mais que de lignes de codes!!!!
+# Il doit y avoir une voie plus simple!
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur matrices (3)
+
+```{r, echo=c(-1, -9)}
+knitr::asis_output("\\tiny")
+# Maintenant, regardons une autre solution:
+# l'implémentation directe du la formule (^2).
+y <- x^2
+y
+# A l'instar du vecteur, l'on peut appliquer des formules directements aux matrices.
+# L'objet qui en résulte hérite de la structur et du format de la matrice de départ.
+# Ce qui marche pour les chiffres, marche-t-il pour les lettres aussi?
+knitr::asis_output("\\normalsize")
+```
+
+
+## Application sur matrices (4)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Comme pour les vecteurs, testons avec une matrice de caractère.
+# Cherchons dans la matrice suivante les éléments qui contiennent la lettre "z" (minuscule!)
+x <- matrix(data = c("Zégoua", "Hamdallaye", "Zanbougou",
+                     "Farimaké","Cinzani", "Tinzawatene",
+                     "Nara", "Hawa Dembaya", "Bozobougou"), 
+            nrow = 3, byrow = TRUE)
+x
+# Appliquons directement la formule à la matrice "x"
+y <- grepl(pattern = "(z)", x)
+y
+# Nous avons le bon résultat, mais pas le bon format.
+# R a généré le résultat sous format de vecteur.
+# Ce qui en érode fortement la lisibilité.
+# Ajustons!
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur matrices (5)
+
+```{r, echo=c(-1, -14)}
+knitr::asis_output("\\tiny")
+x
+# Nous allons déclarer le résultat sous le format matrice.
+y <- grepl(pattern = "(z)", x) # étape 1
+y <- matrix(data = y, nrow = 3, byrow = TRUE) # étape 2
+# ou tout simplement
+y <- matrix(data = grepl(pattern = "(z)", x), nrow = 3, byrow = TRUE) # combinaison des 2 étapes
+y
+# Malgré cet ajustement, l'application directe de la formule est préférable à la boucle 
+# car une fonction native existe déjà pour l'exécution de la tâche souhaitée.
+# Sachant que les matrices sont fortement sollicitées en algèbre, il n'est pas surprenant de trouver
+# que le format est respecté quand les opérations pour sur des chiffres, mais défait quand il s'agit
+# de lettres ou caractères.
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur *data frame*
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Partant de ce qu'on a vu avec les vecteurs et les matrices, on peut se douter que les boucles
+# ne sont pas toujours le meilleur choix pour les data frame non plus
+# Supposons que l'on veuille calculer pour chaque groupe d'âge de notre data frame
+# l'écart entre les femmes et les hommes: "femme - homme".
+# Une formulation en bouche serait:
+ecart_femme_homme <- c()
+for(i in 1:nrow(pop_groupage_2009)){
+  ecart_femme_homme[i] <- pop_groupage_2009[i, "femme"] - pop_groupage_2009[i, "homme"]
+}
+ecart_femme_homme
+# Un détour fort peu utile quand on peut faire ça:
+pop_groupage_2009$ecart_femme_homme <- pop_groupage_2009$femme - pop_groupage_2009$homme
+head(x = pop_groupage_2009, n = 3)
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur listes (1)
+
+```{r, echo=c(-1, -18)}
+knitr::asis_output("\\footnotesize")
+# C'est avec les listes que les boucles prennent tout leur sens.
+# Les vecteurs, matrices et data frame constitue tous des objets 
+# unitaires eux-mêmes. Ils ont leur propriétés propres à eux-mêmes
+# (structure et comportements). Ceci veut dire qu'ils prêtent à 
+# l'assimilation par les fonctions. Celles-ci vont systématiquement 
+# s'appliquer sur toutes les éléments désignés au sein de l'objet.
+# Qu'il s'agisse d'une opération mathématiques (élévation au carré)
+# ou de la détection d'un caractère, l'objet peut servir d'intrant 
+# direct à la fonction. Avec la liste, les choses sont différentes.
+# La liste est un objet "hôte". Bien qu'elle ait ses propriétés, 
+# elle sert de contenant à d'autres objets. De ce fait, elle peut 
+# abriter plusieurs objets sur lesquels l'on peut souhaiter exécuter 
+# la même opération en boucle. 
+# Et c'est là, qu'on est content que les boucles existent!
+
+# Illustrons 
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur listes (2)
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+# Nous avons vu plus haut qu'avec les déclarations conditionnelles, 
+# l'on peut exécuter des tâches sur la base d'un arbre de décision.
+# Maintenant, imaginez que vous avez à répéter une même tâche sur plusieurs objets.
+# Nous avons vu que la liste contient 4 data frames, tirés de 4 recensements (1976, 1987, 1998 et 2009).
+# Imaginez que vous souhaitez déterminer qui des hommes et des femmes
+# sont les plus nombreux et ce pour tous les années de recensement.
+# Là, vous allez devoir définir une tâche et l'exécuter en boucle.
+# Pensez-vous comme un agent de vaccination qui passe dans toutes les concessions (data frame) 
+# d'une rue (liste) pour vacciner des enfants (le test "femme > homme").
+# Rappelons les objets contenus dans la liste "pop_groupage_list"
+names(pop_groupage_list)
+# Pour montrer comment ça marche, voyons juste la première observation de chaque data frame
+for(i in pop_groupage_list) { # Pour chaque élément de la liste
+  obs1 <- head(x = i, n = 1) # Assigner l'affichage de la 1ère observation à une variable
+  print(obs1) # Affiche toutes les 1ères variables extraites
+  }
+knitr::asis_output("\\normalsize")
+```
+
+## Application sur listes (3)
+
+```{r, echo=c(-1, -6)}
+knitr::asis_output("\\tiny")
+# Mainteant qu'on a une idée du résultat de la boucle sur des data frame, continuons avec notre exemple.
+# Générons dans chacun des data frame une variable "femme_sup_homme" qui est vrai (TRUE)
+# quand "femme > homme" et faux (FALSE) dans le cas contraire.
+for(i in pop_groupage_list){# Pour élément "i" de la liste "pop_groupage_2009"
+  i[, "femme_sup_homme"] <- i[, "femme"] > i[, "homme"] # Exécuter l'opération "femme > homme"
+  obs3 <- head(x = i, n = 3) # Assigner l'affichage des 3 premières observations à une variable
+  print(obs3) # Afficher toutes les 3 premières extraites.
+  }
+knitr::asis_output("\\normalsize")
+```
+
+
+## Application sur listes (4)
+
+```{r, echo=c(-1, -7)}
+knitr::asis_output("\\tiny")
+# Allons plus loin en enrichissant les conditions. Voici la démarche:
+# - sélectionnons seulement les moins de 15 ans: groupage est 0-4 ou 5-9 ou 10-14;
+# - créons ensuite une colonne "test_max" qui indique qui a lé supériorité numérique;
+# - créons ensuite une colonne "valeur_max" qui donne la valeur de la population.
+for(i in pop_groupage_list){# Pour élément "i" de la liste "pop_groupage_2009"
+  # sélection des groupes d'âge dans 0-15 ans.
+  i <- i[i["groupage"]=="0-4" | i["groupage"]=="5-9" | i["groupage"]=="10-14",]
+  # déclarations conditionnelles pour les variables "test_max" et "valeur_max".
+  i[, "test_max"] <- ifelse(test = i[,"femme"] > i[,"homme"], # condition 
+                            yes = "femme", # action si condition satisfaite 
+                            no = "homme") # action si condition non satisfaite
+  i[, "valeur_max"] <- ifelse(test = i[,"femme"] > i[,"homme"], # condition 
+                            yes = i[,"femme"], # action si condition satisfaite 
+                            no = i[,"homme"]) # action si condition non satisfaite
+  print(head(x = i, n = 2)) # Afficher toutes les 2 premières extraites.
+}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Arrêtons-nous un instant!
+
+```{r, echo=c(-1, -21)}
+knitr::asis_output("\\tiny")
+# Qu'avons-nous vu jusque là?
+# Nous avons vu comment:
+# - poser des critères et les insérer dans des déclarations;
+# - poser un raisonnement en arbre de décision avec les déclarations conditionnelles;
+# - les boucles marchent avec divers objets (vecteurs, matrices, data frame et listes).
+
+
+# Nous avons vu que c'est avec les listes que les boucles révèlent leur plus grande utilité.
+# Il se trouve que R contient aussi des fonctions taillées spécialement pour 
+# tourner des fonctions en boucle sur les éléments d'une liste.
+# Dans R-base seulement, il y a une grande famille de fonction dont "lapply", "sapply", "vapply",
+# "tapply", "mapply",  "rapply", "eapply"...
+# Toutes ces fonctions sont des outils du paradigme "split-apply-combine" qui consiste à
+# - diviser des données en morceaux;
+# - à appliquer sur chaque morceau une fonction donnée;
+# - à rassembler les résultats en un nouveau morceau.
+
+# Nous allons nous limiter à "lapply" ici.
+# Explorons "lapply" avec quelques exemples.
+knitr::asis_output("\\normalsize")
+```
+
+## Paradigme *split-apply-combine*: illustration avec *lapply* (1)
+
+```{r, echo=c(-1, -9)}
+knitr::asis_output("\\tiny")
+# Considérons la liste suivante avec deux vecteurs et deux matrices:
+malist <- list(monvect2 = seq(from = 0, to = 20, by = 0.5),
+               monvect1 = rnorm(20, mean = 9.88, sd = 1.23),
+               mamat1 = matrix(data = c(1:20), nrow = 4, byrow = TRUE),
+               mamat2 = matrix(data = rnorm(20, mean = 7.43, sd = 1.80), nrow = 4, byrow = TRUE)
+               )
+# Pour chaque objet de la liste, procédons à une agrégation avec la fonction "sum".
+for(i in malist){
+  print(sum(i))
+  }
+# Faisons la même chose avec "lapply"
+lapply(X = malist, FUN = sum)
+# "lapply" donne le même résultat, seulement sous la forme d'une nouvelle liste.
+knitr::asis_output("\\normalsize")
+```
+
+## Paradigme *split-apply-combine*: illustration avec *lapply* (2)
+
+```{r, echo=c(-1, -7)}
+knitr::asis_output("\\tiny")
+# Un autre exemple: au lieu des sommes, générons les moyennes. D'abord, avec la boucle "for"...
+for(i in malist){
+  print(mean(i))
+  }
+# ...ensuite, avec "lapply"
+lapply(X = malist, FUN = mean)
+# Vous voyiez la logique?
+knitr::asis_output("\\normalsize")
+```
+
+## Paradigme *split-apply-combine*: illustration avec *lapply* (3)
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+# Nous avons vu que, pour les matrices et les vecteurs, l'on trouve souvent des fonctions
+# qui sont déjà capables d'exécuter les tâches souhaitées
+# (ne paniquez pas, c'est avec la pratique que votre répertoire de fonction s'agrandira!)
+# Et quand celà est possible, une boucle n'est pas nécessaire.
+
+# Le même principe va pour les listes.
+# Quand il y a des fonctions natives qui peuvent:
+# - exécuter la tâche souhaitée (générer une somme ou une moyenne par exemple);
+# - insérer cette tâche dans une boucle (exécuter sur tous les objets d'une liste);
+# alors, il est préférable d'embrasser cette voie.
+# Les exemples précédents ont clairement illustré celà.
+
+# Maintenant, retournons à notre liste pour illustrer davantage.
+knitr::asis_output("\\normalsize")
+```
+
+## Paradigme *split-apply-combine*: illustration avec *lapply* (4)
+
+```{r, echo=c(-1, -5)}
+knitr::asis_output("\\tiny")
+# Revenons à notre liste sur les données de population.
+# Chercons à connaître les dimensions des objets de la liste (nombre de lignes, nombres de colonnes)
+lapply(X = pop_groupage_list, FUN = dim)
+# Et le nom des variables?
+lapply(X = pop_groupage_list, FUN = colnames)
+# C'est simple et efficace. N'est-ce pas?
+knitr::asis_output("\\normalsize")
+```
+
+
+## Paradigme *split-apply-combine*: illustration avec *lapply* (5)
+
+```{r, echo=c(-1, -17), error=c(7)}
+knitr::asis_output("\\tiny")
+# Maintenant, supposons qu'on veut déterminer la population totale pour chaque année
+# en faisant la somme de la colonne "total". Comment faire?
+# Avec une boucle, c'est facile.
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+}
+# Avec "lapply".
+lapply(X = pop_groupage_list, FUN = sum)
+# "lapply" n'arrive pas à s'exécuter car nous n'avons pas spécifié qu'à l'intérieur de chaque
+# data frame, il fallait prendre la variable "totale"!
+# Certes, "lapply" est destinée à exécuter les tâches en boucle, mais encore
+# faudrait-il que celles-ci soient bien définies.
+# Et c'est ça que fait une fonction. Elle exécute des tâches!
+# Et ça, c'est le début d'un autre pan de la Data Science: la programmtion fonctionnelle.
+# Dans ce terme, on va englober, l'art de faire des fonctions.
+# Tout y passe: de la conception à la rapidité.
+# Dans le prochain chapitre, nous allons reprendre les idées déjà présentées,
+# mais cette fois-ci en raisonnant en termes de fonctions.
+knitr::asis_output("\\normalsize")
+```
+
+
+# Les fonctions
+
+## Les fonctions, l'épine dorsale de R
+
+```{r, echo=c(-1, -10)}
+knitr::asis_output("\\tiny")
+# Pour un data scientist, les fonctions sont d'une importance capitale car
+# son flux de travail consiste à faire passer les données d'une fonction à une autre
+# pour recadrer ses questions ou trouver des réponses à celles-ci.
+# Depuis le début, nous parlons de fonctions.
+# Qu'est-ce que c'est?
+# Dans R, la fonction agit comme dans les mathématiques.
+# C'est un règle ou une procédure qui détermine la transformation d'un intrant en extrant.
+# Prenons l'exemple suivant:
+knitr::asis_output("\\normalsize")
+```
+$$y = f(x) = x^2$$
+```{r, echo=c(-1, -6)}
+knitr::asis_output("\\tiny")
+# Dans cet exemple, la fonction élève les intrants au carré pour donner les extrants.
+# Dans R, c'est la même chose!
+# Nous avons déjà mentionnées certaines fonctions et avons montré ce qu'elles font.
+# Revenons sur quelques unes.
+knitr::asis_output("\\normalsize")
+```
+
+## Retour sur quelques fonctions
+
+```{r, echo=c(-1, -6)}
+knitr::asis_output("\\tiny")
+# Prenons le vecteur suivant:
+monvect <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+# Si nous voulons compter le nombre d'éléments composants cet éléments, une fonction...
+length(monvect)
+# ...faire la somme de ces éléments, une fonction...
+sum(monvect)
+#...faire la moyenne de ces éléments, une fonction...
+mean(monvect)
+knitr::asis_output("\\normalsize")
+```
+
+
+
+## Personnalisation de l'analyse
+Il arrive souvent de l'on souhaite faire des tâches spécifiques ou assembler des tâches d'une manière précises
+
+Imaginez que l'on veuille:
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
