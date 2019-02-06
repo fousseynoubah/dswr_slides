@@ -677,9 +677,9 @@ knitr::asis_output("\\tiny")
 knitr::asis_output("\\normalsize")
 ```
 
-## Retour sur quelques fonctions
+## Retour sur quelques fonctions (1)
 
-```{r, echo=c(-1, -6)}
+```{r, echo=c(-1, -10)}
 knitr::asis_output("\\tiny")
 # Prenons le vecteur suivant:
 monvect <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -692,14 +692,185 @@ mean(monvect)
 knitr::asis_output("\\normalsize")
 ```
 
+## Retour sur quelques fonctions (2)
+
+```{r, echo=c(-1, -4)}
+knitr::asis_output("\\tiny")
+# Revenons a notre liste. Pour voir sa structure, une fonction...
+str(pop_groupage_list)
+knitr::asis_output("\\normalsize")
+```
 
 
-## Personnalisation de l'analyse
-Il arrive souvent de l'on souhaite faire des tâches spécifiques ou assembler des tâches d'une manière précises
+## Retour sur quelques fonctions (3)
 
-Imaginez que l'on veuille:
-- 
+```{r, echo=c(-1, -6)}
+knitr::asis_output("\\tiny")
+# Pour voir le nom des éléments qu'elle contient, une fonction
+names(pop_groupage_list)
+# Vous voyez l'idée?
+knitr::asis_output("\\normalsize")
+```
 
+## Pourquoi faire une fonction?
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\footnotesize")
+# Vu la richesse de R on peut bien être amener à se demander 
+# pourquoi se donner la peine de faire une fonction. 
+# N'en exist-il pas déjà dans R ? La plupart du temps, oui!
+# Mais pas tout le temps.
+# Autant, les questions que la data scientist soulève sont nombreux,
+# autant les voies qui s'offrent à lui pour parvenir à des solutions 
+# sont nombreuses. Les particularités de la question peuvent 
+# faire qu'il est souhaitable voire indispensable de "personnaliser" 
+# la réponse. Ceci peut signifier soumettre ses données 
+# à un flux de transformation dans le
+# cadre duquel diverses autres fonctions sont utilées.
+knitr::asis_output("\\normalsize")
+```
+
+## Les basiques de la fonction (1)
+
+```{r, echo=c(-1, -17), eval=c(-7)}
+knitr::asis_output("\\tiny")
+# Bien que tous les sept milliards d'humains peuplant la terre partagent cette appélation commune,
+# il demeure que l'on s'attache à donner à chacun d'entre eux une appélation particulière: le prénom!
+# Ou bien?
+# De même, une fonction a besoin d'un nom!
+# A ce niveu, il est utile d'indiquer qu'il y a des mots réservés qui ne peuvent pas être utilisés. Voir:
+help("reserved")
+# Après le nom, il y a les "arguments". Ceci est l'appélation donnée aux intrants.
+# Ensuite on a le "corps" qui est la procédure à laquelle sont soumis ces intrants.
+# Schématisons tout ça!
+mafonction <- function(x){
+  x^2
+  }
+# Nous avons défini ici une fonction où x est l'argument et la procédure à laquelle 
+# il est soumis est l'élévation au carré. Testons le résultat.
+mafonction(x = 25)
+# Juste pour ironiser un peu, rappelons que c'est par une fonction "function"
+# que nous venons de créer une fonction. Trop méta ça!!!!!!
+knitr::asis_output("\\normalsize")
+```
+
+## Les basiques de la fonction (2)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Avançons un peu ici en créant une fonction avec deux arguments: x et y.
+mafonction <- function(x, y){
+  x + y
+}
+# Testons
+mafonction(x = 1, y = 2)
+# Souvent, il est possible d'assigner à un argument ou à tous une valeur par défaut.
+mafonction <- function(x, y = 10){
+  x + y
+}
+# Regardons ce qu'on obtient qu'on ne spécifie pas la valeur passé à l'argument y.
+mafonction(x = 3)
+# Certaines fonctions contiennent plusieurs arguments.
+# Par commodité, on a assigne à beaucoup des valeurs par défaut qui sont validées sauf si 
+# l'utilisateur en décide autrement.
+knitr::asis_output("\\normalsize")
+```
+
+
+## Les basiques de la fonction (3)
+
+```{r, echo=c(-1, -13)}
+knitr::asis_output("\\tiny")
+# Souvent, la fonction comprends des étapes intermédiaires.
+# A vrai dire, c'est dans ça que réside la nécéssité des fonctions, 
+# le séquençage de procédures multiples en une seule commande.
+# Revenant à notre example, nous pouvons assigner le résultat à une variable intermédiaire z.
+mafonction <- function(x, y = 10){
+ z <- x + y
+ }
+mafonction(x = 3)
+# L'exécution de la fonction sur "3" car nous n'avons pas demandé à la fonction de sortir le résultat.
+# Pour que le résultat sorte, il faut expliciter.
+mafonction <- function(x, y = 10){
+ z <- x + y
+ return(z)
+ }
+mafonction(x = 3)
+# "return()" est très commode quand on doit passer par plusieurs étapes à l'intérieur de la fonction.
+knitr::asis_output("\\normalsize")
+```
+
+## Fonctions et boucles (1)
+
+```{r, echo=c(-1, -30), eval=c(-7)}
+knitr::asis_output("\\tiny")
+# Les fonctions (écriture, évaluation, etc.) constitue un domaine vaste de la data science.
+# Nous ne pourrons pas tout voir d'un seul coup.
+# La maîtrise des règles (les do's et les don't's) viennent avec la pratique.
+# Ayant couvert les basiques, nous allons retourner à nos données pour illustrer.
+# Vous vous rappelez la boucle suivante...
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+  }
+# qu'on avait pas réussi à insérer dans la fonction "lapply"?
+# La raison est simple.
+# "lapply" exécute des fonctions sur les objets contenus dans une liste.
+# Elle ne peut pas systématiquement atteindre les éléments contenus dans ces objets.
+# Nous avons pu faire des moyennes et des médianes sur des vecteurs et matrices à partir de "lapply".
+# La raison était simple: ces objets sont des ensembles homogènes. Ils contenaient tous des chiffres,
+# qui sont des éléments assimilables par "mean" et "median".
+# Or, le data frame est un objet hétérogène, contenant des chiffres et des lettres.
+# Les fonctions natives qu'on a utilisées ne peuvent faire la différence d'elles-mêmes.
+# Elles doivent être guidées.
+# De ce fait, nous devons inscrire la procédure souhaitée dans une fonction avant de passer celle-ci
+# à "lapply" qui va l'exécuter en boucle sur tous les objets de la liste.
+# Voici la fonction:
+pop_somme <- function(df){
+  sum(df["total"])
+}
+# Nous venons de définir une fonction où "df" est l'argument principal.
+# On s'attend à un data frame comme intrant
+# On s'attend à ce que celui-ci ait une colonne nommée ("total") dont les éléments seront agrégés par
+# la fonction "sum".
+# Vous voyez? C'est une solution très personnalisée!
+# Regardons les résultats!
+knitr::asis_output("\\normalsize")
+```
+
+## Fonctions et boucles (2)
+
+```{r, echo=c(-1, -10)}
+knitr::asis_output("\\tiny")
+# Voici le résultat pour la boucle:
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+  }
+# Voici le résultat pour "lapply"
+lapply(X = pop_groupage_list, FUN = pop_somme)
+# Qu'est-ce qui est préférable?
+# Comme avant, les fonctions existantes sont toujours meilleures.
+# "lapply" est intégrée à R. Elle constitue une meilleure boucle.
+# Aussi, elle peut génère en extrant une liste, qui peut être assignée à un objet donné.
+knitr::asis_output("\\normalsize")
+```
+
+
+## Fonctions et boucles (3)
+
+```{r, echo=c(-1, -10)}
+knitr::asis_output("\\tiny")
+# Voici le résultat pour la boucle:
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+  }
+# Voici le résultat pour "lapply"
+lapply(X = pop_groupage_list, FUN = pop_somme)
+# Qu'est-ce qui est préférable?
+# Comme avant, les fonctions existantes sont toujours meilleures.
+# "lapply" est intégrée à R. Elle constitue une meilleure boucle.
+# Aussi, elle peut génère en extrant une liste, qui peut être assignée à un objet donné.
+knitr::asis_output("\\normalsize")
+```
 
 
 
