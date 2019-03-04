@@ -473,7 +473,7 @@ Les données ont besoin d'être téléchargées localement avant d'être chargé
 
 ```{r echo=c(-1, -4)}
 knitr::asis_output("\\tiny")
-url <- "https://github.com/fousseynoubah/dswr/blob/master/data/rgph_groupage/RGPH_MLI.xlsx?raw=true"
+url <- "https://github.com/fousseynoubah/dswr_slides/blob/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.xlsx?raw=true"
 download.file(url = url, # adresse du fichier
               destfile = "data/RGPH_MLI_github.xlsx", # nom du fichier une fois téléchargé
               mode = "wb" # mode de téléchargement
