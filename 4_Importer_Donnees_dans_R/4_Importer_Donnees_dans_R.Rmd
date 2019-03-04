@@ -461,7 +461,7 @@ Les outils disponibles dans R varient selon le type de données.
 Pour un fichier CSV, le chargement dans l'environnement R se fait de la même façon que pour des fichiers locaux.
 ```{r echo=c(-1, -4)}
 knitr::asis_output("\\tiny")
-url <- "https://github.com/fousseynoubah/dswr/blob/master/data/rgph_groupage/RGPH_MLI.csv"
+url <- "https://github.com/fousseynoubah/dswr_slides/blob/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.csv"
 RGPH_MLI_csv_online <- read.csv(url)
 knitr::asis_output("\\normalsize")
 ```
