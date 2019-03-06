@@ -1,5 +1,5 @@
 ---
-title: "Manipuler des données dans R"
+title: "Manipuler des données dans R: introduction à dplyr"
 author: "Fousseynou Bah"
 date: "`r format(Sys.time(), '%d-%b-%Y')`"
 output:
