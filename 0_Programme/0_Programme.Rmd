@@ -1,0 +1,163 @@
+---
+title: "La science des données avec R"
+author: "Fousseynou Bah"
+date: "`r format(Sys.time(), '%d-%b-%Y')`"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: CambridgeUS
+    toc: yes
+header-includes:  
+  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE)
+
+######################################################################################################
+### TIME ZONE
+######################################################################################################
+Sys.setenv(TZ="Africa/Bamako") # vérifer
+
+##########################################################################
+########################################/// PACKAGES ///
+##########################################################################
+# Packages (s'assurer que ces packages sont installées avant l'exécution du code)
+library(knitr)
+
+```
+
+# Introduction générale
+
+
+## Science des données: *data science*
+
+- La *data science*
+
+- Le *data scientist*
+
+
+
+# Les basiques dans R
+
+
+
+## Introduction à R
+
+- R
+
+- Rstudio
+
+
+## Objets dans R
+
+- Notion d'objets
+
+- Vecteurs
+
+- Matrices
+
+- *Data frames*
+
+- Listes
+
+
+# Programmer dans R 
+
+## S'exprimer dans R
+
+- Les déclarations
+
+- Les boucles
+
+- Les fonctions
+
+
+
+# Manipuler des données dans R
+
+
+
+## Importer des données dans R
+
+- Fichiers plats: format CSV
+
+- Excel
+
+- Autres formats: Stata, SPSS
+
+- Données relationnelles
+
+- Depuis Internet
+
+
+
+## Transformer des données dans R avec **dplyr**
+
+- Aperçu de **dplyr**
+
+- Sélection et exclusion de variables: `select`
+
+- Création et suppresion de variables: `mutate`
+
+- Sélection d'observations: `filter`
+
+- Tri d'observations: `arrange`
+
+- Vers l'agrégation: `group_by` et `summarize`
+
+
+## Transformer des données dans R avec **tidyr**
+
+- Du format large au format long: `gather`
+
+- Du format long au format large: `spread`
+
+- Séparateur d'attributs: `separate`
+
+- Unificateur d'attributs: `unite`
+
+
+# Visualiser des données dans R
+
+## Visualiser dans données dans R avec **ggplot2**
+
+- La gramme des graphiques
+
+- Points: à la recherche d'une relation
+
+- Lignes: comprendre une évolution
+
+- Barres: allier discret et continu (ou discret)
+
+- Histogrammes et densités
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
