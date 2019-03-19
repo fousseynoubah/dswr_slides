@@ -1,0 +1,704 @@
+﻿id,admin0_nom,admin1_nom,admin2_nom,admin3_nom,homme_1998,homme_2009,femme_1998,femme_2009,source
+1,Mali,Kayes,Kayes,Bangassi,3351,6123,3263,5974,RGPH
+2,Mali,Kayes,Kayes,Colimbine,4828,6144,4913,6353,RGPH
+3,Mali,Kayes,Kayes,Diamou,6361,7115,6189,7015,RGPH
+4,Mali,Kayes,Kayes,Djelebou,7903,11466,8403,12091,RGPH
+5,Mali,Kayes,Kayes,Faleme,3232,5141,3309,5017,RGPH
+6,Mali,Kayes,Kayes,Fegui,1333,1999,1355,1934,RGPH
+7,Mali,Kayes,Kayes,Gory Gopela,2682,3939,2614,3927,RGPH
+8,Mali,Kayes,Kayes,Goumera,1295,1918,1294,1903,RGPH
+9,Mali,Kayes,Kayes,Guidimakan Keri Kaff,6713,9798,7521,10234,RGPH
+10,Mali,Kayes,Kayes,Hawa Dembaya,2517,3406,2601,3445,RGPH
+11,Mali,Kayes,Kayes,Karakoro,5461,7436,6216,7770,RGPH
+12,Mali,Kayes,Kayes,Kayes Commune,34236,65135,33188,61184,RGPH
+13,Mali,Kayes,Kayes,Kemene Tambo,6564,8381,6702,8574,RGPH
+14,Mali,Kayes,Kayes,Khouloum,4377,9734,4563,9260,RGPH
+15,Mali,Kayes,Kayes,Koniakary,3371,4061,3652,4080,RGPH
+16,Mali,Kayes,Yelimane,Konsiga,1371,2308,1653,2620,RGPH
+17,Mali,Kayes,Kayes,Koussane,6716,10472,7460,11118,RGPH
+18,Mali,Kayes,Kayes,Liberte Dembaya,3722,7487,3518,6879,RGPH
+19,Mali,Kayes,Kayes,Logo,4743,6022,5224,5967,RGPH
+20,Mali,Kayes,Kayes,Marena Diombougou,6023,8996,6880,9676,RGPH
+21,Mali,Kayes,Kayes,Marintoumania,2797,4001,2908,4060,RGPH
+22,Mali,Kayes,Kayes,Sadiola,9997,20514,9450,18895,RGPH
+23,Mali,Kayes,Kayes,Sahel,3518,6038,3914,6189,RGPH
+24,Mali,Kayes,Kayes,Same Diomboma,4649,6245,4595,6166,RGPH
+25,Mali,Kayes,Kayes,Segala,9334,12882,9433,12921,RGPH
+26,Mali,Kayes,Kayes,Sero Diamanou,7969,11612,8123,11727,RGPH
+27,Mali,Kayes,Kayes,Somankidy,2301,3357,2483,3558,RGPH
+28,Mali,Kayes,Kayes,Sony,3037,4339,3291,4368,RGPH
+29,Mali,Kayes,Kayes,Tafacirga,2788,4634,3011,4492,RGPH
+30,Mali,Kayes,Bafoulabe,Bafoulabe,7624,9824,7761,9942,RGPH
+31,Mali,Kayes,Bafoulabe,Bamafele,6349,8147,6195,8033,RGPH
+32,Mali,Kayes,Bafoulabe,Diakon,11343,16056,12798,17700,RGPH
+33,Mali,Kayes,Bafoulabe,Diallan,4916,7285,5230,7410,RGPH
+34,Mali,Kayes,Bafoulabe,Diokeli,4837,6572,5056,6525,RGPH
+35,Mali,Kayes,Bafoulabe,Gounfan,2234,3563,2189,3435,RGPH
+36,Mali,Kayes,Bafoulabe,Kontela,7086,10374,7904,11136,RGPH
+37,Mali,Kayes,Bafoulabe,Koundian,5399,6735,5571,7122,RGPH
+38,Mali,Kayes,Bafoulabe,Mahina,9532,12976,9538,12926,RGPH
+39,Mali,Kayes,Bafoulabe,Niambia,2290,3715,2255,3716,RGPH
+40,Mali,Kayes,Bafoulabe,Oualia,7129,10173,7588,10514,RGPH
+41,Mali,Kayes,Bafoulabe,Sidibela,2461,3603,2685,3954,RGPH
+42,Mali,Kayes,Bafoulabe,Tomora,10661,15584,12100,16627,RGPH
+43,Mali,Kayes,Diema,Bema,9374,12326,10290,13103,RGPH
+44,Mali,Kayes,Diema,Diangounte Camara,9657,13541,10762,14926,RGPH
+45,Mali,Kayes,Diema,Dianguirde,4150,5862,4480,6126,RGPH
+46,Mali,Kayes,Diema,Diema,9362,15079,9935,15391,RGPH
+47,Mali,Kayes,Diema,Dieoura,3831,5508,4090,6253,RGPH
+48,Mali,Kayes,Diema,Dioumara Koussata,2717,3745,2923,4118,RGPH
+49,Mali,Kayes,Diema,Fassou Debe,1870,2663,1861,2807,RGPH
+50,Mali,Kayes,Diema,Fatao,2132,3848,2642,4491,RGPH
+51,Mali,Kayes,Diema,Gomitradougou,2107,3638,2004,3658,RGPH
+52,Mali,Kayes,Diema,Groumera,3438,5457,3716,6062,RGPH
+53,Mali,Kayes,Diema,Guedebine,1823,2550,1921,2539,RGPH
+54,Mali,Kayes,Diema,Lakamane,4685,7855,5071,8109,RGPH
+55,Mali,Kayes,Diema,Lambidou,4370,7030,4977,7761,RGPH
+56,Mali,Kayes,Diema,Madiga Sacko,4051,6695,4765,7241,RGPH
+57,Mali,Kayes,Diema,Sansankide,1783,2435,1864,2538,RGPH
+58,Mali,Kayes,Kenieba,Baye,13444,19413,12948,19322,RGPH
+59,Mali,Kayes,Kenieba,Dabia,4487,7334,4660,7845,RGPH
+60,Mali,Kayes,Kenieba,Dialafara,6816,9030,6905,8931,RGPH
+61,Mali,Kayes,Kenieba,Dombia,4267,3662,4719,3920,RGPH
+62,Mali,Kayes,Kenieba,Falea,6479,8651,6694,8794,RGPH
+63,Mali,Koulikouro,Kati,Faraba,4689,6184,4865,6173,RGPH
+64,Mali,Kayes,Kenieba,Faraba,3401,3844,3376,3928,RGPH
+65,Mali,Kayes,Kenieba,Guenegore,4852,3248,4998,3339,RGPH
+66,Mali,Kayes,Kenieba,Kassama,8486,9503,8738,9959,RGPH
+67,Mali,Kayes,Kenieba,Kenieba,12859,17884,13055,17767,RGPH
+68,Mali,Kayes,Kenieba,Kouroukoto,2650,5069,2465,5251,RGPH
+69,Mali,Kayes,Kenieba,Sagalo,5001,6728,5228,7560,RGPH
+70,Mali,Kayes,Kenieba,Sitakily,7024,16144,6856,14010,RGPH
+71,Mali,Kayes,Kita,Badia,2890,3487,3005,3650,RGPH
+72,Mali,Kayes,Kita,Bendougouba,7075,5882,7213,6043,RGPH
+73,Mali,Kayes,Kita,Benkadi Founia,3342,4627,3388,4657,RGPH
+74,Mali,Kayes,Kita,Boudofo,1490,2263,1442,2214,RGPH
+75,Mali,Kayes,Kita,Bougarybaya,2889,4831,3027,5254,RGPH
+76,Mali,Kayes,Kita,Dindanko,3383,4927,3317,5020,RGPH
+77,Mali,Kayes,Kita,Djidian,6160,7883,6250,8509,RGPH
+78,Mali,Kayes,Kita,Djougoun,3315,4012,3602,4420,RGPH
+79,Mali,Kayes,Kita,Gadougou 1,8090,12510,8296,12865,RGPH
+80,Mali,Kayes,Kita,Gadougou 2,2314,4506,2354,4765,RGPH
+81,Mali,Kayes,Kita,Guemoukouraba,2882,4816,3400,5313,RGPH
+82,Mali,Kayes,Kita,Kassaro,5885,10673,6033,10933,RGPH
+83,Mali,Kayes,Kita,Kita Commune,15852,24054,16009,24989,RGPH
+84,Mali,Kayes,Kita,Kita Nord,3.00E+03,4.34E+03,2969,4232,RGPH
+85,Mali,Kayes,Kita,Kita Ouest,5774,8199,5967,8563,RGPH
+86,Mali,Kayes,Kita,Kobri,6354,7472,6142,7732,RGPH
+87,Mali,Kayes,Kita,Kokofata,7090,10862,7248,11222,RGPH
+88,Mali,Kayes,Kita,Kotouba,1131,2917,1190,2901,RGPH
+89,Mali,Kayes,Kita,Koulou,2690,5126,2751,5406,RGPH
+90,Mali,Kayes,Kita,Kourounikoto,1613,2799,1634,2706,RGPH
+91,Mali,Kayes,Kita,Madina,6687,6876,6760,7149,RGPH
+92,Mali,Kayes,Kita,Makano,4087,5485,4054,5544,RGPH
+93,Mali,Kayes,Kita,Namala Guimba,4318,5910,4272,6004,RGPH
+94,Mali,Kayes,Kita,Niantanso,1985,2542,2020,2588,RGPH
+95,Mali,Kayes,Kita,Saboula,3805,3031,3258,3153,RGPH
+96,Mali,Kayes,Kita,Sebekoro,9133,16275,9310,16540,RGPH
+97,Mali,Kayes,Kita,Sefeto Nord,3845,5425,4192,6133,RGPH
+98,Mali,Kayes,Kita,Sefeto Ouest,7134,8308,7556,9149,RGPH
+99,Mali,Kayes,Kita,Senko,3870,4115,3943,4166,RGPH
+100,Mali,Kayes,Kita,Sirakoro,4440,5169,4409,5429,RGPH
+101,Mali,Kayes,Kita,Souransan Tomoto,2496,4163,2508,4357,RGPH
+102,Mali,Kayes,Kita,Tambaga,3482,5333,3643,5149,RGPH
+103,Mali,Kayes,Kita,Toukoto,3385,3399,3097,3563,RGPH
+104,Mali,Kayes,Nioro,Baniere Kore,2501,4519,2332,4930,RGPH
+105,Mali,Kayes,Nioro,Diabigue,3773,4492,3790,4916,RGPH
+106,Mali,Kayes,Nioro,Diarra,2745,3424,2910,3713,RGPH
+107,Mali,Kayes,Nioro,Diaye Coura,4682,6556,5144,7161,RGPH
+108,Mali,Kayes,Nioro,Gavinane,5008,7676,5358,8003,RGPH
+109,Mali,Kayes,Nioro,Gogui,4573,6186,5067,6761,RGPH
+110,Mali,Kayes,Nioro,Guetema,3688,4484,3934,4848,RGPH
+111,Mali,Kayes,Nioro,Kadiaba Kadiel,3948,4982,3949,4944,RGPH
+112,Mali,Kayes,Nioro,Korera Kore,6990,9453,7806,9974,RGPH
+113,Mali,Kayes,Nioro,Nioro Commune,10884,17258,11382,16433,RGPH
+114,Mali,Kayes,Nioro,Nioro Tougoune Ranga,5273,6410,4911,6791,RGPH
+115,Mali,Kayes,Nioro,Sandare,8015,12597,8510,13019,RGPH
+116,Mali,Kayes,Nioro,Simbi,6066,9786,6537,10307,RGPH
+117,Mali,Kayes,Nioro,Troungoumbe,4759,5981,5229,6507,RGPH
+118,Mali,Kayes,Nioro,Yerere,5726,6567,6157,6920,RGPH
+119,Mali,Kayes,Nioro,Youri,1913,3351,2148,3765,RGPH
+120,Mali,Kayes,Yelimane,Diafounou Diongaga,3381,4663,3696,5015,RGPH
+121,Mali,Kayes,Yelimane,Diafounou Gory,6704,9659,7457,10591,RGPH
+122,Mali,Kayes,Yelimane,Fanga,2559,3862,2811,4071,RGPH
+123,Mali,Kayes,Yelimane,Gory,3954,6131,4690,6470,RGPH
+124,Mali,Kayes,Yelimane,Guidime,12793,19403,14328,20420,RGPH
+125,Mali,Kayes,Yelimane,Kirane Kaniaga,11119,16863,12610,18034,RGPH
+126,Mali,Kayes,Yelimane,Kremis,3206,5473,3529,5571,RGPH
+127,Mali,Kayes,Yelimane,Marekaffo,1577,2501,1822,2823,RGPH
+128,Mali,Kayes,Yelimane,Soumpou,1661,2364,1698,2489,RGPH
+129,Mali,Kayes,Yelimane,Toya,4131,5953,4777,6691,RGPH
+130,Mali,Kayes,Yelimane,Tringa,4581,5966,5355,6576,RGPH
+131,Mali,Koulikouro,Koulikoro,Dinandougou,7581,10571,7527,10789,RGPH
+132,Mali,Koulikouro,Koulikoro,Doumba,2974,3695,3117,3768,RGPH
+133,Mali,Koulikouro,Koulikoro,Koula,10266,11662,10533,11786,RGPH
+134,Mali,Koulikouro,Koulikoro,Koulikoro Commune,14237,20943,14433,20659,RGPH
+135,Mali,Koulikouro,Koulikoro,Meguetan,8537,12889,8440,12504,RGPH
+136,Mali,Koulikouro,Koulikoro,Nyamina,13362,17904,13697,17881,RGPH
+137,Mali,Koulikouro,Koulikoro,Sirakorola,12940,18038,13103,17954,RGPH
+138,Mali,Koulikouro,Koulikoro,Tienfala,2039,3514,1997,3474,RGPH
+139,Mali,Koulikouro,Koulikoro,Tougouni,4318,6315,4384,6265,RGPH
+140,Mali,Koulikouro,Banamba,Banamba,11755,15851,12178,16029,RGPH
+141,Mali,Koulikouro,Banamba,Boron,15223,18898,15090,19208,RGPH
+142,Mali,Koulikouro,Banamba,Duguwolowula,16204,21658,16210,21368,RGPH
+143,Mali,Koulikouro,Banamba,Kiban,4520,6194,4559,6195,RGPH
+144,Mali,Koulikouro,Banamba,Madina Sacko,8507,12924,8808,13219,RGPH
+145,Mali,Koulikouro,Banamba,Sebete,1503,2015,1588,2045,RGPH
+146,Mali,Koulikouro,Banamba,Toubacoro,5146,7118,5141,7256,RGPH
+147,Mali,Koulikouro,Banamba,Toukoroba,4489,5892,4542,6063,RGPH
+148,Mali,Koulikouro,Dioila,Banco,12011,16039,12585,16940,RGPH
+149,Mali,Koulikouro,Dioila,Benkadi,2998,3811,3035,4088,RGPH
+150,Mali,Koulikouro,Dioila,Binko,6559,9849,6703,10048,RGPH
+151,Mali,Koulikouro,Dioila,Degnekoro,3397,4883,3661,5199,RGPH
+152,Mali,Koulikouro,Dioila,Diebe,3089,4129,3363,4575,RGPH
+153,Mali,Koulikouro,Dioila,Diedougou,2152,17541,2200,18351,RGPH
+154,Mali,Koulikouro,Dioila,Diouman,5422,8003,5472,8277,RGPH
+155,Mali,Koulikouro,Dioila,Dolendougou,4802,6831,4981,7389,RGPH
+156,Mali,Koulikouro,Dioila,Guegneka,13944,23949,13460,24092,RGPH
+157,Mali,Koulikouro,Dioila,Jekafo,2509,3241,2353,3400,RGPH
+158,Mali,Koulikouro,Dioila,Kaladougou,12031,19429,11792,19742,RGPH
+159,Mali,Koulikouro,Dioila,Kemekafo,8479,12253,8486,12181,RGPH
+160,Mali,Koulikouro,Dioila,Kerela,3628,6280,3596,6346,RGPH
+161,Mali,Koulikouro,Dioila,Kilidougou,5855,7578,6190,7930,RGPH
+162,Mali,Koulikouro,Dioila,Massigui,21002,26249,21663,28003,RGPH
+163,Mali,Koulikouro,Dioila,Nangola,6758,9169,6845,9436,RGPH
+164,Mali,Koulikouro,Dioila,N'dlondougou,7048,10326,7052,10667,RGPH
+165,Mali,Koulikouro,Dioila,N'garadougou,5075,7633,5038,7960,RGPH
+166,Mali,Koulikouro,Dioila,N'golobougou,7475,10272,7729,10753,RGPH
+167,Mali,Koulikouro,Dioila,Niantjila,5886,6837,6265,7466,RGPH
+168,Mali,Koulikouro,Dioila,Tenindougou,4959,7681,4910,7725,RGPH
+169,Mali,Koulikouro,Dioila,Wacoro,4867,7441,4892,7559,RGPH
+170,Mali,Koulikouro,Dioila,Zan Coulibaly,5935,9235,5858,9255,RGPH
+171,Mali,Koulikouro,Kangaba,Balan Bakama,2434,3404,2540,3487,RGPH
+172,Mali,Koulikouro,Kangaba,Benkadi,3315,4741,3382,4694,RGPH
+173,Mali,Koulikouro,Kangaba,Kaniogo,6411,8308,6583,8477,RGPH
+174,Mali,Koulikouro,Kangaba,Karan Commune,2755,3134,2914,3242,RGPH
+175,Mali,Koulikouro,Kangaba,Maramandougou,5414,7237,5461,7302,RGPH
+176,Mali,Koulikouro,Kangaba,Minidian,6707,9012,6713,9113,RGPH
+177,Mali,Koulikouro,Kangaba,Narena,4381,6133,4494,6420,RGPH
+178,Mali,Koulikouro,Kangaba,Nouga,4207,5429,4281,5628,RGPH
+179,Mali,Koulikouro,Kangaba,Selefougou,2231,2304,2241,2333,RGPH
+180,Mali,Koulikouro,Kati,Baguineda Camp,14388,26406,13983,25415,RGPH
+181,Mali,Koulikouro,Kati,Bancoumana,9539,11836,9599,11741,RGPH
+182,Mali,Koulikouro,Kati,Bossofala,7931,8437,7726,8461,RGPH
+183,Mali,Koulikouro,Kati,Bougoula,4058,5418,4136,5363,RGPH
+184,Mali,Koulikouro,Kati,Daban,4342,5582,4279,5577,RGPH
+185,Mali,Koulikouro,Kati,Diago,3002,4687,3008,4725,RGPH
+186,Mali,Koulikouro,Kati,Dialakoroba,8314,11533,8386,11302,RGPH
+187,Mali,Koulikouro,Kati,Dialakorodji,6386,23836,6552,23650,RGPH
+188,Mali,Koulikouro,Kati,Diedougou,4214,5140,4410,5372,RGPH
+189,Mali,Koulikouro,Kati,Dio Gare,4147,6219,4239,6523,RGPH
+190,Mali,Koulikouro,Kati,Dogodouman,2129,5909,2147,5875,RGPH
+191,Mali,Koulikouro,Kati,Dombila,5128,6561,5091,6891,RGPH
+192,Mali,Koulikouro,Kati,Doubabougou,3007,4869,3148,4986,RGPH
+193,Mali,Koulikouro,Kati,Kalabancoro,17982,81018,17600,80864,RGPH
+194,Mali,Koulikouro,Kati,Kalifabougou,5513,5587,5588,6034,RGPH
+195,Mali,Koulikouro,Kati,Kambila,4884,7599,4900,7766,RGPH
+196,Mali,Koulikouro,Kati,Kati Commune,25700,41982,27014,42518,RGPH
+197,Mali,Koulikouro,Kati,Kourouba,2488,2885,2472,2944,RGPH
+198,Mali,Koulikouro,Kati,Mande,15470,28734,15107,28615,RGPH
+199,Mali,Koulikouro,Kati,Moribabougou,2638,13457,2739,13602,RGPH
+200,Mali,Koulikouro,Kati,Mountougoula,5127,7996,5131,8232,RGPH
+201,Mali,Koulikouro,Kati,N'gabacoro,3120,9254,2875,9009,RGPH
+202,Mali,Koulikouro,Kati,N'gouraba,6279,8842,6140,8853,RGPH
+203,Mali,Koulikouro,Kati,Niagadina,4186,5056,4312,5386,RGPH
+204,Mali,Koulikouro,Kati,Nioumakana,3045,4075,3199,4351,RGPH
+205,Mali,Koulikouro,Kati,N'tjiba,8608,10653,8664,11139,RGPH
+206,Mali,Koulikouro,Kati,Ouelessebougou,18057,24694,18141,25345,RGPH
+207,Mali,Koulikouro,Kati,Safo,3916,7443,4007,7238,RGPH
+208,Mali,Koulikouro,Kati,Sanankoro Djitoumou,11165,6594,11086,6733,RGPH
+209,Mali,Koulikouro,Kati,Sanankoroba,5012,18718,5130,18643,RGPH
+210,Mali,Koulikouro,Kati,Sangarebougou,4026,24021,4020,23171,RGPH
+211,Mali,Koulikouro,Kati,Siby,9033,12140,9117,12115,RGPH
+212,Mali,Koulikouro,Kati,Sobra,3359,4817,3497,4987,RGPH
+213,Mali,Koulikouro,Kati,Tiakadougou Dialakoro,2673,3819,2696,3879,RGPH
+214,Mali,Koulikouro,Kati,Tiele,7419,9088,7452,9406,RGPH
+215,Mali,Koulikouro,Kati,Yelekebougou,5242,6228,5126,6552,RGPH
+216,Mali,Koulikouro,Banamba,Ben Kadi,5855,4554,5935,4518,RGPH
+217,Mali,Koulikouro,Kolokani,Didieni,12348,16145,13073,16949,RGPH
+218,Mali,Koulikouro,Kolokani,Guihoyo,7313,10536,7604,10995,RGPH
+219,Mali,Koulikouro,Kolokani,Kolokani,16332,21592,17226,22628,RGPH
+220,Mali,Koulikouro,Kolokani,Massantola,14148,17380,14953,17983,RGPH
+221,Mali,Koulikouro,Kolokani,Nonkon,7157,8834,7586,9297,RGPH
+222,Mali,Koulikouro,Kolokani,Nossombougou,8480,10105,8893,10640,RGPH
+223,Mali,Koulikouro,Kolokani,Ouolodo,4522,4923,4806,5039,RGPH
+224,Mali,Koulikouro,Kolokani,Sagabala,7394,8616,7864,9091,RGPH
+225,Mali,Koulikouro,Kolokani,Sebecoro 1,7279,9322,7774,9723,RGPH
+226,Mali,Koulikouro,Kolokani,Tioribougou,4913,6203,5240,6499,RGPH
+227,Mali,Koulikouro,Nara,Allahina,3943,5574,4178,6018,RGPH
+228,Mali,Koulikouro,Nara,Dabo,3225,5531,3416,6093,RGPH
+229,Mali,Koulikouro,Nara,Dilly,14802,19296,13880,19153,RGPH
+230,Mali,Koulikouro,Nara,Dogofry,11591,16892,12786,17763,RGPH
+231,Mali,Koulikouro,Nara,Fallou,10329,14841,11148,15194,RGPH
+232,Mali,Koulikouro,Nara,Gueneibe,3046,4421,3211,4330,RGPH
+233,Mali,Koulikouro,Nara,Guire,4862,10037,4712,9838,RGPH
+234,Mali,Koulikouro,Nara,Koronga,3996,5535,3921,5476,RGPH
+235,Mali,Koulikouro,Nara,Nara,9572,14581,10221,15021,RGPH
+236,Mali,Koulikouro,Nara,Niamana,10483,13830,10722,14250,RGPH
+237,Mali,Koulikouro,Nara,Ouagadou,6241,8902,6498,9328,RGPH
+238,Mali,Sikasso,Kadiolo,Diou,1386,1744,1442,1760,RGPH
+239,Mali,Sikasso,Kadiolo,Dioumatene,3319,4497,3301,4645,RGPH
+240,Mali,Sikasso,Kadiolo,Fourou,10797,21937,10492,19606,RGPH
+241,Mali,Sikasso,Kadiolo,Kadiolo,15398,25394,15894,26622,RGPH
+242,Mali,Sikasso,Kadiolo,Kai,3313,3839,3643,4346,RGPH
+243,Mali,Sikasso,Kadiolo,Loulouni,13722,19863,14396,21223,RGPH
+244,Mali,Sikasso,Kadiolo,Misseni,6148,28443,6528,19230,RGPH
+245,Mali,Sikasso,Kadiolo,Nimbougou,2256,4001,2349,4422,RGPH
+246,Mali,Sikasso,Kadiolo,Zegoua,6838,16480,7138,16638,RGPH
+247,Mali,Sikasso,Yorosso,Boura,7416,11055,7430,11160,RGPH
+248,Mali,Sikasso,Yorosso,Karangana,6352,8225,6523,8793,RGPH
+249,Mali,Sikasso,Yorosso,Kiffosso 1,7577,9496,7925,9942,RGPH
+250,Mali,Sikasso,Yorosso,Koumbia,7713,12625,7561,12810,RGPH
+251,Mali,Sikasso,Yorosso,Koury,16748,26842,16857,27448,RGPH
+252,Mali,Sikasso,Yorosso,Mahou,5978,8191,5947,8056,RGPH
+253,Mali,Sikasso,Yorosso,Menamba 1,3332,5231,3507,5290,RGPH
+254,Mali,Sikasso,Yorosso,Ourikela,8169,11657,8187,12177,RGPH
+255,Mali,Sikasso,Yorosso,Yorosso,6886,11138,6913,11470,RGPH
+256,Mali,Sikasso,Kolondieba,Bougoula,1736,3054,1980,3227,RGPH
+257,Mali,Sikasso,Kolondieba,Fakola,6933,13955,7735,14485,RGPH
+258,Mali,Sikasso,Kolondieba,Farako,4964,7363,5406,7410,RGPH
+259,Mali,Sikasso,Kolondieba,Kadiana,7650,9692,8095,10153,RGPH
+260,Mali,Sikasso,Kolondieba,Kebila,11846,15661,12950,17429,RGPH
+261,Mali,Sikasso,Kolondieba,Kolondieba,18259,25976,19686,27404,RGPH
+262,Mali,Sikasso,Kolondieba,Kolosso,2743,3120,2648,3080,RGPH
+263,Mali,Sikasso,Kolondieba,Mena,2424,2950,2579,3207,RGPH
+264,Mali,Sikasso,Kolondieba,Nangalasso,4207,3254,4422,3618,RGPH
+265,Mali,Sikasso,Kolondieba,N'golodiana,2526,5654,2859,6030,RGPH
+266,Mali,Sikasso,Kolondieba,Tiongui,3240,4420,3333,4773,RGPH
+267,Mali,Sikasso,Kolondieba,Tousseguela,1803,2717,1837,2830,RGPH
+268,Mali,Sikasso,Yanfolila,Baya,7222,12152,7240,12312,RGPH
+269,Mali,Sikasso,Yanfolila,Bolo-Fouta,1748,2164,1813,2264,RGPH
+270,Mali,Sikasso,Bougouni,Syen Toula,3337,4694,3431,4761,RGPH
+271,Mali,Sikasso,Yanfolila,Djallon-Foula,4961,5596,5213,5601,RGPH
+272,Mali,Sikasso,Yanfolila,Djiguiya De Koloni,2195,3398,2362,3466,RGPH
+273,Mali,Sikasso,Yanfolila,Gouanan,9647,6576,9543,6852,RGPH
+274,Mali,Sikasso,Yanfolila,Gouandiaka,4019,12297,3918,12822,RGPH
+275,Mali,Sikasso,Yanfolila,Koussan,3711,5118,3823,5073,RGPH
+276,Mali,Sikasso,Yanfolila,Sankarani,3996,3660,4052,3903,RGPH
+277,Mali,Sikasso,Yanfolila,Sere Moussa Ani Samo,8119,9320,8039,9464,RGPH
+278,Mali,Sikasso,Yanfolila,Tagandougou,6983,7524,7118,7587,RGPH
+279,Mali,Sikasso,Yanfolila,Wassoulou Balle,18574,25532,18924,25941,RGPH
+280,Mali,Sikasso,Yanfolila,Yallankoro-Soloba,4710,5410,5042,5866,RGPH
+281,Mali,Sikasso,Koutiala,Diedougou,13100,2698,13173,2819,RGPH
+282,Mali,Sikasso,Koutiala,Diouradougou Kafo,4146,4552,4126,4699,RGPH
+283,Mali,Sikasso,Koutiala,Fagui,3775,5325,3846,5624,RGPH
+284,Mali,Sikasso,Koutiala,Fakolo,4280,5476,4406,5778,RGPH
+285,Mali,Sikasso,Koutiala,Gouadji Kao,3463,5150,3618,5564,RGPH
+286,Mali,Sikasso,Koutiala,Gouadie Sougouna,9204,13100,9559,13147,RGPH
+287,Mali,Sikasso,Koutiala,Kafo Faboli,5383,6817,5740,7389,RGPH
+288,Mali,Sikasso,Koutiala,Kapala,4328,4089,4261,4204,RGPH
+289,Mali,Sikasso,Koutiala,Karagouana Malle,2830,3637,2882,3722,RGPH
+290,Mali,Sikasso,Koutiala,Kolonigue,7296,11169,7385,11791,RGPH
+291,Mali,Sikasso,Koutiala,Konina,4850,6769,4766,7087,RGPH
+292,Mali,Sikasso,Koutiala,Koningue,5222,7821,5231,8296,RGPH
+293,Mali,Sikasso,Koutiala,Konseguela,10258,14548,10661,15536,RGPH
+294,Mali,Sikasso,Koutiala,Koromo,2181,4574,2237,4793,RGPH
+295,Mali,Sikasso,Koutiala,Kouniana,1111,2267,1075,2378,RGPH
+296,Mali,Sikasso,Koutiala,Koutiala Commune,39152,70905,37762,70539,RGPH
+297,Mali,Sikasso,Koutiala,Logouana,2603,4069,2928,4332,RGPH
+298,Mali,Sikasso,Koutiala,Miena,5214,16966,5609,18365,RGPH
+299,Mali,Sikasso,Koutiala,M'pessoba,14255,6216,14999,6818,RGPH
+300,Mali,Sikasso,Koutiala,Nafanga,3097,9721,3051,9854,RGPH
+301,Mali,Sikasso,Koutiala,Nampe,2851,2979,2852,3224,RGPH
+302,Mali,Sikasso,Koutiala,N'golonianasso,6344,4290,6651,4504,RGPH
+303,Mali,Sikasso,Koutiala,N'goutjina,3809,2380,4008,2446,RGPH
+304,Mali,Sikasso,Koutiala,N'tossoni,2609,9544,2817,10258,RGPH
+305,Mali,Sikasso,Koutiala,Sincina,5310,9371,5335,9675,RGPH
+306,Mali,Sikasso,Koutiala,Sinkolo,3696,6057,3699,6358,RGPH
+307,Mali,Sikasso,Koutiala,Songo Doubacoro,4522,7245,4700,7515,RGPH
+308,Mali,Sikasso,Koutiala,Songoua,2521,3030,2596,3169,RGPH
+309,Mali,Sikasso,Koutiala,Sorobasso,2036,2800,2079,2916,RGPH
+310,Mali,Sikasso,Koutiala,Tao,2293,2804,2394,3143,RGPH
+311,Mali,Sikasso,Koutiala,Yognogo,1942,2397,1953,2371,RGPH
+312,Mali,Sikasso,Koutiala,Zanfigue,5288,7492,5283,7747,RGPH
+313,Mali,Sikasso,Koutiala,Zangasso,6704,9391,6759,10105,RGPH
+314,Mali,Sikasso,Koutiala,Zanina,2909,3619,2915,3806,RGPH
+315,Mali,Sikasso,Koutiala,Zebala,7280,8293,7574,8997,RGPH
+316,Mali,Sikasso,Bougouni,Bladie-Tiemala,966,2186,1059,2418,RGPH
+317,Mali,Sikasso,Bougouni,Bougouni Commune,19007,29581,18353,28957,RGPH
+318,Mali,Sikasso,Bougouni,Danou,4839,6562,5219,6902,RGPH
+319,Mali,Sikasso,Bougouni,Debelin,2551,4092,2584,4189,RGPH
+320,Mali,Sikasso,Bougouni,Defina,3381,3828,3782,4191,RGPH
+321,Mali,Sikasso,Bougouni,Dogo,12534,16769,13033,17385,RGPH
+322,Mali,Sikasso,Bougouni,Domba,4479,6808,4468,7039,RGPH
+323,Mali,Sikasso,Bougouni,Faradiele,1084,1350,1136,1339,RGPH
+324,Mali,Sikasso,Bougouni,Faragouaran,3867,5066,4093,5459,RGPH
+325,Mali,Sikasso,Bougouni,Garalo,9906,15732,10488,17028,RGPH
+326,Mali,Sikasso,Bougouni,Keleya,8655,10022,8911,10507,RGPH
+327,Mali,Sikasso,Bougouni,Kokele,2496,3247,2553,3230,RGPH
+328,Mali,Sikasso,Bougouni,Kola,1363,2240,1361,2248,RGPH
+329,Mali,Sikasso,Bougouni,Koumantou,16714,24828,17273,26381,RGPH
+330,Mali,Sikasso,Bougouni,Kouroulamini,2192,3068,2407,3177,RGPH
+331,Mali,Sikasso,Bougouni,Meridiela,4516,6818,4621,7040,RGPH
+332,Mali,Sikasso,Bougouni,Ouroun,2107,2747,2158,2798,RGPH
+333,Mali,Sikasso,Bougouni,Sanso,5481,9932,5459,9902,RGPH
+334,Mali,Sikasso,Bougouni,Sibirila,8435,15109,8882,15728,RGPH
+335,Mali,Sikasso,Bougouni,Sido,6297,10269,6624,10553,RGPH
+336,Mali,Sikasso,Bougouni,Tiemala Banimonotie,5727,8232,5790,8541,RGPH
+337,Mali,Sikasso,Bougouni,Wola,4689,5623,4568,5759,RGPH
+338,Mali,Sikasso,Bougouni,Yinindougou,2184,4485,2286,4481,RGPH
+339,Mali,Sikasso,Bougouni,Yiridougou,3239,4475,3621,5003,RGPH
+340,Mali,Sikasso,Bougouni,Zantiebougou,11509,17667,11918,18100,RGPH
+341,Mali,Sikasso,Sikasso,Benkadi,2953,3875,2968,4089,RGPH
+342,Mali,Sikasso,Sikasso,Blendio,5035,5857,5295,6398,RGPH
+343,Mali,Sikasso,Sikasso,Danderesso,13130,17956,13135,18400,RGPH
+344,Mali,Sikasso,Sikasso,Dembela,5105,6134,5083,6369,RGPH
+345,Mali,Sikasso,Sikasso,Dialakoro,1824,2634,2043,2842,RGPH
+346,Mali,Sikasso,Sikasso,Diomatene,1491,2149,1558,2314,RGPH
+347,Mali,Sikasso,Sikasso,Dogoni,4958,6452,5269,6976,RGPH
+348,Mali,Sikasso,Sikasso,Doumanaba,5022,6565,5560,7297,RGPH
+349,Mali,Sikasso,Sikasso,Fama,3478,5275,3658,5489,RGPH
+350,Mali,Sikasso,Sikasso,Farakala,2765,3676,3244,3912,RGPH
+351,Mali,Sikasso,Sikasso,Finkolo,5067,6988,5039,7191,RGPH
+352,Mali,Sikasso,Sikasso,Finkolo Ganadougou,6066,8635,6023,8698,RGPH
+353,Mali,Sikasso,Sikasso,Gongasso,3140,4215,3447,4591,RGPH
+354,Mali,Sikasso,Sikasso,Kabarasso,3053,4043,3308,4443,RGPH
+355,Mali,Sikasso,Sikasso,Kaboila,10165,13200,10903,14098,RGPH
+356,Mali,Sikasso,Sikasso,Kafouziela,2274,3108,2437,3304,RGPH
+357,Mali,Sikasso,Sikasso,Kapala,2645,5040,2569,5245,RGPH
+358,Mali,Sikasso,Sikasso,Kapolondougou,5593,6990,6003,7679,RGPH
+359,Mali,Sikasso,Sikasso,Kignan,9714,12809,9399,13154,RGPH
+360,Mali,Sikasso,Sikasso,Klela,9501,12199,9766,12671,RGPH
+361,Mali,Sikasso,Sikasso,Kofan,3892,4720,4372,5578,RGPH
+362,Mali,Sikasso,Sikasso,Kolokoba,2785,3548,3234,4155,RGPH
+363,Mali,Sikasso,Sikasso,Koumankou,2782,4457,2827,4498,RGPH
+364,Mali,Sikasso,Sikasso,Kouoro,5548,7532,5234,7567,RGPH
+365,Mali,Sikasso,Sikasso,Kourouma,4927,7138,5215,7603,RGPH
+366,Mali,Sikasso,Sikasso,Lobougoula,11517,14790,12786,16428,RGPH
+367,Mali,Sikasso,Sikasso,Miniko,1164,1678,1100,1615,RGPH
+368,Mali,Sikasso,Sikasso,Miria,3728,4649,4070,5340,RGPH
+369,Mali,Sikasso,Sikasso,Missirikoro,1671,2146,1731,2259,RGPH
+370,Mali,Sikasso,Sikasso,Sokourani Missirikoro,1294,1632,1231,1740,RGPH
+371,Mali,Sikasso,Sikasso,Natien,2377,18507,2616,18870,RGPH
+372,Mali,Sikasso,Sikasso,Niena,14611,4958,14393,5086,RGPH
+373,Mali,Sikasso,Sikasso,Nongo-Souala,3253,1920,3350,1914,RGPH
+374,Mali,Sikasso,Sikasso,N'tjikouna,1240,3283,1228,3634,RGPH
+375,Mali,Sikasso,Sikasso,Pimperna,3158,4482,3388,4826,RGPH
+376,Mali,Sikasso,Sikasso,Sanzana,3879,5479,4174,5820,RGPH
+377,Mali,Sikasso,Sikasso,Sikasso Commune,68410,114171,66364,112447,RGPH
+378,Mali,Sikasso,Sikasso,Tella,2839,3698,2836,3909,RGPH
+379,Mali,Sikasso,Sikasso,Tiankadi,1607,2230,1811,2478,RGPH
+380,Mali,Sikasso,Sikasso,Wateni,2566,3097,2586,3110,RGPH
+381,Mali,Sikasso,Sikasso,Zanferebougou,1928,2237,2020,2416,RGPH
+382,Mali,Sikasso,Sikasso,Zangaradougou,1985,3537,1960,3724,RGPH
+383,Mali,Sikasso,Sikasso,Zaniena,2999,3523,2905,3595,RGPH
+384,Mali,Segou,Baroueli,Baraoueli,5108,6446,5267,6483,RGPH
+385,Mali,Segou,Baroueli,Boidie,8674,10983,8706,11073,RGPH
+386,Mali,Segou,Baroueli,Dougoufie,3773,4541,3756,4719,RGPH
+387,Mali,Segou,Baroueli,Gouendo,4120,5212,4360,5376,RGPH
+388,Mali,Segou,Baroueli,Kalake,6301,7973,6559,8536,RGPH
+389,Mali,Segou,Baroueli,Konobougou,13038,18369,13332,18867,RGPH
+390,Mali,Segou,Segou,N'gara,6009,5693,6405,6013,RGPH
+391,Mali,Segou,Baroueli,N'gassola,2206,2829,2198,2831,RGPH
+392,Mali,Segou,Segou,Samine,3972,6076,3999,6244,RGPH
+393,Mali,Segou,Baroueli,Sanando,11910,16040,11920,16603,RGPH
+394,Mali,Segou,Baroueli,Somo,3291,3357,3327,3518,RGPH
+395,Mali,Segou,Baroueli,Tamani,6617,6307,6662,6752,RGPH
+396,Mali,Segou,Baroueli,Tesserla,2199,3054,2251,3064,RGPH
+397,Mali,Segou,Segou,Baguindabougou,4033,5154,4098,5237,RGPH
+398,Mali,Segou,Segou,Bellen,2059,3514,2117,3401,RGPH
+399,Mali,Segou,Segou,Boussin,4175,5534,4321,5970,RGPH
+400,Mali,Segou,Segou,Cinzana,14443,17974,14524,18099,RGPH
+401,Mali,Segou,Segou,Diedougou,6559,8238,6425,8291,RGPH
+402,Mali,Segou,Segou,Diganibougou,4818,7781,4868,7839,RGPH
+403,Mali,Segou,Segou,Dioro,18194,22715,18686,23906,RGPH
+404,Mali,Segou,Segou,Diouna,12426,16044,12532,16505,RGPH
+405,Mali,Segou,Segou,Dougabougou,9903,14039,9575,13912,RGPH
+406,Mali,Segou,Segou,Farako,4817,5686,5168,6085,RGPH
+407,Mali,Segou,Segou,Farakou Massa,5065,7090,5311,7620,RGPH
+408,Mali,Segou,Segou,Fatine,9891,12362,10256,12782,RGPH
+409,Mali,Segou,Segou,Kamiandougou,5897,7557,5938,7620,RGPH
+410,Mali,Segou,Segou,Katiena,10552,16982,10605,17130,RGPH
+411,Mali,Segou,Segou,Konodimini,6488,7802,6549,8111,RGPH
+412,Mali,Segou,Segou,Markala,18024,22577,18279,23349,RGPH
+413,Mali,Segou,Segou,Massala,2701,3619,2823,3685,RGPH
+414,Mali,Segou,Segou,N'koumandougou,4731,6828,4820,6828,RGPH
+415,Mali,Segou,Segou,Pelengana,9869,27796,10094,28051,RGPH
+416,Mali,Segou,Segou,Sakoiba,6272,9078,6199,9208,RGPH
+417,Mali,Segou,Segou,Sama Foulala,4755,3401,4929,3631,RGPH
+418,Mali,Segou,Segou,Sansanding,7467,11661,7678,11738,RGPH
+419,Mali,Segou,Segou,Sebougou,4710,7930,5010,8320,RGPH
+420,Mali,Segou,Segou,Segou Commune,53042,66819,52263,66682,RGPH
+421,Mali,Segou,Segou,Sibila,6517,9216,7139,9889,RGPH
+422,Mali,Segou,Segou,Soignebougou,1126,1547,1142,1552,RGPH
+423,Mali,Segou,Segou,Souba,7030,9872,7156,10178,RGPH
+424,Mali,Segou,Segou,Togou,4124,5345,4434,5716,RGPH
+425,Mali,Segou,Bla,Beguene,4802,5799,5070,6101,RGPH
+426,Mali,Segou,Bla,Bla,13526,22139,14042,23335,RGPH
+427,Mali,Segou,Bla,Diaramana,7472,9650,7763,10403,RGPH
+428,Mali,Segou,Bla,Diena,3362,4740,3329,4762,RGPH
+429,Mali,Segou,Bla,Dougouolo,3681,4230,3797,4481,RGPH
+430,Mali,Segou,Bla,Falo,13039,20313,13267,20831,RGPH
+431,Mali,Segou,Bla,Fani,5194,6709,5374,7112,RGPH
+432,Mali,Segou,Bla,Kazangasso,3132,2868,3320,3133,RGPH
+433,Mali,Segou,Bla,Kemeni,4960,6524,5116,6898,RGPH
+434,Mali,Segou,Bla,Korodougou,4169,5447,4236,5889,RGPH
+435,Mali,Segou,Bla,Koulandougou,1730,2328,1772,2382,RGPH
+436,Mali,Segou,Bla,Niala,4020,4947,4178,5315,RGPH
+437,Mali,Sikasso,Koutiala,Niantaga,1803,3231,1877,3511,RGPH
+438,Mali,Segou,Bla,Samabogo,3135,6338,3322,6872,RGPH
+439,Mali,Segou,Bla,Somasso,4084,5348,4344,5600,RGPH
+440,Mali,Segou,Bla,Tiemena,3866,5356,4090,5813,RGPH
+441,Mali,Segou,Bla,Touna,9830,14813,10344,15586,RGPH
+442,Mali,Segou,Bla,Yangasso,7758,10651,7944,10965,RGPH
+443,Mali,Segou,San,Baramandougou,16186,4510,15759,4639,RGPH
+444,Mali,Segou,San,Dah,5887,6436,5972,6499,RGPH
+445,Mali,Segou,San,Diakourouna,3424,5768,3383,5931,RGPH
+446,Mali,Segou,San,Dieli,6195,6813,6241,7171,RGPH
+447,Mali,Segou,San,Djeguena,2086,1953,2077,2086,RGPH
+448,Mali,Segou,San,Fion,2627,3195,2813,3309,RGPH
+449,Mali,Segou,San,Kaniegue,3184,3585,3278,3535,RGPH
+450,Mali,Segou,San,Karaba,2967,4285,3044,4406,RGPH
+451,Mali,Segou,San,Kassorola,6700,8134,6649,8208,RGPH
+452,Mali,Segou,San,Kava,6275,9079,6203,9277,RGPH
+453,Mali,Segou,San,Moribila,4379,5646,4563,5898,RGPH
+454,Mali,Segou,San,N'goa,3741,4527,3851,4655,RGPH
+455,Mali,Segou,San,Niamana,2492,6422,2515,6750,RGPH
+456,Mali,Segou,San,Niasso,5200,5067,5241,5132,RGPH
+457,Mali,Segou,San,N'torosso,4134,4783,4238,4800,RGPH
+458,Mali,Segou,San,Ouolon,4672,6653,4599,6660,RGPH
+459,Mali,Segou,San,San Commune,23277,33540,23354,33427,RGPH
+460,Mali,Segou,San,Siadougou,6004,8896,6139,8848,RGPH
+461,Mali,Segou,San,Somo,1856,1853,1904,1891,RGPH
+462,Mali,Segou,San,Sourountouna,5003,6142,5016,6229,RGPH
+463,Mali,Segou,San,Sy,4619,6371,4675,6185,RGPH
+464,Mali,Segou,San,Tene,7370,10211,7520,10447,RGPH
+465,Mali,Segou,San,Teneni,3553,3461,3543,3539,RGPH
+466,Mali,Segou,San,Tourakolomba,2506,3934,2487,3943,RGPH
+467,Mali,Segou,San,Waki,3076,4429,3054,4455,RGPH
+468,Mali,Segou,Niono,Diabaly,10076,17222,9955,17102,RGPH
+469,Mali,Segou,Niono,Dogofry,10359,16904,10521,17109,RGPH
+470,Mali,Segou,Niono,Kala Siguida,7184,10582,7308,10761,RGPH
+471,Mali,Segou,Niono,Mariko,8544,11795,8365,11518,RGPH
+472,Mali,Segou,Niono,Nampalari,3054,5571,2996,5533,RGPH
+473,Mali,Segou,Niono,Niono,26868,40469,27383,41174,RGPH
+474,Mali,Segou,Niono,Pogo,3866,8143,3621,8182,RGPH
+475,Mali,Segou,Niono,Siribala,10357,19101,10209,18665,RGPH
+476,Mali,Segou,Niono,Sirifila Boundy,12865,16195,13020,16720,RGPH
+477,Mali,Segou,Niono,Sokolo,7059,12521,6974,12528,RGPH
+478,Mali,Segou,Niono,Toridaga Ko,7633,14351,8100,15415,RGPH
+479,Mali,Segou,Niono,Yeredon Saniona,5866,8521,6081,8789,RGPH
+480,Mali,Segou,Tominian,Benena,3279,9039,3358,8893,RGPH
+481,Mali,Segou,Tominian,Diora,6298,8372,6065,7633,RGPH
+482,Mali,Segou,Tominian,Fangasso,9639,11871,9662,11944,RGPH
+483,Mali,Segou,Tominian,Koula,7530,8905,7720,9184,RGPH
+484,Mali,Segou,Tominian,Lanfiala,2847,4646,2908,4795,RGPH
+485,Mali,Segou,Tominian,Mafoune,8446,11600,8644,11683,RGPH
+486,Mali,Segou,Tominian,Mandiakuy,7945,10808,7818,10279,RGPH
+487,Mali,Segou,Tominian,Ouan,3775,4509,3862,4599,RGPH
+488,Mali,Segou,Tominian,Sanekuy,6217,8129,5927,7605,RGPH
+489,Mali,Segou,Tominian,Timissa,4951,8757,4851,8823,RGPH
+490,Mali,Segou,Tominian,Tominian,9444,12520,9598,12533,RGPH
+491,Mali,Segou,Tominian,Yasso,5236,7021,4975,6809,RGPH
+492,Mali,Segou,Macina,Boky Were,5451,7745,5365,7657,RGPH
+493,Mali,Segou,Macina,Folomana,3237,4201,3443,4210,RGPH
+494,Mali,Segou,Macina,Kokry Centre,5669,8781,5962,8703,RGPH
+495,Mali,Segou,Macina,Kolongo,11336,16552,11638,17622,RGPH
+496,Mali,Segou,Macina,Macina,11406,17721,12044,18551,RGPH
+497,Mali,Segou,Macina,Matomo,5207,7394,5378,7633,RGPH
+498,Mali,Segou,Macina,Monimpebougou,11250,16696,11605,17258,RGPH
+499,Mali,Segou,Macina,Saloba,13771,17041,14079,17851,RGPH
+500,Mali,Segou,Macina,Sana,9399,11432,9930,11910,RGPH
+501,Mali,Segou,Macina,Souleye,3481,4747,3754,5120,RGPH
+502,Mali,Segou,Macina,Tongue,2684,3542,2764,3710,RGPH
+503,Mali,Mopti,Mopti,Bassirou,639,825,730,893,RGPH
+504,Mali,Mopti,Mopti,Borondougou,3595,3945,3639,4125,RGPH
+505,Mali,Mopti,Mopti,Dialloube,10245,15212,10459,15736,RGPH
+506,Mali,Mopti,Mopti,Fatoma,5561,7140,5891,7770,RGPH
+507,Mali,Mopti,Mopti,Konna,13343,18308,13384,18482,RGPH
+508,Mali,Mopti,Mopti,Korombana,9332,14516,9881,15225,RGPH
+509,Mali,Mopti,Mopti,Koubaye,2456,3289,2557,3282,RGPH
+510,Mali,Mopti,Mopti,Kounari,6320,7539,6334,7948,RGPH
+511,Mali,Mopti,Mopti,Mopti Commune,39820,60080,40652,60706,RGPH
+512,Mali,Mopti,Mopti,Ouro Modi,1501,1566,1648,1762,RGPH
+513,Mali,Mopti,Mopti,Ouroube Doude,5230,6180,5343,6044,RGPH
+514,Mali,Mopti,Mopti,Sio,9048,11921,9334,12209,RGPH
+515,Mali,Mopti,Mopti,Socoura,12038,18803,12216,18180,RGPH
+516,Mali,Mopti,Mopti,Soye,8880,10760,8841,10463,RGPH
+517,Mali,Mopti,Bandiagara,Bandiagara Commune,5818,8847,5681,8319,RGPH
+518,Mali,Mopti,Bandiagara,Bara Sara,3497,7541,3514,7492,RGPH
+519,Mali,Mopti,Bandiagara,Borko,3114,3354,3344,3677,RGPH
+520,Mali,Mopti,Bandiagara,Dandoli,3518,4670,3682,4909,RGPH
+521,Mali,Mopti,Bandiagara,Diamnati,5073,6314,5389,6834,RGPH
+522,Mali,Mopti,Bandiagara,Dogani Bere,1563,2125,1696,2294,RGPH
+523,Mali,Mopti,Bandiagara,Doucoumbo,7288,9906,7697,10929,RGPH
+524,Mali,Mopti,Bandiagara,Dourou,8316,9666,8347,9858,RGPH
+525,Mali,Mopti,Koro,Kassa,6551,8996,6655,9905,RGPH
+526,Mali,Mopti,Bandiagara,Kende,2044,1805,2273,1921,RGPH
+527,Mali,Mopti,Bandiagara,Kendie,8999,12153,9594,13329,RGPH
+528,Mali,Mopti,Bandiagara,Lowol Gueou,2775,4527,2735,4430,RGPH
+529,Mali,Mopti,Bandiagara,Metoumou,5191,6394,5842,7622,RGPH
+530,Mali,Mopti,Bandiagara,Ondougou,2137,2585,2397,3072,RGPH
+531,Mali,Mopti,Bandiagara,Pelou,1712,2060,1769,2287,RGPH
+532,Mali,Mopti,Bandiagara,Pignari,4475,7740,4414,8323,RGPH
+533,Mali,Mopti,Bandiagara,Pignari Bana,8930,14464,9365,15615,RGPH
+534,Mali,Mopti,Bandiagara,Sangha,11928,15033,12492,15765,RGPH
+535,Mali,Mopti,Bandiagara,Segue Ire,5248,6762,5939,8099,RGPH
+536,Mali,Mopti,Bandiagara,Soroly,2685,3458,3053,3838,RGPH
+537,Mali,Mopti,Bandiagara,Timiri,8951,13628,8961,14124,RGPH
+538,Mali,Mopti,Bandiagara,Wadouba,10217,13382,10841,14477,RGPH
+539,Mali,Mopti,Bankass,Bankass,11551,15260,11826,15216,RGPH
+540,Mali,Mopti,Bankass,Baye,5375,7196,5580,7453,RGPH
+541,Mali,Mopti,Bankass,Diallassagou,8374,11256,8043,11453,RGPH
+542,Mali,Mopti,Bankass,Dimbal Habe,6925,8686,6777,8996,RGPH
+543,Mali,Mopti,Bankass,Kani Bozon,5329,6712,5193,6370,RGPH
+544,Mali,Mopti,Bankass,Koulogon Habe,6327,7146,6464,7365,RGPH
+545,Mali,Mopti,Bankass,Lessagou Habe,5967,7811,5891,7741,RGPH
+546,Mali,Mopti,Bankass,Ouonkoro,8628,11559,8533,11143,RGPH
+547,Mali,Mopti,Bankass,Segue,8391,10835,8543,11232,RGPH
+548,Mali,Mopti,Bankass,Sokoura,14002,19415,13455,19150,RGPH
+549,Mali,Mopti,Bankass,Soubala,3621,5278,3740,5406,RGPH
+550,Mali,Mopti,Bankass,Tori,5903,8819,5707,9192,RGPH
+551,Mali,Mopti,Youwarou,Bimbere Tama,2775,3990,2975,4249,RGPH
+552,Mali,Mopti,Youwarou,Deboye,8071,11537,8158,11615,RGPH
+553,Mali,Mopti,Youwarou,Dirma,3373,4045,3380,4073,RGPH
+554,Mali,Mopti,Youwarou,Dongo,5189,5687,6066,5789,RGPH
+555,Mali,Mopti,Youwarou,Farimake,3381,6035,3517,5881,RGPH
+556,Mali,Mopti,Youwarou,N'dodjiga,8685,11127,9164,11182,RGPH
+557,Mali,Mopti,Youwarou,Youwarou,8339,11577,8890,11736,RGPH
+558,Mali,Mopti,Djenne,Dandougou Fakala,4036,4688,4445,4722,RGPH
+559,Mali,Mopti,Djenne,Derrary,2778,3343,2993,3619,RGPH
+560,Mali,Mopti,Djenne,Djenne Commune,9700,13320,9858,12947,RGPH
+561,Mali,Mopti,Djenne,Fakala,12464,16709,12713,17005,RGPH
+562,Mali,Mopti,Djenne,Femaye,6281,7990,6762,8334,RGPH
+563,Mali,Mopti,Djenne,Kewa,6690,10834,7145,11191,RGPH
+564,Mali,Mopti,Djenne,Madiama,4460,5735,4345,6098,RGPH
+565,Mali,Mopti,Djenne,Nema Badenyakafo,16517,22925,17102,23474,RGPH
+566,Mali,Mopti,Djenne,Niansanari,1854,2353,2009,2390,RGPH
+567,Mali,Mopti,Djenne,Ouro Ali,4076,5309,4185,5517,RGPH
+568,Mali,Mopti,Djenne,Pondori,3534,4923,3702,5068,RGPH
+569,Mali,Mopti,Djenne,Togue Mourari,3716,4611,4186,5308,RGPH
+570,Mali,Mopti,Douentza,Dallah,3288,4092,3049,4011,RGPH
+571,Mali,Mopti,Douentza,Dangol Bore,8826,13202,9202,13338,RGPH
+572,Mali,Mopti,Douentza,Debere,2574,3435,2630,3518,RGPH
+573,Mali,Mopti,Douentza,Dianwely,2995,4356,2953,4293,RGPH
+574,Mali,Mopti,Douentza,Djaptodji,13085,18354,13469,17878,RGPH
+575,Mali,Mopti,Douentza,Douentza Commune,6559,12369,6579,11636,RGPH
+576,Mali,Mopti,Douentza,Gandamia,1589,3015,1514,2946,RGPH
+577,Mali,Mopti,Douentza,Haire,9005,15055,8945,14953,RGPH
+578,Mali,Mopti,Douentza,Hombori,6446,11551,6864,11552,RGPH
+579,Mali,Mopti,Douentza,Kerena,993,2003,856,1900,RGPH
+580,Mali,Mopti,Douentza,Korarou,909,1833,935,1616,RGPH
+581,Mali,Mopti,Douentza,Koubewel Koundia,5101,6451,5129,6729,RGPH
+582,Mali,Mopti,Douentza,Mondoro,10840,21863,10128,20331,RGPH
+583,Mali,Mopti,Douentza,Petaka,2350,2850,2285,2703,RGPH
+584,Mali,Mopti,Douentza,Tedie,3332,4265,3401,4527,RGPH
+585,Mali,Mopti,Koro,Bamba,4943,6388,5367,7015,RGPH
+586,Mali,Mopti,Koro,Barapireli,5014,21449,5183,21413,RGPH
+587,Mali,Mopti,Koro,Bondo,7381,9708,7578,9884,RGPH
+588,Mali,Mopti,Koro,Diankabou,4189,5789,4328,5826,RGPH
+589,Mali,Mopti,Koro,Dinangourou,10842,16278,10949,16545,RGPH
+590,Mali,Mopti,Koro,Diougani,4043,9655,4004,9521,RGPH
+591,Mali,Mopti,Koro,Dougoutene 1,7243,10334,7320,10596,RGPH
+592,Mali,Mopti,Koro,Dougoutene 2,7784,10221,8232,10824,RGPH
+593,Mali,Mopti,Koro,Koporo Pen,7643,9281,7667,9485,RGPH
+594,Mali,Mopti,Koro,Koporokendie Na,7341,9147,7165,9357,RGPH
+595,Mali,Mopti,Koro,Koro,21043,31495,20759,31846,RGPH
+596,Mali,Mopti,Koro,Madougou,11039,14113,11103,14830,RGPH
+597,Mali,Mopti,Koro,Pel Maoude,6226,6750,6296,6909,RGPH
+598,Mali,Mopti,Koro,Yoro,6513,9389,6507,9720,RGPH
+599,Mali,Mopti,Koro,Youdiou,6846,8221,6735,8257,RGPH
+600,Mali,Mopti,Tenenkou,Diafarabe,6288,7423,6586,7484,RGPH
+601,Mali,Mopti,Tenenkou,Diaka,8333,9652,8799,9828,RGPH
+602,Mali,Mopti,Tenenkou,Diondiori,8106,10117,8539,10375,RGPH
+603,Mali,Mopti,Tenenkou,Kareri,9246,13950,9146,13853,RGPH
+604,Mali,Mopti,Tenenkou,Ouro Ardo,4999,4987,5318,5354,RGPH
+605,Mali,Mopti,Tenenkou,Ouro Guire,3234,3942,3418,4200,RGPH
+606,Mali,Mopti,Mopti,Sasalbe,2365,2942,2437,3054,RGPH
+607,Mali,Mopti,Tenenkou,Sougoulbe,2996,4372,2874,4883,RGPH
+608,Mali,Mopti,Tenenkou,Tenenkou Commune,3630,5595,4045,5679,RGPH
+609,Mali,Mopti,Tenenkou,Togoro Kotia,4852,6658,5215,6997,RGPH
+610,Mali,Mopti,Tenenkou,Toguere-Coumbe,10591,13522,11022,14053,RGPH
+611,Mali,Tombouctou,Tombouctou,Alafia,3682,6362,3818,6550,RGPH
+612,Mali,Tombouctou,Tombouctou,Ber,4006,9950,3865,9017,RGPH
+613,Mali,Tombouctou,Tombouctou,Bourem Inaly,3806,4066,4544,4489,RGPH
+614,Mali,Tombouctou,Tombouctou,Lafia,3503,3807,4011,3947,RGPH
+615,Mali,Tombouctou,Tombouctou,Salam,3776,11705,3485,9757,RGPH
+616,Mali,Tombouctou,Tombouctou,Tombouctou,14767,27915,14965,26714,RGPH
+617,Mali,Tombouctou,Dire,Arham,1039,1358,1203,1461,RGPH
+618,Mali,Tombouctou,Dire,Binga,1973,2499,2038,2616,RGPH
+619,Mali,Tombouctou,Dire,Bourem Sidi Amar,2885,5462,2839,6142,RGPH
+620,Mali,Tombouctou,Dire,Dangha,3603,6426,3613,6479,RGPH
+621,Mali,Tombouctou,Dire,Dire,6412,10193,7019,10144,RGPH
+622,Mali,Tombouctou,Dire,Garbakoira,2300,2960,2327,2691,RGPH
+623,Mali,Tombouctou,Dire,Haibongo,5112,7110,5434,7147,RGPH
+624,Mali,Tombouctou,Dire,Kirchamba,1449,2090,1620,2030,RGPH
+625,Mali,Tombouctou,Dire,Kondi,1119,1548,1205,1503,RGPH
+626,Mali,Tombouctou,Dire,Sareyamou,6045,8417,6443,8529,RGPH
+627,Mali,Tombouctou,Dire,Tienkour,1965,3248,2128,3279,RGPH
+628,Mali,Tombouctou,Dire,Tindirma,2380,3208,2542,3269,RGPH
+629,Mali,Tombouctou,Dire,Tinguereguif,1115,1455,1152,1446,RGPH
+630,Mali,Tombouctou,Goundam,Adarmalane,929,463,1031,492,RGPH
+631,Mali,Tombouctou,Goundam,Alzounoub,1934,2399,1840,2078,RGPH
+632,Mali,Tombouctou,Goundam,Bintagoungou,2947,4065,3212,4248,RGPH
+633,Mali,Tombouctou,Goundam,Douekire,6015,8999,6623,9096,RGPH
+634,Mali,Tombouctou,Goundam,Doukouria,1232,1468,1199,1297,RGPH
+635,Mali,Tombouctou,Goundam,Essakane,4553,5825,4577,5533,RGPH
+636,Mali,Tombouctou,Goundam,Gargando,3345,4405,3313,4117,RGPH
+637,Mali,Tombouctou,Goundam,Goundam Commune,4411,6225,4619,6361,RGPH
+638,Mali,Tombouctou,Goundam,Issa Bery,2202,1989,2472,2137,RGPH
+639,Mali,Tombouctou,Goundam,Kaneye,1013,1167,1039,1165,RGPH
+640,Mali,Tombouctou,Goundam,M'bouna,2204,1894,2545,1937,RGPH
+641,Mali,Tombouctou,Goundam,Razelma,1796,2322,1715,2076,RGPH
+642,Mali,Tombouctou,Goundam,Tele,2755,2959,2734,2967,RGPH
+643,Mali,Tombouctou,Goundam,Tilemsi,981,3917,912,3475,RGPH
+644,Mali,Tombouctou,Goundam,Tin Aicha,951,1503,977,1474,RGPH
+645,Mali,Tombouctou,Goundam,Tonka,18059,25698,19762,27578,RGPH
+646,Mali,Tombouctou,Gourma-Rharous,Bambara Maoude,4740,8315,4895,8170,RGPH
+647,Mali,Tombouctou,Gourma-Rharous,Banikane,2511,2836,2971,2825,RGPH
+648,Mali,Tombouctou,Gourma-Rharous,Gossi,4514,11677,4944,12388,RGPH
+649,Mali,Tombouctou,Gourma-Rharous,Hamzakoma,1628,4475,1855,4609,RGPH
+650,Mali,Tombouctou,Gourma-Rharous,Haribomo,3311,3716,3220,3655,RGPH
+651,Mali,Tombouctou,Gourma-Rharous,Inadiatafane,2077,1851,2078,1706,RGPH
+652,Mali,Tombouctou,Gourma-Rharous,Ouinerden,1838,3081,1948,3020,RGPH
+653,Mali,Tombouctou,Gourma-Rharous,Rharous,7022,12646,8133,13641,RGPH
+654,Mali,Tombouctou,Gourma-Rharous,Serere,2752,4246,3197,4388,RGPH
+655,Mali,Tombouctou,Niafunke,Banikane Narhawa,7846,10719,8472,10554,RGPH
+656,Mali,Tombouctou,Niafunke,Dianke,3569,5171,3635,5276,RGPH
+657,Mali,Tombouctou,Niafunke,Fittouga,10464,15014,10569,15083,RGPH
+658,Mali,Tombouctou,Niafunke,Koumaira,5540,7296,5550,7135,RGPH
+659,Mali,Tombouctou,Niafunke,Lere,5583,8640,5621,8792,RGPH
+660,Mali,Tombouctou,Niafunke,N'gorkou,8006,12381,7687,12008,RGPH
+661,Mali,Tombouctou,Niafunke,Soboundou,13905,20201,14290,20224,RGPH
+662,Mali,Tombouctou,Niafunke,Soumpi,4455,8547,4708,8401,RGPH
+663,Mali,Gao,Gao,Anchawadi,5609,10714,5186,9845,RGPH
+664,Mali,Gao,Gao,Gabero,8737,12179,10034,13442,RGPH
+665,Mali,Gao,Gao,Gao,25486,43593,26715,42760,RGPH
+666,Mali,Gao,Gao,Gounzoureye,9783,13445,10187,13804,RGPH
+667,Mali,Gao,Gao,N'tillit,5186,11396,4887,10889,RGPH
+668,Mali,Gao,Gao,Sony Aliber,14181,23472,15635,24146,RGPH
+669,Mali,Gao,Gao,Tilemsi,923,5227,751,4623,RGPH
+670,Mali,Gao,Ansongo,Ansongo,9903,14707,10888,15384,RGPH
+671,Mali,Gao,Ansongo,Bara,4557,7264,5018,7828,RGPH
+672,Mali,Gao,Ansongo,Bourra,6484,9397,6396,9329,RGPH
+673,Mali,Gao,Ansongo,Ouattagouna,10492,15153,10491,15110,RGPH
+674,Mali,Gao,Ansongo,Talataye,4657,7398,4189,6625,RGPH
+675,Mali,Gao,Ansongo,Tessit,3041,7142,2795,6624,RGPH
+676,Mali,Gao,Ansongo,Tin Hama,1770,5147,1717,4845,RGPH
+677,Mali,Gao,Bourem,Bamba,10159,13474,11576,15142,RGPH
+678,Mali,Gao,Bourem,Bourem,9739,13106,11488,14382,RGPH
+679,Mali,Gao,Bourem,Taboye,7627,9853,8745,10788,RGPH
+680,Mali,Gao,Bourem,Tarkint,3838,10241,3603,8858,RGPH
+681,Mali,Gao,Bourem,Temera,6550,9929,7342,10587,RGPH
+682,Mali,Gao,Menaka,Alata,,1597,,1259,RGPH
+683,Mali,Gao,Menaka,Anderamboukane,5857,9493,5181,8597,RGPH
+684,Mali,Gao,Menaka,Inekar,2831,2906,2346,2515,RGPH
+685,Mali,Gao,Menaka,Menaka,7592,11828,7189,10831,RGPH
+686,Mali,Gao,Menaka,Tidermene,2210,2958,1971,2472,RGPH
+687,Mali,Kidal,Kidal,Anefif,2328,2744,1997,2375,RGPH
+688,Mali,Kidal,Kidal,Kidal,5750,13996,5409,11973,RGPH
+689,Mali,Kidal,Tin-Essako,Intadjedite,,2992,,2435,RGPH
+690,Mali,Kidal,Tin-Essako,Tin Essako,1421,1402,1133,1193,RGPH
+691,Mali,Kidal,Abeibara,Abeibara,1943,2411,1736,2138,RGPH
+692,Mali,Kidal,Abeibara,Boghassa,1308,1765,1289,1613,RGPH
+693,Mali,Kidal,Abeibara,Tinzawatene,571,1312,516,1057,RGPH
+694,Mali,Kidal,Tessalit,Adjelhoc,2699,4139,2502,3764,RGPH
+695,Mali,Kidal,Kidal,Essouk,548,1289,463,1089,RGPH
+696,Mali,Kidal,Tessalit,Tessalit,2612,2959,2460,2624,RGPH
+697,Mali,Kidal,Tessalit,Timtaghene,752,1326,670,1143,RGPH
+698,Mali,Bamako,Bamako,Commune I,99544,168308,95537,166587,RGPH
+699,Mali,Bamako,Bamako,Commune II,63565,78690,62788,80670,RGPH
+700,Mali,Bamako,Bamako,Commune III,49618,63792,50135,64874,RGPH
+701,Mali,Bamako,Bamako,Commune IV,94196,152153,92004,152373,RGPH
+702,Mali,Bamako,Bamako,Commune V,94933,206749,92634,206517,RGPH
+703,Mali,Bamako,Bamako,Commune VI,113111,237951,108231,231702,RGPH
