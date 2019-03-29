@@ -1,0 +1,1340 @@
+---
+title: "Transformer des données dans R avec **dplyr**"
+author: "Fousseynou Bah"
+date: "`r format(Sys.time(), '%d-%b-%Y')`"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: CambridgeUS
+    toc: yes
+header-includes:  
+#  \institute[~]{~}
+#urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE) # , dev = "cairo_pdf"
+#sansfont: Aller Light
+
+######################################################################################################
+### TIME ZONE
+######################################################################################################
+Sys.setenv(TZ="Africa/Bamako") # vérifer
+
+
+##########################################################################
+########################################/// PACKAGES ///
+##########################################################################
+# Packages (s'assurer que ces packages sont installés avant l'ex?cution du code)
+library(readr)
+library(dplyr)
+library(tidyr)
+```
+
+# Introduction
+
+## Objectif de ce chapitre
+
+Le *data scientist* a très rarement les données structurées dans la forme qui lui convient.
+Il lui revient de les mettres dans cette forme.
+De ce fait, il lui est indispensable de savoir manipuler les données.
+Il s'agit de la maîtrise d'une série de tâches parmi lesquelles nous pouvons citer:
+
+- la simple sélection d'un sous-ensemble à l'intérieur d'un large groupe ;
+
+- la sélection d'un nombre déterminé de variables (attributs) ;
+
+- la combinaison d'informations conservées dans différentes `data frame`;
+
+- la suppresion et la création variables;
+
+- la réorganisation des données à l'intérieur d'un `data frame`.
+
+Dans cette présentation, nous allons voir quelques techniques de manipulation de données avec le package **dplyr**.
+
+
+## Installer **dplyr**
+
+Le package [**dplyr**](https://dplyr.tidyverse.org/) est un package crééé par [Hadley Wickham](http://hadley.nz/).
+Il fait partie de l'écosystème [**tidyverse**](https://www.tidyverse.org/) qui est un ensemble de packages conçus pour la *data science* et partageant tous les mêmes philoshophie, grammaire et structure.
+Nous allons, avec l'exploration des packages du **tidyverse**, comprendre l'importance de cette grammaire.
+Elle traduit la volonté des auteurs de condenser dans le nom des fonctions l'idée de la tâche que celles-ci exécutent.
+Dans **dplyr**, les fonctions majeures sont des verbes (comme nous allons le voir).
+
+Alors, qu'est-ce que **dplyr** fait?
+Voici une simple analogie.
+Si les données constituent un tissu, nous pouvons voir **dplyr** comme à la fois la paire de ciseaux pour en faire la coupe, et l'aiguille et le fil pour le coudre.
+Pour le prouver, voici le [logo](https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/apple-touch-icon-120x120.png) associé au package.
+
+## Installer **dplyr**
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+# Installer tidyverse
+install.packages("tidyverse")
+# ou dplyr tout seul, sa version stable depuis CRAN
+install.packages("dplyr")
+# ou installer la version en développement
+# au cas où devtools n'est pas installé
+install.packages("devtools") 
+# ensuite
+devtools::install_github("tidyverse/dplyr")
+# Une fois l'installation effectuée,
+# charger le package.
+library(dplyr)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Données
+
+Les données utilisées sont accessibles à partir de [cette adresse](https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Transformer_Donnees_dans_R_avec_dplyr/data/adm3_pop_2009.csv).
+
+```{r, echo=c(-1, -11)}
+knitr::asis_output("\\tiny")
+# Données
+source_donnees <- paste0("https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/",
+                         "5_Transformer_Donnees_dans_R_avec_dplyr/data/adm3_pop_2009.csv")
+# Chargement du package "readr"
+library(readr)
+# Importation des données
+adm3_pop_2009 <- read_csv(source_donnees)
+# Classe
+class(adm3_pop_2009)
+# Aperçu
+glimpse(adm3_pop_2009)
+knitr::asis_output("\\normalsize")
+```
+
+
+# Selection et/ou exclusion de variables: `select`
+
+## Aperçu des données
+
+Il arrive souvent que l'on veuille sélectionner certaines variables d'un jeu de données.
+Dans notre cas, supposons que nous sommes seulement intéressés par les chiffres.
+Il s'agit des colonnes: `homme` et `femme`.
+
+Rappelons notre jeu de données.
+```{r, echo=c(-1, -8), warning=FALSE, message=FALSE}
+knitr::asis_output("\\tiny")
+# Chargement du package "readr"
+library(readr)
+# Importation des données
+adm3_pop_2009 <- read_csv(source_donnees)
+# Impression
+adm3_pop_2009
+knitr::asis_output("\\normalsize")
+```
+
+## Sélection simple avec `R-base`
+
+```{r,echo=c(-1, -5), warning=FALSE}
+knitr::asis_output("\\tiny")
+adm3_pop_2009[ , c("homme", "femme")]
+# ou
+subset(x = adm3_pop_2009, select = c(homme, femme))
+knitr::asis_output("\\normalsize")
+```
+
+## Sélection simple avec `select`
+
+```{r,echo=c(-1, -3), warning=FALSE}
+knitr::asis_output("\\tiny")
+select(adm3_pop_2009, homme, femme)
+```
+
+- Simplicité par rapport aux solution de R-base
+
+- Pas besoin de `" "` comme avec mes crochets
+
+- Pas besoin de préciser le nombre d'observation à imprimer
+
+- Affichage optimisées quand l'entrant un `tibble`: fonction `R-base` ou fonction **tidyverse**
+
+- Quand l'entrant n'est pas un `tibble`, affichage optimisé par les fonctions **tidyverse**, mais pas par les fonctions R-base
+
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+## L'opérateur `%>%`
+
+```{r,echo=c(-1, -3), warning=FALSE}
+knitr::asis_output("\\tiny")
+adm3_pop_2009 %>% 
+  select(homme, femme)
+```
+
+- Verbalisation de l'idée de la chaîne
+
+- Omission de l'argument de l'intrant (jeu de données) car déjà pris en charge
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+## Sélection groupée: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Un autre avantage de `select` est de permettre la sélection de plusieurs variables à travers leur communalité.
+Dans notre jeu, nous avons trois variables qui portent toutes le terme `admin` comme préfixe.
+Plutôt que de les sélectionner une à une nous pouvons les appeler toutes ensembles.
+Regardons avec R-base.
+
+```{r, echo=TRUE}
+names_df <- names(adm3_pop_2009)
+select_df <- startsWith(x = names_df, prefix = "adm")
+adm3_pop_2009[, select_df]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+## Sélection groupée: avec `select`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+adm3_pop_2009 %>% 
+  select(starts_with("adm"))
+```
+
+- Voir aussi avec les fonctions: `ends_with`, `contains`, `matches()`, `num_range()`, `one_of()`, `everything()`, etc.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Index et noms: avec `R-base` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+La sélection peut aussi se faire sur la base de l'index des colonnes, c'est-à-dire leur position.
+Sélectionnons de la deuxième à la cinquième colonne.
+
+```{r, echo=TRUE}
+adm3_pop_2009[, c(2:5)]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Index et noms: avec `select` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+adm3_pop_2009 %>% 
+  select(2:5)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Index et noms: avec `R-base` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+La même chose peut se faire avec le nom des variables.
+
+```{r, echo=TRUE}
+adm3_pop_2009[, c("admin0_nom", "admin1_nom", "admin2_nom", "admin3_nom")]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Index et noms: avec `select` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+adm3_pop_2009 %>% 
+  select(admin0_nom, admin1_nom, admin2_nom, admin3_nom)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+## Exclusion: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Comme avec R-base, la sélection peut aussi se faire sur la base de l'exclusion.
+Imaginez que l'on souhaite exclure les quatre premières variables.
+
+```{r, echo=TRUE}
+adm3_pop_2009[, -c(1:4)]
+```
+
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Exclusion: avec `select`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+adm3_pop_2009 %>% 
+  select(-c(1:4))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Renommer des variables: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+**dplyr** compte une fonction `rename` qui permet de renommer les variables.
+Prise indépendemment, elle agit comme `select`.
+Supposons que nous voulions changer les noms de variables en majuscules.
+
+```{r, echo=TRUE}
+# Sauvegarde des données dans un nouveau data frame
+pop_df <- adm3_pop_2009[ , c("homme", "femme")]
+# Voir les noms
+names(pop_df)
+# Changer les noms
+names(pop_df) <- c("HOMME", "FEMME")
+# Vérification
+names(pop_df)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Renommer des variables: avec `select` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(homme, femme) %>% 
+  # Modification des noms de variables
+  rename(HOMME = homme, FEMME = femme)
+```
+
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Renommer des variables: avec `select` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Nous voyons qu'une telle opération qu'avec R-base requiert la création d'un objet intermédiaire tandis qu'avec **dplyr** elle s'insère tout simplement dans la séquence.
+Mais `select` peut elle-même prendre en charge la tâche de changement de noms.
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt et changement de noms
+  select(HOMME = homme, FEMME = femme)
+```
+
+L'on indique le nouveau nom suivi du signe `=` et ensuite le nouveau nom. 
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+# Création et/ou suppression de variables: `mutate`
+
+## Création de variable: avec `R-base` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+La sélection et la suppression de variables peuvent s'inscrire dans le cadre d'une stratégie d'exploration plus large qui peut elle-même impliquer la création de nouvelles variables.
+
+Explorons la supériorité numérique entre hommes et femmes.
+Supposons que nous souhaitions:
+
+- sélectionner les populations pour les hommes et les femmes pour chaque commune;
+
+- calculer un ratio `femme`/`homme` pour chaque commune.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable
+pop_df$ratio <- pop_df$femme / pop_df$homme
+# Aperçu
+pop_df
+```
+
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Création de variable: avec `mutate` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(ratio = homme/femme)
+```
+
+Le résultat est le même, mais le gain avec **dplyr** est visible.
+Le séquençage rend la lecture du code facile.
+Il évite aussi la création d'un objet intermédiaire, comme ce fut le cas de `pop_df` avec R-base.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Création de variable: avec `R-base` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Dans le cas précédent, la variable était numérique.
+Elle peut aussi prendre la forme catégorielle.
+Considérons par exemple des intervalles de population qu'on souhaiterait créer pour séparer les communes en catégories.
+Nous allons d'abord faire la somme des deux groupes, hommes et femmes, et ensuite créer la variable catégorielle.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Création d'une nouvelle variable: catégorielle
+pop_df$pop_cat <- ifelse(pop_df$total < 10000, "<10000", ">=10000")
+# Aperçu
+pop_df
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Création de variable: avec `mutate` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable: numérique
+  mutate(total = homme + femme) %>%
+  # Création d'une nouvelle variable: catégorielle
+  mutate(pop_cat = ifelse(total < 10000, "<10000", ">=10000"))
+
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Création de variable: avec `mutate` (3)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+A l'instar de `select` qui accepte la liste de toutes les variables à sélection, `mutate` aussi peut, avec un seul appel, exécuter plusieurs opérations de création de variables.
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création de deux nouvelles variables: numérique et catégorielle
+  mutate(total = homme + femme,
+         pop_cat = ifelse(total < 10000, "<10000", ">=10000"))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Suppression de variables: avec `mutate`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Comme dans R-base, l'on supprime une variable en lui affectant la valeur `NULL`.
+
+```{r, echo=TRUE}
+  # Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  mutate(
+    # Création de deux nouvelles variables: numérique et catégorielle
+    total = homme + femme, 
+    pop_cat = ifelse(total < 10000, "<10000", ">=10000"),
+    # Suppression de variables
+    homme = NULL,
+    femme = NULL
+    )
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Ne garder que le résultat: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Une variante de la fonction `mutate` est la fonction `transmute` qui a la particularité de ne garder que les résultats issus des tâches qui lui ont été confiées.
+Elle présente certes une approche radicale par rapport à une suppression sélective des variables, mais elle est très commode pour celui que n'est intéréssé que par les résultats.
+Elle se distingue ainsi de `mutate` qui, quant à elle, préserve les variables préexistantes à l'opération de création de nouvelles colonnes
+
+Reprenons le dernier exemple.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Création d'une nouvelle variable: catégorielle
+pop_df$pop_cat <- ifelse(pop_df$total < 10000, "<10000", ">=10000")
+# Suppression de variables
+pop_df$admin3_nom <- NULL
+pop_df$homme <- NULL
+pop_df$femme <- NULL
+# Alternative: sélection des variables créées
+# Aperçu
+pop_df
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Ne garder que le résultat: avec `mutate`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création de deux nouvelles variables: numérique et catégorielle
+  transmute(total = homme + femme, 
+            pop_cat = ifelse(total < 10000, "<10000", ">=10000"))
+```
+
+Comme résultat, nous avons les deux nouvelles colonnes.
+Toutes les autres ont été omises.
+Toutefois, le nombre d'observations n'a pas varié.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+# Sélection d'observations: `filter`
+
+
+## Avant de commencer
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Regardons à nouveau notre jeu de données.
+
+```{r, echo=TRUE}
+print(adm3_pop_2009)
+```
+
+Nous avons 703 observations, donc 703 communes.
+Regardons les plus grandes en matière de population.
+Disons, celles qui sont au dessus du seuil de 100000 habitants.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `R-base` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection: valeurs logiques (TRUE/FALSE)
+pop_100000_plus <- pop_df$total > 100000
+# Mise en oeuvre de la sélection
+pop_df[pop_100000_plus, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `filter` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(total > 100000)
+```
+
+Là aussi, nous voyons que la séquence est plus économe en écriture.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `R-base` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Il arrive souvent aussi que la sélection porte sur un interval ou une région.
+Dans ce genre de cas, **dplyr** a des fonctions spécialisées comme `between` ou `near`.
+Si l'on cherche les communes dont la population est comprise entre 50000 et 60000.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection: valeurs logiques (TRUE/FALSE)
+pop_50k_60k <- pop_df$total >= 50000 & pop_df$total <= 60000
+# Mise en oeuvre de la sélection
+pop_df[pop_50k_60k, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `filter` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(between(x = total, left = 50000, right = 60000))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `R-base` (3)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Et pour les communes autour de 50000 habitants.
+Disons que nous prendrons en compte les communes dans les valeurs environnantes et ce jusqu'au 2500 personnes.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection: valeurs logiques (TRUE/FALSE)
+pop_50k_tol2500 <- pop_df$total >= 50000 - 2500 & pop_df$total <= 50000 + 2500
+# Mise en oeuvre de la sélection
+pop_df[pop_50k_tol2500, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères numériques: avec `filter` (3)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(near(x = total, y = 50000, tol = 2500))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères catégoriels: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+La sélection peut aussi porter sur des variables en caractères ou catégorielles.
+Supposons que nous souhaitons connaître la population d'une commune dont nous avons le nom: *Bambara Maoudé*.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection: valeurs logiques (TRUE/FALSE)
+bambara_maoude <- pop_df$admin3_nom == "Bambara Maoude"
+# Mise en oeuvre de la sélection
+pop_df[bambara_maoude, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base de critères catégoriels: avec `mutate`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(admin3_nom == "Bambara Maoude")
+```
+
+Moins de lignes! Même résultat!
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'expressions régulières: avec `R-base` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Comme avec `select`, les fonctions relatives aux préfixes et suffixes (et similaires) peuvent être mobilisées dans `filter` aussi.
+Suppossons que l'on veuille connaître la population de toutes les communes dont le nom se termine par *dougou*.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Sélection des communes répondant au critère
+select_nom <- endsWith(x = pop_df$admin3_nom, suffix = "dougou")
+# Mise en oeuvre de la sélection
+pop_df[select_df, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'expressions régulières: avec `filter` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(endsWith(x = admin3_nom, suffix = "dougou"))
+```
+
+La fonction `filter` épouse aussi bien les fonctions spécifiques aux expressions régulières dans R-base - comme dans l'exemple précédent - que celles présentes dans les packages dédiés du **tidyverse**.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'expressions régulières: avec `R-base` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Les fonctions de **stringr** peuvent s'avérer très commode dans la sélection d'observations.
+Considérons les observations pour les communes qui ont la lettre *z* dans leur nom.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Sélection des communes répondant au critère
+detect_z <- grepl(pattern = "z", x = tolower(pop_df$admin3_nom))
+# Mise en oeuvre de la sélection
+pop_df[detect_z, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'expressions régulières: avec `filter` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Chargement du package stringr
+library(stringr)
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(str_detect(string = tolower(admin3_nom), pattern = "z"))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'index: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Comme nous l'avons vu pour les variables, avec les observations aussi, la sélection peut se faire à partir de l'index.
+Chercons à afficher les observations pour les 10 premières observations impaires.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Mise en oeuvre de la sélection
+pop_df[seq(from = 1, to = 19, by = 2), ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Sur la base d'index: avec `filter`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(row_number() %in% seq(from = 1, to = 19, by = 2))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Filtres multiples: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+en matière de sélections d'observations, il y a plusieurs façons de combiner des critères.
+On peut :
+
+- les ajouter avec le signe `&`; 
+
+- les présenter comme des alternatives avec le signe `|`; ou 
+
+- opérer avec une logique de négation avec le signe `!`.
+
+Ces principes sont aussi bien valides avec `R-base` que **dplyr**.
+
+Supposons que nous voulons connaître les communes de plus de 100000 où il y a plus de femmes que d'hommes.
+Ici, les deux critères s'accumulent.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection (1): valeurs logiques (TRUE/FALSE)
+pop_100000_plus <- pop_df$total > 100000
+# Critère de sélection (1): valeurs logiques (TRUE/FALSE)
+femmes_sup_hommes <- pop_df$femme > pop_df$homme
+# Mise en oeuvre de la sélection
+pop_df[pop_100000_plus & femmes_sup_hommes, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Filtres multiples: avec `filter`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(
+    # Critère 1: population > 100000
+    total > 100000, 
+    # Critère 2: femme > homme
+    femme > homme
+    )
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+# Tri d'observations: `arrange`
+
+
+## Triage: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Souvent, il arrive qu'à la suite d'opérations de sélections (aussi bien de variables que de colonnes) que l'on souhaite ordonner les résultats selon un ordre bien précis.
+Ceci peut servir souvent en matière d'affichage ou même servir de base pour des sélections.
+
+Considérons qu'après avoir filtré pour ne garder que les communes qui ont plus de 100000 habitants et plus de femmes que d'hommes, que nous souhaitions ordonner la population.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Critère de sélection (1): valeurs logiques (TRUE/FALSE)
+pop_100000_plus <- pop_df$total > 100000
+# Critère de sélection (1): valeurs logiques (TRUE/FALSE)
+femmes_sup_hommes <- pop_df$femme > pop_df$homme
+# Mise en oeuvre de la sélection
+pop_df_filtre <- pop_df[pop_100000_plus | femmes_sup_hommes, ]
+# Tri: ordre croissant
+pop_decroissant <- order(pop_df_filtre$total)
+# Mise en oeuvre du tri
+pop_df_filtre[pop_decroissant, ]
+# Tri: ordre décroissant
+pop_decroissant <- order(pop_df_filtre$total, decreasing = TRUE)
+# Mise en oeuvre du tri
+pop_df_filtre[pop_decroissant, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Triage: avec `arrange` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(
+    # Critère 1: population > 100000
+    total > 100000 |
+    # Critère 2: femme > homme
+    femme > homme
+    ) %>% 
+  # Tri: ordre décroissant
+  arrange(desc(total))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Triage: avec `arrange` (2)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+L'on peut agrémenter `arrange` avec une fonction qui spécifie le nombre d'observations à afficher ou à sauvegarder: `top_n`.
+Celle-ci peut opérer par le haut (les valeurs élevées)...
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(
+    # Critère 1: population > 100000
+    total > 100000 |
+    # Critère 2: femme > homme
+    femme > homme
+    ) %>% 
+  # Tri: décroissant
+  arrange(desc(total)) %>%
+  # Sélection des 5 premières observations
+  top_n(n = 5, wt = total)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Triage: avec `arrange` (3)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+...ou par le bas (les valeurs faibles).
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Sélection des variables d'intérêt
+  select(admin3_nom, homme, femme) %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Sélection d'observations d'intérêt
+  filter(
+    # Critère 1: population > 100000
+    total > 100000 |
+    # Critère 2: femme > homme
+    femme > homme
+    ) %>% 
+  # Tri: décroissant
+  arrange(desc(total)) %>%
+  # Sélection des 5 dernières observations
+  top_n(n = -5, wt = total)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+# Vers l'agrégation: `group_by` et `summarize`
+
+
+## Aperçu
+
+```{r, echo=FALSE}
+# knitr::asis_output("\\tiny")
+```
+
+Jusque là, nous avons opéré en ajoutant ou enlevant des variables, en sélectionnant ou excluant des observations.
+Ces opérations ont toutes été intra-individuelles c'est-à-dire qu'à aucun moment il n'a été nécéssaire de mélanger les valeurs de deux ou plusieurs observations.
+Or, il arrive souvant que le *data scientist* ait besoin d'agréer des valeurs pour approfondir sa propre compréhension ou tout simplement synthétiser ses résultats.
+**dplyr** comptent deux fonctions sont pratiques pour ce faire.
+Il s'agit de `group_by` et `summarize` (`summarise` aussi marche).
+Elles viennent consolider les quatre que nous avons vues.
+La première `group_by` définit les groupes sur lesquels les opérations d'agrégation doivent être exécutées.
+Quant à `summarize`, elle explicite ces opérations.
+Illustrons pour mieux comprendre.
+
+```{r, echo=FALSE}
+# knitr::asis_output("\\normalsize")
+```
+
+
+## Créer, agréger et ordonner: avec `R-base`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Supposons que l'on veuille agréger la population totale par région (`admin1_nom`) et ordonner celle-ci par ordre décroissant.
+Ceci reviendrait à faire la somme de la population totale en définissant `admin1_nom` comme variable de groupage.
+
+```{r, echo=TRUE}
+# Sélection des variables d'intérêt
+pop_df <- adm3_pop_2009[ , c("admin1_nom", "homme", "femme")]
+# Création d'une nouvelle variable: numérique
+pop_df$total <- pop_df$femme + pop_df$homme
+# Opération d'agrégation
+pop_df_adm1 <- aggregate(formula = total ~ admin1_nom, data = pop_df, FUN = sum)
+# Tri: ordre décroissant
+pop_decroissant <- order(pop_df_adm1$total, decreasing = TRUE)
+# Mise en oeuvre du tri
+pop_df_adm1[pop_decroissant, ]
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Créer, agréger et ordonner: avec `group_by` et `summarize`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom) %>% 
+  # Opération d'agrégation 
+  summarize(population = sum(total)) %>% 
+  # Tri: décroissant
+  arrange(desc(population))
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## L'un sans l'autre: `summarize` sans `group_by`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+`summarize` acceptent la majorité des fonctions statistiques de R-base: `sum` pour la somme, `mean` pour la moyenne, `sd` pour l'écart-type, `min` pour le minimum, `max` pour le maximum, etc.
+
+Il est utile de noter que, bien que les deux fonctions opèrent généralement en paire, elles ne sont pas toutefois obligées d'être ensemble...enfin, pas tout le temps.
+
+Considérons par exemple que l'on veut agréger la population totale aussi bien pour les hommes que pour les femmes.
+Comme le groupe de référence est l'ensemble des observations (toutes les communes), l'on n'a pas besoin de `group_by`.
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Opérations d'agrégation 
+  summarize(
+    # Hommes
+    homme = sum(homme),
+    # Femmes
+    femme = sum(femme),
+    # Total
+    total = sum(total)
+    )
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## L'un sans l'autre: `group_by` sans `summarize`
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+Maintenant, faisons l'inverse.
+Déterminons la part de chaque commune dans la population régionale.
+Et gardons seulement celles qui représentent plus de 5% de la population de leur région.
+
+```{r, echo=TRUE}
+# Jeu de données de départ
+adm3_pop_2009 %>% 
+  # Création d'une nouvelle variable
+  mutate(total = homme + femme) %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom) %>% 
+  # Création d'une nouvelle variable 
+  mutate(
+    # Population au niveau de admin1_nom
+    population_region = sum(total),
+    # Ratio population de la commune / population de la région
+    part_commune = total / population_region
+    ) %>% 
+  # Filtre: part > 5%
+  filter(part_commune > 0.05) %>% 
+  # Tri des résultats: ordre décroissant
+  arrange(desc(part_commune)) %>% 
+  # Sélection des variables d'intérêt
+  select(contains("nom"), part_commune)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+# Conclusion
+
+## Conclusion
+
+```{r, echo=FALSE}
+# knitr::asis_output("\\tiny")
+```
+
+Nous venons de voir que **dplyr** est un outil très riche.
+Avec un vocabulaire simple et accessible, il met à la disposition du *data scientist* une panoplie d'outil qui facilite la manipulation de données.
+
+```{r, echo=FALSE}
+# knitr::asis_output("\\normalsize")
+```
+
+
+## 
+
+```{r, echo=FALSE}
+ knitr::asis_output("\\Huge")
+```
+
+**Merci**
+
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
