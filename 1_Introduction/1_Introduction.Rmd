@@ -8,7 +8,7 @@ output:
     theme: CambridgeUS
     toc: yes
 header-includes:  
-  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
+#  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
 ---
 
 ```{r setup, include=FALSE}
@@ -23,8 +23,9 @@ Sys.setenv(TZ="Africa/Bamako") # vérifer
 ########################################/// PACKAGES ///
 ##########################################################################
 # Packages (s'assurer que ces packages sont installées avant l'exécution du code)
+library(tidyverse)
+library(readxl)
 library(knitr)
-
 ```
 
 # Définir la *data science*
@@ -49,8 +50,6 @@ Elle se pratique dans plusieurs domaines.
 
 ## Une discipline carrefour
 
-
-
 Selon [\textcolor{blue}{Wikipédia}](https://en.wikipedia.org/wiki/Data_science), la *data science* est un champ interdisciplinaire qui utilise les méthode, processus, algorithmes et systèmes scientifiques pour extraire des données - tant structurées que non structurées - des informations utiles à la compréhension et à la prise de décision.
 De ce fait, elle s'appuie sur diverses méthodes (mathématiques, statistiques, informatiques, etc.) pour tirer des données une compréhension meilleure de phénomènes d'intérêt.
 
@@ -69,7 +68,7 @@ Quelles sont celles-ci?
 
 - Pas nécéssairement un diplôme avancé en mathématiques ou en statistiques...quoiqu'il est utile de maîtriser des concepts de bases (vecteur, matrice, moyenne, écart-type, etc.)
 
-- Pas forcément un diplôme en informatique ou en programmation...quoiqu'il est utile de connaître les notions de bases (qu'est-ce qu'un objet, un environnement? quels types d'objets peut-on manipuler dans un environnement donnée...)
+- Pas forcément un diplôme en informatique ou en programmation...quoiqu'il est utile de connaître les notions de bases (qu'est-ce qu'un objet, un environnement? quels types d'objets peut-on manipuler dans un environnement donné...)
 
 - Une connaissance avérée dans un domaine spécifique dans lequel l'on peut soulever des questions, mobiliser des outils théoriques auxquels on confronte les résultats de l'analyse conduite sur les données
 
@@ -77,6 +76,43 @@ Quelles sont celles-ci?
 
 Vous pourrez avoir une meilleure idée en surfant sur le net.
 Pour commencer, regardez [\textcolor{blue}{ici}](https://www.lebigdata.fr/13-competences-necessaires-devenir-data-scientist).
+
+
+# Pourquoi développer du contenu pour un *textbook* ?
+
+## Un abondance étourdissante
+
+L'Internet compte un nombre indénombrable de ressources pour apprendre la data science.
+Pour s'en rendre compte, il faut de rechercher le terme dans Google (ou tout autre moteur de recherche...dont il faut chercher le nom dans Google).
+
+Les résultats sont aussi nombreux que:
+
+- les programmes et langages se prêtant à la data science;
+
+- les questions de recherche sollicitant ses outils.
+
+De ce fait, on peut se demander: "pourquoi faire un autre textbook ou page sur Internet?"
+
+
+## Réponse 1 : le contexte personnel
+
+Pour s'assurer qu'on a compris une chose, il n'y a rien de mieux comme test que de tenter de l'expliquer à quelqu'un autre.
+Une idée assez datée maintenant.
+Il suffit de se référer à la désormais très célèbre [\textcolor{blue}{technique de Feynman}](https://fs.blog/2012/04/feynman-technique/) pour se rendre compte de l'importance de l'enseignement dans le processus d'apprentissage.
+
+Ce exercice répondait dont à un impératif personnel.
+Il me semblait utile de me lancer dans l'élaboration d'outils pédagogiques pour tester ma propre maîtrise des notions apprises dans le cadre de mes cours en data science.
+
+J'espère que les lecteurs partageront cet avis et accepteront de se livrer à un exercice similaire.
+
+
+## Réponse 2: le contexte géographique
+
+
+Les données qui servent à illustrer les concepts ou techniques présentés sont souvent celles d'un monde étranger l'étudiant africain: les pays industrialisés.
+Les données des banques centrales, les données de recensement ou d'enquête, ou encore les données des marchés financiers...de ces pays.
+Il me paraissait d'utile de mobiliser autant que possible des données locales pour contruire les illustration de cet `nième *textbook* en data science`.
+
 
 
 # R
@@ -100,7 +136,7 @@ Considérant le temps qu'il investira en apprentissage et le retour qu'il espér
 
 - l'accessibilité du langage en termes de syntaxe;
 
-- la popularité du langage parmi les paires (en vue de faciliter des collaborations);
+- la popularité du langage parmi ses paires (en vue de faciliter des collaborations);
 
 - la dynamique de développement du langage.
 
@@ -110,12 +146,10 @@ Et sur tous ces points, R présente des avantages.
 ## R dans l'écosystème des langages: TIOBE Index (1)
 
 ```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
-library(readxl)
-library(tidyverse)
 
-tiobe_index <- read_excel("tiobe_index.xlsx")
+tiobe_index_1 <- read_csv("tiobe_index_1.csv")
 
-tiobe_index %>% 
+tiobe_index_1 %>% 
   ggplot(mapping = aes(x = janv_2018, y = janv_2019)) + 
   geom_abline(mapping = aes(intercept = 0, slope = 1), color = "yellow") +
   geom_text(mapping = aes(label = `Programming Language`), size = 3)  +
@@ -126,13 +160,32 @@ tiobe_index %>%
 
 ```
 
+
 ## R dans l'écosystème des langages: TIOBE Index (2)
 
 ```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
 
-indexR <- tiobe_index$janv_2019[tiobe_index$Language == "R"]
+tiobe_index_2 <- read_csv("tiobe_index_2.csv")
 
-tiobe_index %>% 
+tiobe_index_2 %>% 
+  ggplot(mapping = aes(x = juin_2019, y = juin_2020)) + 
+  geom_abline(mapping = aes(intercept = 0, slope = 1), color = "yellow") +
+  geom_text(mapping = aes(label = `Programming Language`), size = 3)  +
+  labs(x = "Classement en juin 2019", y = "Classement en juin 2020",
+       caption = paste("Source: Données tirées de https://www.tiobe.com/tiobe-index/"),
+       title = paste("TIOBE Index"),
+       subtitle = paste("Classement des langages sur la base de divers moteurs, juin 2020") )
+
+```
+
+
+## R dans l'écosystème des langages: TIOBE Index (3)
+
+```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
+
+indexR_1 <- tiobe_index_1$janv_2019[tiobe_index_1$Language == "R"]
+
+tiobe_index_1 %>% 
   mutate(direction = ifelse(Variation >0, 1, 2),
          direction = factor(direction, levels = c(1, 2), labels = c("Hausse", "Baisse"), ordered = TRUE)) %>% 
   ggplot(mapping = aes(x = reorder(`Programming Language`, Ratings) , y = Ratings*100, fill = direction)) +
@@ -146,15 +199,35 @@ tiobe_index %>%
 ```
 
 
+## R dans l'écosystème des langages: TIOBE Index (4)
+
+```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
+
+indexR_2 <- tiobe_index_2$juin_2020[tiobe_index_2$Language == "R"]
+
+tiobe_index_2 %>% 
+  mutate(direction = ifelse(Variation >0, 1, 2),
+         direction = factor(direction, levels = c(1, 2), labels = c("Hausse", "Baisse"), ordered = TRUE)) %>% 
+  ggplot(mapping = aes(x = reorder(`Programming Language`, Ratings) , y = Ratings*100, fill = direction)) +
+  geom_col() + 
+  coord_flip() +
+  labs(x = "", y = "Part en juin 2020 (%)", fill = "Variation",
+       caption = paste("Source: Données tirées de https://www.tiobe.com/tiobe-index/"),
+       title = paste("TIOBE Index"),
+       subtitle = paste("Classement des langages sur la base de divers moteurs de recherche, janvier 2019") )
+
+```
+
+
 ## R dans l'écosystème des langages: PYPL Index (1)
 
 ```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
 
-pypl_rank <- read_excel("pypl_rank.xlsx")
+pypl_rank_1 <- read_csv("pypl_rank_1.csv")
 
-indexR <- pypl_rank$Rank[pypl_rank$Language == "R"]
+indexR <- pypl_rank_1$Rank[pypl_rank_1$Language == "R"]
 
-pypl_rank %>% 
+pypl_rank_1 %>% 
   mutate(languagetop10 = ifelse(Rank<=indexR, Language, NA),
          colorR = (Language == "R")) %>% 
   ggplot(data = ,
@@ -168,11 +241,35 @@ pypl_rank %>%
 
 ```
 
+
 ## R dans l'écosystème des langages: PYPL Index (2)
+
+```{r, warning=FALSE, message=FALSE, out.width='100%', out.height='90%'}
+
+pypl_rank_2 <- read_csv("pypl_rank_2.csv")
+
+indexR <- pypl_rank_2$Rank[pypl_rank_2$Language == "R"]
+
+pypl_rank_2 %>% 
+  mutate(languagetop10 = ifelse(Rank<=indexR, Language, NA),
+         colorR = (Language == "R")) %>% 
+  ggplot(data = ,
+         mapping = aes(x = Share*100, y = Trend*100)) + 
+  geom_text(mapping = aes(label = languagetop10), size = 3) + 
+  labs(x = "Part (%)", y = "Tendance par rapport à l'année dernière (%)",
+       caption = paste("Source: Données tirées de http://pypl.github.io/PYPL.html"),
+       title = paste("PopularitY of Programming Language Index"),
+       subtitle = paste("Classement des langages sur la base des recherches dans Google, juin 2020") )
+
+
+```
+
+
+## R dans l'écosystème des langages: PYPL Index (3)
 
 ```{r}
 
-pypl_rank %>% 
+pypl_rank_1 %>% 
   mutate(direction = ifelse(Trend >0, 1, 2),
          direction = factor(direction, levels = c(1, 2), labels = c("Hausse", "Baisse"), ordered = TRUE)) %>% 
   ggplot(mapping = aes(x = reorder(Language, Share) , y = Share*100, fill = direction)) +
@@ -184,17 +281,56 @@ pypl_rank %>%
        subtitle = paste("Classement des langages sur la base des recherches dans Google, janvier 2019") )
 ```
 
+
+## R dans l'écosystème des langages: PYPL Index (4)
+
+```{r}
+pypl_rank_2 %>% 
+  mutate(direction = ifelse(Trend >0, 1, 2),
+         direction = factor(direction, levels = c(1, 2), labels = c("Hausse", "Baisse"), ordered = TRUE)) %>% 
+  ggplot(mapping = aes(x = reorder(Language, Share) , y = Share*100, fill = direction)) +
+  geom_col() + 
+  coord_flip() +
+  labs(x = "", y = "Part en juin 2020 (%)", fill = "Variation",
+       caption = paste("Source: Données tirées de http://pypl.github.io/PYPL.html"),
+       title = paste("PopularitY of Programming Language Index"),
+       subtitle = paste("Classement des langages sur la base des recherches dans Google, juin 2020") )
+```
+
+
 ## Télécharger R (1)
 
 ```{r, out.width='100%', out.height='90%'}
-include_graphics("Rwebpage_home.png.png")
+include_graphics("Rwebpage_home.png")
 ```
 
 ## Télécharger R (2)
 
 ```{r, out.width='100%', out.height='90%'}
-include_graphics("Rwebpage_download.png.png")
+include_graphics("Rwebpage_CRAN.png")
 ```
+
+
+## Télécharger R (3)
+
+```{r, out.width='100%', out.height='90%'}
+include_graphics("Rwebpage_download_1.png")
+```
+
+
+## Télécharger R (4)
+
+```{r, out.width='100%', out.height='90%'}
+include_graphics("Rwebpage_download_2.png")
+```
+
+
+## Télécharger R (5)
+
+```{r, out.width='100%', out.height='90%'}
+include_graphics("Rwebpage_download_3.png")
+```
+
 
 ## Un aperçu de R: *GUI*
 
@@ -229,10 +365,17 @@ include_graphics("RStudio_home.png")
 include_graphics("RStudio_download.png")
 ```
 
-## Un aperçu de RStudio
+## Un aperçu de RStudio (1)
 
 ```{r, out.width='100%', out.height='90%'}
-include_graphics("RStudio_gui.png")
+include_graphics("RStudio_gui_1.png")
+```
+
+
+## Un aperçu de RStudio (2)
+
+```{r, out.width='100%', out.height='90%'}
+include_graphics("RStudio_gui_2.png")
 ```
 
 ## Et on démarre
