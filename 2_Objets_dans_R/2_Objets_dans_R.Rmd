@@ -8,7 +8,7 @@ output:
     theme: CambridgeUS
     toc: yes
 header-includes:  
-  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
+#  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
 ---
 
 ```{r setup, include=FALSE}
@@ -69,7 +69,7 @@ knitr::asis_output("\\tiny")
 # Créeons des objects relatifs à son nom et son prénom.
 nom <- "Keïta"
 prenom <- "Mobido"
-# Désormais, c'est informations sont stockées dans notre environnement.
+# Désormais, ces informations sont stockées dans notre environnement.
 # Pour vérifier appellons-les!
 nom
 prenom
@@ -80,7 +80,7 @@ knitr::asis_output("\\normalsize")
 
 ```{r, echo=c(-1, -14), error=c(11)}
 knitr::asis_output("\\tiny")
-# Enrichissons notre environnement des objets addtionnels
+# Enrichissons notre environnement des objets additionnels
 # Ajoutons l'année d'accession au pouvoir
 # Appelons-le: annee_arrivee_pouvoir
 annee_arrivee_pouvoir <- 1960
@@ -97,10 +97,10 @@ knitr::asis_output("\\normalsize")
 
 ## Ce qui se ressemblent s'assemblent
 
-```{r, echo=c(-1, -18)}
+```{r, echo=c(-1, -15)}
 knitr::asis_output("\\tiny")
 # Les choses qui diffèrent ne s'assemblent pas
-# Illustration d'un propriété des objets: le comportement
+# Illustration d'une propriété des objets: le comportement
 # Regardons les choses qui marchent
 1 + 1
 # Stockons ce résultat dans un objet
@@ -143,21 +143,30 @@ region_naissance <- as.factor("Bamako")
 knitr::asis_output("\\normalsize")
 ```
 
-## La notion de classe
+## La notion de classe (1)
 
 Dans R, l'on peut déterminer le type d'objet qu'on a avec la fonction `class()`.
 Regardons les classes des objets crééés, pour bien confirmer les identités qu'on leur a attribuées.
 
-```{r, echo=c(-1, -8)}
+```{r, echo=c(-1, -6)}
 knitr::asis_output("\\tiny")
 class(nom)
 class(prenom)
 class(annee_arrivee_pouvoir)
 class(date_naissance)
+knitr::asis_output("\\normalsize")
+```
+
+
+## La notion de classe (2)
+
+```{r, echo=c(-1, -4)}
+knitr::asis_output("\\tiny")
 class(parcours_militaire)
 class(region_naissance)
 knitr::asis_output("\\normalsize")
 ```
+
 
 ## Vers d'autres types d'objets
 
@@ -330,7 +339,7 @@ knitr::asis_output("\\normalsize")
 
 ## Opérations sur vecteurs: ajustement et recyclage
 
-```{r, echo=c(-1, -21), warning=TRUE, message=TRUE}
+```{r, echo=c(-1, -20), warning=TRUE, message=TRUE}
 knitr::asis_output("\\tiny")
 # Maintenant, revenons-en un peu aux opérations entre deux vecteurs.
 # Imaginez maintenant, que l'on veuille connaître l'âge auquel les présidents ont quitté le pouvoir.
