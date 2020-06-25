@@ -7,8 +7,8 @@ output:
     latex_engine: xelatex
     theme: CambridgeUS
     toc: yes
-header-includes:  
-  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
+#header-includes:  
+#  \institute[FSEG - USSGB]{Faculté des Sciences Economiques et de Gestion (FSEG) \\ Université des Sciences Sociales et de Gestion de Bamako (USSGB)}
 ---
 
 ```{r setup, include=FALSE}
