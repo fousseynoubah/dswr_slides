@@ -1,0 +1,523 @@
+---
+title: "Transformer des données dans R avec **tidyr**"
+author: "Fousseynou Bah"
+date: "`r format(Sys.time(), '%d-%b-%Y')`"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: CambridgeUS
+    toc: yes
+header-includes:  
+#  \institute[~]{~}
+#urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE) # , dev = "cairo_pdf"
+#sansfont: Aller Light
+
+######################################################################################################
+### TIME ZONE
+######################################################################################################
+Sys.setenv(TZ="Africa/Bamako") # vérifer
+
+
+##########################################################################
+########################################/// PACKAGES ///
+##########################################################################
+# Packages (s'assurer que ces packages sont installés avant l'ex?cution du code)
+library(readr)
+library(dplyr)
+library(tidyr)
+```
+
+
+# Introduction
+
+## Objectif de ce chapitre
+
+Dans le présent chapitre, nous continuons avec l'exploration des outils de manipulations de données.
+Ici, nous introduisons **tidyr**.
+
+Dans la sagesse commune du **tidyverse**, un jeu de données est *tidy* - au sens bien ordonné - quand il obéit à deux principes de base:
+
+- les colonnes sont des attributs; et
+
+- les lignes des observations.
+
+Cette disposition n'est pas toujours celle dans laquelle les données parviennent au *data scientist*.
+Les organisations tendent à donner des données rectangulaires assez longues, avec beaucoup d'observations.
+Malheureusement, quand il s'agit de la présentation, ce schéma est souvent difficile d'accès.
+D'où la nécéssité d'étendre les données dans un format plus large.
+*tidyr* permet le passage d'un jeu de données d'un état à un autre avec une très grande facilité.
+Nous allons voir les deux majeurs fonctions qui permettent ces transformations d'état.
+
+
+## A propos de **tidyr**
+
+Le package [**tidyr**](https://tidyr.tidyverse.org/) est lui aussi membre de l'univers [**tidyverse**](https://www.tidyverse.org/).
+A l'instar de [**dplyr**](https://dplyr.tidyverse.org/), ses fonctions majeures sont des verbes.
+
+Alors, que fait **tidyr**?
+Il a un dessein plutôt radical quand on le compare à **dplyr**.
+Pendant que ce dernier s'occupe à créer et à supprimer des variables et/ou des observations, **tidyr**, lui, est capable de permuter les colonnes et les lignes...bref, de "pivoter" les données.
+Ce faisant, il outille le *data scientist* à refondre ses jeux de données selon le schéma qui se prête le mieux à l'analyse qu'il vise.
+Voici le [logo](https://d33wubrfki0l68.cloudfront.net/5f8c22ec53a1ac61684f3e8d59c623d09227d6b9/b15de/images/hex-tidyr.png) associé à ce package.
+
+
+## Installer **tidyr**
+
+Pour travailler avec [**tidyr**](https://tidyr.tidyverse.org/), l'on commence par l'installer sur son poste de travail.
+Etant intégré au [**tidyverse**](https://www.tidyverse.org/), il est possible de l'installer en même temps que les autres composantes de celui-ci.
+
+```{r, echo=FALSE}
+knitr::asis_output("\\tiny")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+# Installer tidyverse
+install.packages("tidyverse")
+# ou tidyr tout seul, sa version stable depuis CRAN: https://cran.r-project.org/
+install.packages("tidyr")
+# ou installer la version en développement
+# au cas où devtools n'est pas installé
+install.packages("devtools") 
+# ensuite
+devtools::install_github("tidyverse/tidyr")
+# Une fois l'installation effectuée,
+# charger le package.
+library(tidyr)
+```
+
+```{r, echo=FALSE}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Données
+
+Nous allons illustrer ce chapitre avec une compilation de données tirées des [Recensements Généraux de la Population et de l'Habitat au Mali, menés respectivement en 1998 et 2009](https://www.malikunnafoni.com).
+Il s'agit de données sur la population par commune.
+
+Les données utilisées sont accessibles à partir d'[ici](https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/6_Transformer_Donnees_dans_R_avec_tidyr/data/adm3_pop_1998_2009_long.csv) et [ici](https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/6_Transformer_Donnees_dans_R_avec_tidyr/data/adm3_pop_1998_2009_wide.csv).
+
+
+# Pivoter les données
+
+## Vers le format long: `gather` (1)
+
+```{r, echo=FALSE}
+knitr::asis_output("\\small")
+```
+La fonction `gather` - qui veut dire *réunir* en anglais - fond les données en format long.
+En opérant dans le sens *tidy*, elle permet d'aligner dans la même colonne les valeurs relatives au même attribut et à aligner sur la même ligne les attributs relatifs à la même observation.
+
+Pour illustrer, retournons au jeu de données du chapitre précédent, les données sur les populations des communes du Mali en 2009 (RGPH, 2009), disponibles [ici](https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv).
+
+Rappelons les données:
+
+```{r, echo=c(-1, -9)}
+knitr::asis_output("\\tiny")
+# La source
+source_donnees <- paste0("https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/",
+                         "5_Transformer_Donnees_dans_R_avec_dplyr/data/adm3_pop_2009.csv")
+# Chargement du package "readr"
+library(readr)
+# Importation des données
+adm3_pop_2009 <- read_csv(source_donnees)
+adm3_pop_2009
+knitr::asis_output("\\normalsize")
+```
+
+## Vers le format long: `gather` (2)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Nous relevons qu'il existe deux colonnes relatives au même attribut, le sexe.
+Il s'agit des variables: `homme` et `femme`.
+Il opérant sur la base de l'organisation `tidy`, ce jeu de données a bien besoin d'une refonte.
+`gather` est là pour ça.
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+adm3_pop_2009_long <-
+  # Jeu de données de départ
+  adm3_pop_2009 %>% 
+  # Réorganisation des données
+  gather(
+    # Nom de la variable clé: les catégories fondues ensemble
+    key = sexe,
+    # Nom de la variable de valeur: les valeurs correspondants aux catégories fondues ensemble
+    value = population,
+    # Liste des anciennes variables à reclasser
+    homme, femme
+  )
+# Aperçu du nouveau jeu de données
+adm3_pop_2009_long
+knitr::asis_output("\\normalsize")
+```
+
+## Vers le format long: `gather` (2)
+
+Vous remarquerez que l'on a deux fois plus d'observations.
+De 703 l'on est passé à 1406.
+C'est parce qu'au lieu d'avoir une observation par commune, l'on a une observation par commune et par chaque sexe.
+L'unité d'observation est mieux alignée maintenant sur les données disponibles.
+Là, nous avons une colonne indicative du sexe dont il s'agit et une autre affichant la population correspondante.
+
+## Vers le format long: R-base
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Avant d'avancer, faisons preuve d'un peu de curiosité.
+Comment est-ce que ce problème peut être résolu dans R-base?
+Comme pour tout, dans R, un seul problème peut être résolu de manières diverses.
+Passer par la fonction `reshape`, composante d'un package de base, **stats**.
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+# Réorganisation
+reshape(
+  # Jeu de données de départ
+  data = adm3_pop_2009,
+  # Valeurs variantes à refondre
+  varying = c("homme", "femme"),
+  # Nom de la nouvelle variable de valeurs
+  v.names = "population",
+  # Nom de la nouvelle variable de catégories
+  timevar = "sexe",
+  # Nom de lignes issues de la refonte (à calculer)
+  new.row.names = 1:1406,
+  # Spécification du sens de la refonte: large vers long
+  direction = "long")
+knitr::asis_output("\\normalsize")
+```
+
+Le code semble bien compliqué!
+N'est-ce pas?
+
+## Vers le format large: `spread` (1)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Si le format long est idéal pour l'analyse de données, c'est généralement le format large qui se prête le mieux aux présentations.
+Imaginez si l'on partait du jeu de données suivant:
+
+
+```{r, echo=c(-1,-3)}
+knitr::asis_output("\\tiny")
+adm3_pop_2009_long
+knitr::asis_output("\\normalsize")
+```
+
+...et que l'on souhaitait présenter la population par région et par sexe.
+
+
+## Vers le format large: `spread` (2)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Les outils de **dplyr** nous permettraient d'effectuer les agrégations avec une très grande commodité.
+
+```{r, echo=c(-1,-8)}
+knitr::asis_output("\\tiny")
+# Jeu de données de départ
+adm3_pop_2009_long %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom, sexe) %>% 
+  # Opération d'agrégation 
+  summarize(population = sum(population))
+knitr::asis_output("\\normalsize")
+```
+
+
+## Vers le format large: `spread` (3)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Avec quelques lignes, l'on a pu faire l'opération d'agrégation.
+Toutefois, cette présentation est peu commode pour un rapport ou une diapositive.
+Transformons en tableau croisé à l'aide de la fonction `spread`.
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\tiny")
+# Jeu de données de départ
+adm3_pop_2009_long %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom, sexe) %>% 
+  # Opération d'agrégation 
+  summarize(population = sum(population)) %>% 
+  # Transformation en format large
+  spread(
+    # Nom de la variable clé: les catégories à séparer en colonnes
+    key = sexe, 
+    # Nom de la variable de valeur: les valeurs correspondants aux catégories à séparer
+    value = population
+    )
+knitr::asis_output("\\normalsize")
+```
+
+Dans le deux cas, l'on voit comment passer d'une forme longue à une forme large.
+
+## Vers le format large: R-base
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Reprenons ces exemples avec la fonction `reshape` du package **stats**.
+
+```{r, echo=c(-1, -15)}
+knitr::asis_output("\\tiny")
+adm3_pop_2009_rshp_wd <- reshape(
+  # Jeu de données de départ
+  data = adm3_pop_2009_long,
+  # Nom de la variable numérique à disperser
+  v.names = "population",
+  # Noms des variables à maintenir
+  idvar = c("id", "admin0_nom", "admin1_nom", "admin2_nom", "admin3_nom", "annee", "source"),
+  # Nom de la variable catégorique à disperser en colones
+  timevar = "sexe",
+  # Spécification du sens de la refonte: long vers large
+  direction = "wide")
+# Impression
+adm3_pop_2009_rshp_wd
+knitr::asis_output("\\normalsize")
+```
+
+
+# Séparer et unir
+
+## Séparateur: `separate` (1)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Le changement de disposition des données peut requérir des précautions particulières en matière de traitement des noms de variables.
+Dans les cas que nous avons vu avec `gather` et `spread`, nous avions affaire à une seul attribut dispersés en colonnes (le sexe: `homme` et `femme`).
+Souvent, la situation se complique plus que ça.
+Regardons le cas suivant:
+
+```{r, echo=c(-1, -9)}
+knitr::asis_output("\\tiny")
+# La source
+source_donnees <- paste0("https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/",
+                         "6_Transformer_Donnees_dans_R_avec_tidyr/data/adm3_pop_1998_2009_wide.csv")
+# Chargement du package "readr"
+library(readr)
+# Importation des données
+adm3_pop_1998_2009_wide <- read_csv(source_donnees)
+# Impression
+glimpse(adm3_pop_1998_2009_wide)
+knitr::asis_output("\\normalsize")
+```
+
+## Séparateur: `separate` (1)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Nous voyons ici quatre variables qui déclinent en réalité deux attributs: l'année et le sexe.
+Transformons les données en format long.
+
+```{r, echo=c(-1, -14)}
+knitr::asis_output("\\tiny")
+# Jeu de données de départ
+adm3_pop_1998_2009_wide %>% 
+  gather(
+    # Nom de la variable clé: les catégories fondues ensemble
+    key = groupe, 
+    # Nom de la variable de valeur: les valeurs correspondants aux catégories fondues ensemble
+    value = population, 
+    # Liste des anciennes variables à reclasser
+    homme_1998, femme_1998, homme_2009, femme_2009
+    ) %>% 
+  # Sélection de variables pour focaliser l'attention sur les variables essentielles
+select(admin3_nom, groupe, population)
+knitr::asis_output("\\small")
+```
+
+Là, nous obtenons dans la colonne `groupe` ces deux attributs fusionnés.
+Dans le respect de l'esprit `tidy`, il convient de séparer ces deux attributs.
+C'est là qu'intervient la fonction `separate`.
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Séparateur: `separate` (2)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+
+Reprenons la chaîne.
+
+```{r, echo=c(-1, -3)}
+knitr::asis_output("\\tiny")
+adm3_pop_1998_2009_tidy <- 
+  # Jeu de données de départ
+  adm3_pop_1998_2009_wide %>% 
+  # Passage au format long
+  gather(
+    # Nom de la variable clé: les catégories fondues ensemble
+    key = groupe, 
+    # Nom de la variable de valeur: les valeurs correspondants aux catégories fondues ensemble
+    value = population, 
+    # Liste des anciennes variables à reclasser
+    homme_1998, femme_1998, homme_2009, femme_2009
+    ) %>%
+  # Séparation
+  separate(
+    # Nom de la variable à scinder
+    col = groupe,
+    # Noms des nouvelles variables à créer
+    into = c("sexe", "annee"),
+    # Signe séparateur
+    sep = "_",
+    # Détecter et ajuster le type de nouvelles variables
+    convert = TRUE
+    )
+knitr::asis_output("\\normalsize")
+```
+
+
+## Séparateur: `separate` (3)
+
+```{r, echo=c(-1,-4)}
+knitr::asis_output("\\tiny")
+# Sélection de variables pour focaliser l'attention sur les variables essentielles
+adm3_pop_1998_2009_tidy %>% 
+  select(admin3_nom, sexe, annee, population)
+knitr::asis_output("\\small")
+```
+
+Nous obtenons là un jeu de données *tidy* car toutes les colonnes sont relatives à **1** attribut et **1** seulement.
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Unificateur: `unite` (1)
+
+Imaginez maintenant que l'on veuille utiliser le nouveau jeu de données pour agréger les populations par région (au lieu de commune), par année et par sexe.
+
+```{r, echo=c(-1,-4)}
+knitr::asis_output("\\tiny")
+# Jeu de données de départ
+adm3_pop_1998_2009_tidy %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom, sexe, annee) %>% 
+  # Opération d'agrégation 
+  summarize(population = sum(population, na.rm = TRUE))
+knitr::asis_output("\\small")
+```
+
+Le résultat est parfait pour celui qui souhaite continuer à analyser les données.
+Mais pour quelqu'un qui pense plutôt inclure ce tableau dans un document, il peut s'avérer plus utile de revoir la disposition des données.
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\normalsize")
+```
+
+
+## Unificateur: `unite` (2)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+Considérons que l'on veuille revenir à la forme initiale avec l'année et le sexe croisés et répartis entre les colonnes.
+La fonction `unite` intervient pour ce genre de cas.
+
+```{r, echo=c(-1,-4)}
+knitr::asis_output("\\tiny")
+adm3_pop_1998_2009_tidy_reg <-
+  # Jeu de données de départ
+  adm3_pop_1998_2009_tidy %>% 
+  # Spécification du niveau d'agrégation
+  group_by(admin1_nom, sexe, annee) %>% 
+  # Opération d'agrégation 
+  summarize(population = sum(population, na.rm = TRUE)) %>% 
+  # Unification
+  unite(
+    # Nom de la nouvelle colonne
+    col = "groupe",
+    # Liste des variables (catégorielles) à combiner
+    sexe, annee,
+    # Signe séparateur
+    sep = "_"
+  ) %>% 
+  # Transformation en format large
+  spread(
+    # Nom de la variable clé: les catégories à séparer en colonnes
+    key = groupe, 
+    # Nom de la variable de valeur: les valeurs correspondants aux catégories à séparer
+    value = population
+  )
+knitr::asis_output("\\normalsize")
+```
+
+
+## Unificateur: `unite` (3)
+
+```{r, echo=c(-1)}
+knitr::asis_output("\\small")
+```
+Rappelons que l'esthétique aussi compte quand il s'agit des tableaux à afficher dans les rapports et diapositives.
+Renommons donc nos colonnes.
+
+```{r, echo=c(-1,-4)}
+knitr::asis_output("\\tiny")
+# Jeu de données de départ
+adm3_pop_1998_2009_tidy_reg %>% 
+  # Renommer les variables
+  rename(`Région` = admin1_nom,
+         `Femme (1998)` = femme_1998,
+         `Femme (2009)` = femme_2009,
+         `Homme (1998)` = homme_1998,
+         `Homme (2009)` = homme_2009
+  )
+knitr::asis_output("\\normalsize")
+```
+
+
+# Conclusion
+
+## Conclusion
+
+Nous venons de voir que **tidyr**, tout comme **dplyr**, est un outil très riche.
+Avec un vocabulaire simple et accessible, il met à la disposition du data scientist une panoplie
+d’outil qui facilite la manipulation de données.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

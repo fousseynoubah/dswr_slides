@@ -53,7 +53,7 @@ Il s'agit de la maîtrise d'une série de tâches parmi lesquelles nous pouvons 
 Dans cette présentation, nous allons voir quelques techniques de manipulation de données avec le package **dplyr**.
 
 
-## Installer **dplyr**
+## A propos de **dplyr**
 
 Le package [**dplyr**](https://dplyr.tidyverse.org/) est un package crééé par [Hadley Wickham](http://hadley.nz/).
 Il fait partie de l'écosystème [**tidyverse**](https://www.tidyverse.org/) qui est un ensemble de packages conçus pour la *data science* et partageant tous les mêmes philoshophie, grammaire et structure.
@@ -64,7 +64,7 @@ Dans **dplyr**, les fonctions majeures sont des verbes (comme nous allons le voi
 Alors, qu'est-ce que **dplyr** fait?
 Voici une simple analogie.
 Si les données constituent un tissu, nous pouvons voir **dplyr** comme à la fois la paire de ciseaux pour en faire la coupe, et l'aiguille et le fil pour le coudre.
-Pour le prouver, voici le [logo](https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/apple-touch-icon-120x120.png) associé au package.
+Pour le prouver, il suffit de regarder le [logo](https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/apple-touch-icon-120x120.png) associé au package.
 
 ## Installer **dplyr**
 
@@ -96,7 +96,7 @@ knitr::asis_output("\\normalsize")
 
 Les données utilisées sont accessibles à partir de [cette adresse](https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Transformer_Donnees_dans_R_avec_dplyr/data/adm3_pop_2009.csv).
 
-```{r, echo=c(-1, -11)}
+```{r, echo=c(-1, -12)}
 knitr::asis_output("\\tiny")
 # Données
 source_donnees <- paste0("https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/",
@@ -434,7 +434,7 @@ adm3_pop_2009 %>%
   # Sélection des variables d'intérêt
   select(admin3_nom, homme, femme) %>% 
   # Création d'une nouvelle variable
-  mutate(ratio = homme/femme)
+  mutate(ratio = femme/homme)
 ```
 
 Le résultat est le même, mais le gain avec **dplyr** est visible.
@@ -834,7 +834,7 @@ pop_df <- adm3_pop_2009[ , c("admin3_nom", "homme", "femme")]
 # Création d'une nouvelle variable: numérique
 pop_df$total <- pop_df$femme + pop_df$homme
 # Sélection des communes répondant au critère
-select_nom <- endsWith(x = pop_df$admin3_nom, suffix = "dougou")
+select_df <- endsWith(x = pop_df$admin3_nom, suffix = "dougou")
 # Mise en oeuvre de la sélection
 pop_df[select_df, ]
 ```
@@ -1174,8 +1174,8 @@ knitr::asis_output("\\normalsize")
 
 Jusque là, nous avons opéré en ajoutant ou enlevant des variables, en sélectionnant ou excluant des observations.
 Ces opérations ont toutes été intra-individuelles c'est-à-dire qu'à aucun moment il n'a été nécéssaire de mélanger les valeurs de deux ou plusieurs observations.
-Or, il arrive souvant que le *data scientist* ait besoin d'agréer des valeurs pour approfondir sa propre compréhension ou tout simplement synthétiser ses résultats.
-**dplyr** comptent deux fonctions sont pratiques pour ce faire.
+Or, il arrive souvant que le *data scientist* ait besoin d'agréger des valeurs pour approfondir sa propre compréhension ou tout simplement synthétiser ses résultats.
+**dplyr** comptent deux fonctions qui sont pratiques pour ce faire.
 Il s'agit de `group_by` et `summarize` (`summarise` aussi marche).
 Elles viennent consolider les quatre que nous avons vues.
 La première `group_by` définit les groupes sur lesquels les opérations d'agrégation doivent être exécutées.
