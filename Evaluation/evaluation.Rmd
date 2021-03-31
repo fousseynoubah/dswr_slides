@@ -1,0 +1,146 @@
+---
+title: "Data Science avec R: les fondamentaux"
+subtitle: "Projet"
+author: "votre nom"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+A l'adresse suivante, vous trouverez deux jeux de doonnées issus de deux vagues du Recensement Général de la Population et de l'Habitat au Mali (RGPH):
+
+- https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/Evaluation/data/adm3_pop_1998.csv
+
+- https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/Evaluation/data/adm3_pop_2009.csv
+
+
+Ecrivez un script qui exécute les tâches listées ci-dessous.
+Pour faciliter la compréhension de votre démarche, vous êtes encouragés à entrelacer vos codes avec des commentaires.
+
+
+## Tâche 1
+
+Importez les jeux de données dans votre environnement R
+
+```{r}
+# Package(s)
+
+# Codes
+```
+
+
+## Tâche 2
+
+Concatenez les deux jeux de données dans un nouveau jeu de donnée (A).
+
+```{r}
+# Packages
+
+# Codes
+
+```
+
+
+## Tâche 3
+
+Générez un jeu de données (B) où vous:
+
+- générez la population totale;
+ 
+- transformez le jeu de données pour calculer le taux de croissance annuel moyen de la population par commune: la formule est la suivante: 
+
+$\tau = 100*([(\frac{p_1}{p_0})^{\frac{1}{t_1-t_0}}]- 1)$
+
+Ici, t1 = 2009 et t0 = 1998.
+
+- ordonnez les communes par ordre décroissant de taux de croissance. Indiquez les 10 communes aux taux de croissance les plus élévés? Les 10 communes aux taux de croissance les plus bas?
+
+```{r}
+# Packages
+
+# Codes
+
+```
+
+
+
+## Tâche
+
+A partir des résultats obtenus:
+
+- générez une variable logique qui indique si le taux de croissance est positif (true) ou pas (false);
+
+ - générez une variable catégorielle avec les catégories suivantes: ]-, -20%[, [-20%, -15%[, [-15%, -10%[, [-10%, -5%[,  [-5%, 0[ , [0%-5%[, [5%-10%[, [10%-15%[, [15%-20%[ et [20%, + [
+ 
+```{r}
+# Packages
+
+# Codes
+
+```
+
+## Tâche 5
+
+A des modifications apportés à (B), générez les visualisations suivantes:
+
+- une distribution du taux de croissance (vous avez le libre choix),
+
+- la répartition des communes entres les différentes catégories générées sur taux de croissance;
+
+- une représente les taux de croissance contre la population (choisissez l'année qui vous convient ou vous pouvez considérez les deux). Que constatez-vous?
+
+ 
+```{r, warning=FALSE}
+# Packages
+
+# Codes
+
+```
+
+
+ 
+```{r, warning=FALSE}
+# Packages
+
+# Codes
+
+```
+
+
+
+```{r}
+# Packages
+
+# Codes
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
